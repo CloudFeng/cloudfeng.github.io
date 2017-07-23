@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2017/7 | cloudfeng Daily</title>
+  <title>sicp 数据对象之集合操作 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="cloudfeng Daily">
-<meta property="og:url" content="http://yoursite.com/archives/2017/07/index.html">
+  <meta name="description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念&quot;#&quot; 选择函数与构造函数 构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义数据定义就是一组选择函">
+<meta name="keywords" content="sicp,scheme">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sicp 数据对象之集合操作">
+<meta property="og:url" content="http://yoursite.com/2017/07/22/sicp-dataobject-set/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
+<meta property="og:description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念&quot;#&quot; 选择函数与构造函数 构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义数据定义就是一组选择函">
+<meta property="og:updated_time" content="2017-07-23T13:57:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cloudfeng Daily">
+<meta name="twitter:title" content="sicp 数据对象之集合操作">
+<meta name="twitter:description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念&quot;#&quot; 选择函数与构造函数 构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义数据定义就是一组选择函">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -153,85 +158,126 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-sicp-dataobject-set" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/22/hello-world/" class="archive-article-date">
-  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/22/hello-world/">Hello World</a>
+    <h1 class="article-title" itemprop="name">
+      sicp 数据对象之集合操作
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随笔/" class="article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/22/sicp-dataobject-set/" class="archive-article-date">
+        
+        <a href="/2017/07/22/sicp-dataobject-set/" class="archive-article-date">
   	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/22/sicp-dataobject-set/">sicp 数据对象之集合操作</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。</p>
+<h2 id="ji-ben-gai-nian"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念<a href="ji-ben-gai-nian" class="header-anchor">"#"</a></h2><ul>
+<li>选择函数与构造函数<ul>
+<li>构造函数：说明一个数据对象是由哪些原始组成的。</li>
+<li>选择函数：怎么将数据对象中的组成元素抽取出来。</li>
+</ul>
+</li>
+<li>数据抽象定义<br>数据定义就是一组选择函数与构造函数，以及为了使它们成为一套合法的表示。因此它们需要满足一组特定的条件。</li>
+</ul>
+<p>看着上面两个定义是不是很拗口，不知道在说啥。举个例子来说，如果一个有理数<code>p</code>是由整数 <code>n</code> 和 整数 <code>d</code> 构造而成。也就是 <code>p = n /d</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">;构造函数 p = n / d</div><div class="line">p = (make-rat n d)</div><div class="line">;选择函数</div><div class="line">n = (numer p)</div><div class="line">d = (denom p)</div></pre></td></tr></table></figure>
+<h2 id="ji-he-cao-zuo"><a href="#集合操作" class="headerlink" title="集合操作"></a>集合操作<a href="ji-he-cao-zuo" class="header-anchor">"#"</a></h2><p>在高中的数学我们学习过，集合表示一组无重复的元素聚集而成。在数据结构中，集合表示一组具有相同属性的元素，并且满足数学中的集合属性：无序性。</p>
+<p>常见集合的操作，判断某个元素是否属于某个集合、求两个集合的交集、求两个集合的并集。假设集合<code>A={1,2,3}、B={2,3,4}</code>，以及元素<code>m=2,n=5</code>，则：</p>
+<ul>
+<li>判断某个元素是否属于某个集合：m 属于A,也属于B，而n不属于A,也不属于B;</li>
+<li>A 与 B 的交集为：<code>{2, 3}</code>;</li>
+<li>A 与 B 的并集为：<code>{1, 2, 3, 4}</code><br>下面我们来看看使用三种不同的数据表示，会对写集合常见操作造成什么样影响。<h2 id="ji-he-zuo-wei-wei-pai-xu-de-biao"><a href="#集合作为未排序的表" class="headerlink" title="集合作为未排序的表"></a>集合作为未排序的表<a href="ji-he-zuo-wei-wei-pai-xu-de-biao" class="header-anchor">"#"</a></h2><h3 id="gou-zao-han-shu-yu-xuan-ze-han-shu"><a href="#构造函数与选择函数" class="headerlink" title="构造函数与选择函数"></a>构造函数与选择函数<a href="gou-zao-han-shu-yu-xuan-ze-han-shu" class="header-anchor">"#"</a></h3>直接使用<code>list</code> 函数，但是集合中元素是排序的，比如集合<code>A={1, 10, 2, 4, 3}</code>。</li>
+</ul>
+<h3 id="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he"><a href="#判断某个元素是否属于某个集合" class="headerlink" title="判断某个元素是否属于某个集合"></a>判断某个元素是否属于某个集合<a href="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(define (element-of-set? x set)</div><div class="line">    (cond ((null? set) #f)</div><div class="line">          (else (or (equal? x (car set)) </div><div class="line">                    (element-of-set? x (cdr set))))))</div></pre></td></tr></table></figure>
+<h3 id="qiu-liang-ge-ji-he-de-jiao-ji"><a href="#求两个集合的交集" class="headerlink" title="求两个集合的交集"></a>求两个集合的交集<a href="qiu-liang-ge-ji-he-de-jiao-ji" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (intersection-set set1 set2)</div><div class="line">    (cond ((or (null? set1) (null? set2)) &apos;())</div><div class="line">          ((element-of-set? (car set1) set2) (cons (car set1) </div><div class="line">                                                  (intersection-set (cdr set1) set2)))</div><div class="line">          (else (intersection-set (cdr set1) set2))))</div></pre></td></tr></table></figure>
+<h3 id="qiu-liang-ge-ji-he-de-bing-ji"><a href="#求两个集合的并集" class="headerlink" title="求两个集合的并集"></a>求两个集合的并集<a href="qiu-liang-ge-ji-he-de-bing-ji" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(define (union-set set1 set2)</div><div class="line">    (cond ((null? set1) set2)</div><div class="line">          ((null? set2) set1)</div><div class="line">          ((element-of-set? (car set1) set2)</div><div class="line">            (union-set (cdr set1) set2))</div><div class="line">         (else (cons (car set1) (union-set (cdr set1) set2)))))</div></pre></td></tr></table></figure>
+<h3 id="jiang-mou-ge-yuan-su-jia-ru-ji-he-zhong"><a href="#将某个元素加入集合中" class="headerlink" title="将某个元素加入集合中"></a>将某个元素加入集合中<a href="jiang-mou-ge-yuan-su-jia-ru-ji-he-zhong" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(define (adjion-set x set)</div><div class="line">    (if (element-of-set? x set)</div><div class="line">        set</div><div class="line">        (cons x set)))</div></pre></td></tr></table></figure>
+<h2 id="ji-he-zuo-wei-pai-xu-de-biao"><a href="#集合作为排序的表" class="headerlink" title="集合作为排序的表"></a>集合作为排序的表<a href="ji-he-zuo-wei-pai-xu-de-biao" class="header-anchor">"#"</a></h2><h3 id="gou-zao-han-shu-yu-xuan-ze-han-shu"><a href="#构造函数与选择函数-1" class="headerlink" title="构造函数与选择函数"></a>构造函数与选择函数<a href="gou-zao-han-shu-yu-xuan-ze-han-shu" class="header-anchor">"#"</a></h3><p>直接使用<code>list</code> 函数，但是集合中元素是排序的，比如集合<code>A={1, 2, 3, 4, 5, 10}</code>。</p>
+<h3 id="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he"><a href="#判断某个元素是否属于某个集合-1" class="headerlink" title="判断某个元素是否属于某个集合"></a>判断某个元素是否属于某个集合<a href="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (element-of-set? x set)</div><div class="line">    (cond ((null? set) #f)</div><div class="line">          ((equal? x (car set)) #t)</div><div class="line">          ((&lt; x (car set)) #f)</div><div class="line">          (else (element-of-set? x (cdr set)))))</div></pre></td></tr></table></figure>
+<h3 id="qiu-liang-ge-ji-he-de-jiao-ji"><a href="#求两个集合的交集-1" class="headerlink" title="求两个集合的交集"></a>求两个集合的交集<a href="qiu-liang-ge-ji-he-de-jiao-ji" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(define (intersection-sort-set set1 set2)</div><div class="line">    (if (or (null? set1) (null? set2))</div><div class="line">        &apos;()</div><div class="line">        (let ((x (car set1))</div><div class="line">              (y (car set2)))</div><div class="line">             (cond ((= x y) (cons x (ntersection-sort-set (cdr set1) (cdr set2))))</div><div class="line">                   ((&lt; x y) (intersection-sort-set (cdr set1) set2))</div><div class="line">                   (else (intersection-sort-set set1 (cdr set2)))))))</div></pre></td></tr></table></figure>
+<h3 id="jiang-mou-ge-yuan-su-jia-ru-dao-ji-he-zhong"><a href="#将某个元素加入到集合中" class="headerlink" title="将某个元素加入到集合中"></a>将某个元素加入到集合中<a href="jiang-mou-ge-yuan-su-jia-ru-dao-ji-he-zhong" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (adjoin-set x set)</div><div class="line">    (cond ((null? set) (cons x set))</div><div class="line">          ((equal? x (car set)) set)</div><div class="line">          ((&lt; x (car set)) (cons x set))</div><div class="line">          (else (cons (car set) (adjoin-set x (cdr set))))))</div></pre></td></tr></table></figure>
+<h3 id="qiu-liang-ge-ji-he-de-bing-ji"><a href="#求两个集合的并集-1" class="headerlink" title="求两个集合的并集"></a>求两个集合的并集<a href="qiu-liang-ge-ji-he-de-bing-ji" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(define (union-sort-set set1 set2)</div><div class="line">    (cond ((null? set1) set2)</div><div class="line">          ((null? set2) set1)</div><div class="line">          (else (let ((x (car set1))</div><div class="line">                      (y (car set2)))</div><div class="line">                   (cond ((&lt; x y) (cons x (nion-sort-set (cdr set1) set2)))</div><div class="line">                         ((&gt; x y) (cons y (union-sort-set set1 (cdr set2))))</div><div class="line">                         (else (cons x (union-sort-set(cdr set1) (cdr set2)))))))))</div></pre></td></tr></table></figure>
+<h2 id="ji-he-zuo-wei-you-xu-er-cha-shu"><a href="#集合作为有序二叉树" class="headerlink" title="集合作为有序二叉树"></a>集合作为有序二叉树<a href="ji-he-zuo-wei-you-xu-er-cha-shu" class="header-anchor">"#"</a></h2><h3 id="gou-zao-han-shu-yu-xuan-ze-han-shu"><a href="#构造函数与选择函数-2" class="headerlink" title="构造函数与选择函数"></a>构造函数与选择函数<a href="gou-zao-han-shu-yu-xuan-ze-han-shu" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">;(dataItem, left-branch, right-branch)</div><div class="line"></div><div class="line">(define (entry tree)</div><div class="line">    (car tree))</div><div class="line"></div><div class="line">(define (left-branch tree) (cadr tree))</div><div class="line"></div><div class="line">(define (right-branch tree) (caddr tree))</div><div class="line"></div><div class="line">(define (make-tree entry left-branch right-branch)</div><div class="line">    (list entry left-branch right-branch))</div></pre></td></tr></table></figure>
+<h3 id="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he"><a href="#判断某个元素是否属于某个集合-2" class="headerlink" title="判断某个元素是否属于某个集合"></a>判断某个元素是否属于某个集合<a href="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(define (element-of-set? x set)</div><div class="line">    (if (null? set)</div><div class="line">        #f</div><div class="line">        (let ((dataItem (entry set)))</div><div class="line">            (cond ((= dataItem x) #t)</div><div class="line">                  ((&gt; dataItem x) (element-of-set x (left-branch set)))</div><div class="line">                  (else (element-of-set x (right-branch set)))))))</div></pre></td></tr></table></figure>
+<h3 id="qiu-liang-ge-ji-he-de-jiao-ji"><a href="#求两个集合的交集-2" class="headerlink" title="求两个集合的交集"></a>求两个集合的交集<a href="qiu-liang-ge-ji-he-de-jiao-ji" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (intersection-set set1 set2)</div><div class="line">    (let ((list1 (tree-&gt;list set1))</div><div class="line">          (list2 (tree-&gt;list set2)))</div><div class="line">        (let ((res (intersection-sort-set list1 list2)))</div><div class="line">             (list-tree res))))</div></pre></td></tr></table></figure>
+<h3 id="qiu-liang-ge-ji-he-de-bing-ji"><a href="#求两个集合的并集-2" class="headerlink" title="求两个集合的并集"></a>求两个集合的并集<a href="qiu-liang-ge-ji-he-de-bing-ji" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">; 辅助函数：将树形结构转为列表结构</div><div class="line">(define (tree-&gt;list tree)</div><div class="line">    (define (copy-to-list tree result-list)</div><div class="line">        (if (null? tree)</div><div class="line">            result-list</div><div class="line">            (copy-to-list (left-branch tree)</div><div class="line">                          (cons (entry tree)</div><div class="line">                                (copy-to-list (right-branch tree)</div><div class="line">                                              result-list)))))</div><div class="line">    (copy-to-list tree &apos;()))</div><div class="line"></div><div class="line">;辅助函数：将列表结构转位树形结构</div><div class="line">(define (list-tree elements)</div><div class="line">    (car (partial-tree elements (length elements))))</div><div class="line"></div><div class="line">(define (partial-tree elts n)</div><div class="line">    (if (= n 0)</div><div class="line">        (cons &apos;() elts)</div><div class="line">        (let ((left-size (quotient (- n 1) 2)))</div><div class="line">             (let ((left-result (partial-tree elts left-size)))</div><div class="line">                  (let ((left-tree (car left-result))</div><div class="line">                        (non-left-elts (cdr left-result))</div><div class="line">                        (right-size (- n (+ left-size 1))))</div><div class="line">                       (let ((this-entry (car non-left-elts))</div><div class="line">                             (right-result (partial-tree (cdr non-left-elts) right-size)))</div><div class="line">                            (let ((right-tree (car right-result))</div><div class="line">                                  (remaining-elts (cdr right-result)))</div><div class="line">                                 (cons (make-tree this-entry left-tree right-tree)</div><div class="line">                                        remaining-elts))))))))</div><div class="line"></div><div class="line">(define (union-set set1 set2)</div><div class="line">    (let ((list1 (tree-&gt;list set1))</div><div class="line">          (list2 (tree-&gt;list set2)))</div><div class="line">         (let ((res (union-sort-set list1 list2)))</div><div class="line">              (list-tree res))))</div></pre></td></tr></table></figure>
+<h3 id="tian-jia-yuan-su-dao-ji-he"><a href="#添加元素到集合" class="headerlink" title="添加元素到集合"></a>添加元素到集合<a href="tian-jia-yuan-su-dao-ji-he" class="header-anchor">"#"</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">(define (adjoin-set x set)</div><div class="line">    (cond ((null? set) (make-tree x &apos;() &apos;()))</div><div class="line">          ((= x (entry set)) set)</div><div class="line">          ((&lt; x (entry set)) (make-tree (entry set) </div><div class="line">                                        (adjoin-set x (left-branch set))</div><div class="line">                                        (right-branch set)))</div><div class="line">          (else (make-tree (entry set)</div><div class="line">                           (left-branch set)</div><div class="line">                           (adjoin-set x (right-branch set))))))</div></pre></td></tr></table></figure>
+<h2 id="zong-jie"><a href="#总结" class="headerlink" title="总结"></a>总结<a href="zong-jie" class="header-anchor">"#"</a></h2><p>通过三种不同的数据表示集合，分析了程序在使用集合操作，比如检查是否属于集合、集合的交集、集合并集等操作，在时间复杂度上是存在差异的。如下表格：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">表示法</th>
+<th style="text-align:left">检查元素是否属于集合</th>
+<th style="text-align:left">添加元素</th>
+<th style="text-align:left">交集</th>
+<th style="text-align:left">并集</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">未排序的表</td>
+<td style="text-align:left"><code>O(n)</code></td>
+<td style="text-align:left"><code>O(n)</code></td>
+<td style="text-align:left"><code>O(n^2)</code></td>
+<td style="text-align:left"><code>O(n^2)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">排序的表</td>
+<td style="text-align:left"><code>O(n)</code></td>
+<td style="text-align:left"><code>O(n)</code></td>
+<td style="text-align:left"><code>O(n)</code></td>
+<td style="text-align:left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td style="text-align:left">有序二叉树</td>
+<td style="text-align:left"><code>O(log n)</code></td>
+<td style="text-align:left"><code>O(log n)</code></td>
+<td style="text-align:left"><code>O(n)</code></td>
+<td style="text-align:left"><code>O(n)</code></td>
+</tr>
+</tbody>
+</table>
+<p>也就是我们常说:</p>
+<blockquote>
+<p>程序=数据结构+算法</p>
+</blockquote>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -247,7 +293,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -260,17 +306,106 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/22/sicp-dataobject-set/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2017/07/22/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Hello World
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -293,8 +428,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
