@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>sicp 数据对象之集合操作 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念&quot;#&quot; 选择函数与构造函数 构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义数据定义就是一组选择函">
+  <meta name="description" content="基本概念 集合操作 集合作为未排序的表 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 求两个集合的并集 将某个元素加入集合中   集合作为排序的表 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 将某个元素加入到集合中 求两个集合的并集   集合作为有序二叉树 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 求两个集合的并集 添">
 <meta name="keywords" content="sicp,scheme">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sicp 数据对象之集合操作">
 <meta property="og:url" content="http://yoursite.com/2017/07/22/sicp-dataobject-set/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
-<meta property="og:description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念&quot;#&quot; 选择函数与构造函数 构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义数据定义就是一组选择函">
-<meta property="og:updated_time" content="2017-07-23T13:57:35.000Z">
+<meta property="og:description" content="基本概念 集合操作 集合作为未排序的表 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 求两个集合的并集 将某个元素加入集合中   集合作为排序的表 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 将某个元素加入到集合中 求两个集合的并集   集合作为有序二叉树 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 求两个集合的并集 添">
+<meta property="og:updated_time" content="2017-07-23T14:03:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sicp 数据对象之集合操作">
-<meta name="twitter:description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念&quot;#&quot; 选择函数与构造函数 构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义数据定义就是一组选择函">
+<meta name="twitter:description" content="基本概念 集合操作 集合作为未排序的表 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 求两个集合的并集 将某个元素加入集合中   集合作为排序的表 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 将某个元素加入到集合中 求两个集合的并集   集合作为有序二叉树 构造函数与选择函数 判断某个元素是否属于某个集合 求两个集合的交集 求两个集合的并集 添">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -178,7 +178,42 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。</p>
+        <div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#ji-ben-gai-nian">基本概念</a></li>
+<li><a href="#ji-he-cao-zuo">集合操作</a></li>
+<li><a href="#ji-he-zuo-wei-wei-pai-xu-de-biao">集合作为未排序的表</a><ul>
+<li><a href="#gou-zao-han-shu-yu-xuan-ze-han-shu">构造函数与选择函数</a></li>
+<li><a href="#pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he">判断某个元素是否属于某个集合</a></li>
+<li><a href="#qiu-liang-ge-ji-he-de-jiao-ji">求两个集合的交集</a></li>
+<li><a href="#qiu-liang-ge-ji-he-de-bing-ji">求两个集合的并集</a></li>
+<li><a href="#jiang-mou-ge-yuan-su-jia-ru-ji-he-zhong">将某个元素加入集合中</a></li>
+</ul>
+</li>
+<li><a href="#ji-he-zuo-wei-pai-xu-de-biao">集合作为排序的表</a><ul>
+<li><a href="#gou-zao-han-shu-yu-xuan-ze-han-shu-1">构造函数与选择函数</a></li>
+<li><a href="#pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he-1">判断某个元素是否属于某个集合</a></li>
+<li><a href="#qiu-liang-ge-ji-he-de-jiao-ji-1">求两个集合的交集</a></li>
+<li><a href="#jiang-mou-ge-yuan-su-jia-ru-dao-ji-he-zhong">将某个元素加入到集合中</a></li>
+<li><a href="#qiu-liang-ge-ji-he-de-bing-ji-1">求两个集合的并集</a></li>
+</ul>
+</li>
+<li><a href="#ji-he-zuo-wei-you-xu-er-cha-shu">集合作为有序二叉树</a><ul>
+<li><a href="#gou-zao-han-shu-yu-xuan-ze-han-shu-2">构造函数与选择函数</a></li>
+<li><a href="#pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he-2">判断某个元素是否属于某个集合</a></li>
+<li><a href="#qiu-liang-ge-ji-he-de-jiao-ji-2">求两个集合的交集</a></li>
+<li><a href="#qiu-liang-ge-ji-he-de-bing-ji-2">求两个集合的并集</a></li>
+<li><a href="#tian-jia-yuan-su-dao-ji-he">添加元素到集合</a></li>
+</ul>
+</li>
+<li><a href="#zong-jie">总结</a></li>
+</ul>
+<!-- tocstop -->
+</div> 
+
+<p>本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。</p>
 <h2 id="ji-ben-gai-nian"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念<a href="ji-ben-gai-nian" class="header-anchor">"#"</a></h2><ul>
 <li>选择函数与构造函数<ul>
 <li>构造函数：说明一个数据对象是由哪些原始组成的。</li>
@@ -498,15 +533,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sicp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scheme</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随记</a>
               </li>
             
             <div class="clearfix"></div>
