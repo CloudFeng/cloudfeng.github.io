@@ -155,27 +155,53 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-python-http-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/22/hello-world/">Hello World</a>
+      <a class="article-title" href="/2017/07/25/python-http-post/">python实现http发送POST请求</a>
     </h1>
   
 
         
-        <a href="/2017/07/22/hello-world/" class="archive-article-date">
-  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
+        <a href="/2017/07/25/python-http-post/" class="archive-article-date">
+  	<time datetime="2017-07-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>大家好：<br>  本文是使用<a href="https://hexo.io" target="_blank" rel="external">Hexo</a>的第一篇博文，主要是给大家报个到。欢迎来到我的菜园子。</p>
+        <p>现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。</p>
+<h2 id="yu-yan-xuan-ze-yi-ji-yi-lai-bao"><a href="#语言选择以及依赖包" class="headerlink" title="语言选择以及依赖包"></a>语言选择以及依赖包</h2><p>为了能够快速解决此问题，首先需要找到合适的工具，俗话说，<strong>“工欲善其事，必先利其器。”</strong><br>在程序设计中首先就是语言的选择，相比于<code>java</code>，对<code>python</code>更为熟悉一点。说句皮外话，<br>虽然在公司用<code>java</code>开发，但是对<code>java</code>熟悉程度不如<code>python</code>,汗颜啦。回归正题，选好了<br>语言之后，紧接着就是如何模拟发送<code>HTTP</code>请求。google一番找到一个第三方包<code>urllib3</code>。<br>如何<a href="https://pypi.python.org/pypi/urllib3/" title="安装urllib3" target="_blank" rel="external">安装<code>urllib3</code></a>以及使用文档<a href="https://urllib3.readthedocs.io/en/latest/user-guide.html" title="教程" target="_blank" rel="external">教程</a>。</p>
+<h2 id="shi-xian"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>现在我们来看看，如何使用urllib3包来模拟发送HTTP的POST请求，请求参数是JSON格式。为了能够使用urllib3模块，需要在使用导入urllib3模块，代码：<code>import urllib3</code>。使用<code>PoolManager</code><br>实例来发送请求，它已经为我们封装处理好了连接池以及线程安全问题，我们没有必要再次徒手开发一套。其实，urllib3中最为核心关键的方法是request方法，它指定发送请求的方式、请求地址请求的参数。具体步骤如下：</p>
+<ul>
+<li>指定请求方法以及url;</li>
+<li>将请求的参数编码，然后作为body的值;</li>
+<li>设置请求头部的<code>Content-Type</code>为JSON格式.</li>
+</ul>
+<p>下面是一个示例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> urllib3</div><div class="line"><span class="keyword">from</span> urllib <span class="keyword">import</span> urlencode</div><div class="line"><span class="keyword">import</span> json</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">testEsaInterface</span><span class="params">(url, param)</span>:</span></div><div class="line">    http = urllib3.PoolManager()</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        r = http.request(<span class="string">'POST'</span>,url, body=json.dumps(param).encode(<span class="string">'utf-8'</span>),headers=&#123;<span class="string">'Content-Type'</span>: <span class="string">'application/json'</span>&#125;)</div><div class="line">        <span class="keyword">if</span> r.status == <span class="number">200</span>:</div><div class="line">            <span class="keyword">print</span> r.data</div><div class="line">    <span class="keyword">except</span> urllib3.exceptions.MaxRetryError <span class="keyword">as</span> e:</div><div class="line">        <span class="keyword">print</span> repr(e)</div></pre></td></tr></table></figure>
+<p>如果想对返回的结果进行处理，先将返回的数据进行解码以及反序列化，可以使用<code>decode</code>函数解码，<code>loads</code>函数反序列化。然后采用类似于下标的访问方式获取相关字段的值。示例代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">res = json.loads(r.data.decode(<span class="string">'utf-8'</span>))</div><div class="line"><span class="keyword">if</span> (<span class="string">"906"</span> == res[<span class="string">'data'</span>][<span class="string">'returnCode'</span>]):</div><div class="line">        <span class="comment"># to do something</span></div></pre></td></tr></table></figure>
+<p>下图是我测试人脸识别功能一个测试结果：<br><img src="/img/testRes.jpg" alt="测试结果"></p>
+<h2 id="postman-fa-song-post-qing-qiu"><a href="#postman发送post请求" class="headerlink" title="postman发送post请求"></a>postman发送post请求</h2><p>弄完工具之后，本来想再做一个网页版的，后面发现chrome中有一个插件<code>postman</code>,<br>可以解决我的问题，突然发现重复造轮子咯。下面简单介绍一下，如何用postman发送<br>post请求，其中请求的参数为JSON格式。步骤如下：</p>
+<ul>
+<li>选择发送请求的方式为 <code>POST</code>;</li>
+<li>输入访问的URL</li>
+<li>在headers标签页输入 <code>Content-type</code>, 对应的值为 <code>application/json</code>;</li>
+<li>在body标签页面，选择<code>raw</code>,然后在输入JSON格式的请求参数;</li>
+<li>最后点击send按钮即可.</li>
+</ul>
+<p>是不是发现很简单，如果你觉得还是不清楚,可以参考<a href="http://www.cnblogs.com/shimh/p/6093229.html" target="_blank" rel="external">此博文</a>。</p>
+<h2 id="can-kao"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>安装urllib3: <a href="https://pypi.python.org/pypi/urllib3/" target="_blank" rel="external">https://pypi.python.org/pypi/urllib3/</a></li>
+<li>urllib3的使用教程: <a href="https://urllib3.readthedocs.io/en/latest/user-guide.html" target="_blank" rel="external">https://urllib3.readthedocs.io/en/latest/user-guide.html</a></li>
+<li>postman以JSON格式发送POST请求: <a href="http://www.cnblogs.com/shimh/p/6093229.html" target="_blank" rel="external">http://www.cnblogs.com/shimh/p/6093229.html</a></li>
+</ul>
 
       
 
@@ -189,7 +215,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
         		</li>
       		
 		</ul>
@@ -201,7 +231,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/随笔/" class="article-tag-list-link color3">随笔</a>
+        			<a href="/categories/python/" class="article-tag-list-link color2">python</a>
         		</li>
       		
 		</ul>
@@ -210,7 +240,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/22/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/07/25/python-http-post/">展开全文 >></a>
         </p>
       
 
@@ -399,6 +429,91 @@
 
 
   
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/22/hello-world/">Hello World</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/22/hello-world/" class="archive-article-date">
+  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家好：<br>  本文是使用<a href="https://hexo.io" target="_blank" rel="external">Hexo</a>的第一篇博文，主要是给大家报个到。欢迎来到我的菜园子。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/随笔/" class="article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/22/hello-world/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
@@ -492,7 +607,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随记</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -501,6 +620,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scheme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随记</a>
               </li>
             
             <div class="clearfix"></div>
