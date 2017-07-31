@@ -155,6 +155,173 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mock-rap-basic-uasge" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/mock-rap-basic-uasge/">mock和RAP入门教程</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/31/mock-rap-basic-uasge/" class="archive-article-date">
+  	<time datetime="2017-07-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端写作效率。</p>
+<h2 id="mock-js-1"><a href="#mock-js-1" class="headerlink" title="mock.js^1"></a>mock.js<a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">^1</a></h2><p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
+<h3 id="yu-fa-gui-fan"><a href="#语法规范" class="headerlink" title="语法规范"></a>语法规范</h3><ul>
+<li>数据模板定义规范(DTD:Data Template Definition)</li>
+<li>数据占位符规范(DPD: Data Placeholder definition)</li>
+</ul>
+<h3 id="shu-ju-mo-ban-ding-yi-gui-fan"><a href="#数据模板定义规范" class="headerlink" title="数据模板定义规范"></a>数据模板定义规范</h3><h4 id="ge-shi"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><p><code>&#39;name|rule&#39;:value</code> (属性名|生成规则:属性值)，其中生成规则是可选的</p>
+<h4 id="sheng-cheng-gui-ze"><a href="#生成规则" class="headerlink" title="生成规则"></a>生成规则</h4><ul>
+<li><p>7种生成规则</p>
+<ol>
+<li><code>&#39;name|min-max&#39;:value</code> </li>
+<li><code>&#39;name|count&#39;:value</code></li>
+<li><code>&#39;name|min-max.dmin-dmax&#39;:value</code></li>
+<li><code>&#39;name|+step&#39;:value</code></li>
+<li><code>&#39;name|min-max.dcount&#39;:value</code></li>
+<li><code>&#39;name|count.dmin-dmax&#39;:value</code></li>
+<li><code>&#39;name|count.dcount&#39;:value</code></li>
+</ol>
+</li>
+<li><p>生成规则的含义依赖属性值的类型才能确认，这一点特别重要。也是mock的关键所在。<br>比如：</p>
+<ul>
+<li><code>&#39;name|min-max&#39;:string</code>: 通过重复[min,max]次string生成新字符串。</li>
+<li><code>&#39;name|min-max&#39;:number</code>: 生成一个number，返回在[min,max]。</li>
+</ul>
+</li>
+</ul>
+<h4 id="shu-xing-zhi"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h4><ol>
+<li>属性值可含@（占位符）</li>
+<li>指定最终的值和类型</li>
+<li>属性值类型<ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Object</li>
+<li>Array</li>
+<li>Function</li>
+<li>RegExp</li>
+<li>Path</li>
+</ul>
+</li>
+</ol>
+<p>学过js看着十分简单，只是多了RegExp 和 Path，其他简直一模一样。</p>
+<h3 id="shu-ju-zhan-wei-fu-ding-yi-gui-fan-dpd"><a href="#数据占位符定义规范DPD" class="headerlink" title="数据占位符定义规范DPD"></a>数据占位符定义规范DPD</h3><h4 id="zhan-wei-fu"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h4><p>1.占位符只是在属性字符串中占个位置，并不出现在最终的属性值中<br>2.格式：@占位符或者@占位符(参数[,参数])<br>3.占位符</p>
+<blockquote>
+<ul>
+<li>用@标识后面的字符串是占位符</li>
+<li>引用的是<code>Mock.Random</code>中的方法</li>
+<li>扩展定义占位符：<code>Mock.Random.extend()</code></li>
+<li>引用数据模板中的属性</li>
+<li>支持相对路径和绝对路径</li>
+</ul>
+</blockquote>
+<p>4.数据占位符类型<br>数据占位符一共有如下几种类型：</p>
+<ul>
+<li>Basic</li>
+<li>Date</li>
+<li>Image</li>
+<li>Color</li>
+<li>Text</li>
+<li>Name</li>
+<li>Web</li>
+<li>Address</li>
+<li>Helper</li>
+<li>Miscellaneous</li>
+</ul>
+<p>具体mock语法示例，请参考mock示例<a href="http://mockjs.com/examples.html" target="_blank" rel="external">^2</a>，里面详细的介绍了各个类型使用方法。</p>
+<h2 id="rap-xie-jie-kou-wen-dang-zhong-yun-yong-mock-3"><a href="#rap写接口文档中运用mock-3" class="headerlink" title="rap写接口文档中运用mock^3"></a>rap写接口文档中运用mock<a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">^3</a></h2><h3 id="shi-me-shi-rap"><a href="#什么是rap" class="headerlink" title="什么是rap"></a>什么是rap</h3><p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br><img src="/img/rap.jpg" alt="RAP"></p>
+<h3 id="zen-me-zai-rap-zhong-shi-shi-yong-mock"><a href="#怎么在rap中是使用mock" class="headerlink" title="怎么在rap中是使用mock"></a>怎么在rap中是使用mock</h3><p>有很多资料，且是图文并茂写博文<a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">^4</a>。总结起来，在rap中运用mock方法如下：</p>
+<ul>
+<li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>&#39;name|rule&#39;</code>;</li>
+<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。</li>
+</ul>
+<h2 id="can-kao"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">https://github.com/nuysoft/Mock/wiki</a></li>
+<li><a href="http://mockjs.com/examples.html" target="_blank" rel="external">http://mockjs.com/examples.html</a></li>
+<li><a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">https://github.com/thx/RAP/wiki/</a></li>
+<li><a href="http://www.imooc.com/article/17588" target="_blank" rel="external">http://www.imooc.com/article/17588</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">mock</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RAP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/31/mock-rap-basic-uasge/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-python-http-post" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -242,91 +409,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/07/25/python-http-post/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/22/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/22/hello-world/" class="archive-article-date">
-  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>大家好：<br>  本文是使用<a href="https://hexo.io" target="_blank" rel="external">Hexo</a>的第一篇博文，主要是给大家报个到。欢迎来到我的菜园子。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/随笔/" class="article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/22/hello-world/">展开全文 >></a>
         </p>
       
 
@@ -515,6 +597,91 @@
 
 
   
+    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/22/hello-world/">Hello World</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/22/hello-world/" class="archive-article-date">
+  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>大家好：<br>  本文是使用<a href="https://hexo.io" target="_blank" rel="external">Hexo</a>的第一篇博文，主要是给大家报个到。欢迎来到我的菜园子。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/随笔/" class="article-tag-list-link color3">随笔</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/22/hello-world/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
   
 
 
@@ -608,6 +775,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">mock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -616,15 +791,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">sicp</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scheme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随记</a>
               </li>
             
             <div class="clearfix"></div>

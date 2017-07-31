@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: sicp | cloudfeng Daily</title>
+  <title>mock和RAP入门教程 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="cloudfeng Daily">
-<meta property="og:url" content="http://yoursite.com/tags/sicp/index.html">
+  <meta name="description" content="在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一">
+<meta name="keywords" content="mock,RAP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mock和RAP入门教程">
+<meta property="og:url" content="http://yoursite.com/2017/07/31/mock-rap-basic-uasge/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
+<meta property="og:description" content="在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一">
+<meta property="og:image" content="http://yoursite.com/img/rap.jpg">
+<meta property="og:updated_time" content="2017-07-31T16:33:26.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cloudfeng Daily">
+<meta name="twitter:title" content="mock和RAP入门教程">
+<meta name="twitter:description" content="在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一">
+<meta name="twitter:image" content="http://yoursite.com/img/rap.jpg">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -153,75 +160,258 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-mock-rap-basic-uasge" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/22/sicp-dataobject-set/" class="archive-article-date">
-  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/22/sicp-dataobject-set/">sicp 数据对象之集合操作</a>
+    <h1 class="article-title" itemprop="name">
+      mock和RAP入门教程
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/07/31/mock-rap-basic-uasge/" class="archive-article-date">
+  	<time datetime="2017-07-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端写作效率。</p>
+<h2 id="mock-js-1"><a href="#mock-js-1" class="headerlink" title="mock.js^1"></a>mock.js<a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">^1</a></h2><p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
+<h3 id="yu-fa-gui-fan"><a href="#语法规范" class="headerlink" title="语法规范"></a>语法规范</h3><ul>
+<li>数据模板定义规范(DTD:Data Template Definition)</li>
+<li>数据占位符规范(DPD: Data Placeholder definition)</li>
+</ul>
+<h3 id="shu-ju-mo-ban-ding-yi-gui-fan"><a href="#数据模板定义规范" class="headerlink" title="数据模板定义规范"></a>数据模板定义规范</h3><h4 id="ge-shi"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><p><code>&#39;name|rule&#39;:value</code> (属性名|生成规则:属性值)，其中生成规则是可选的</p>
+<h4 id="sheng-cheng-gui-ze"><a href="#生成规则" class="headerlink" title="生成规则"></a>生成规则</h4><ul>
+<li><p>7种生成规则</p>
+<ol>
+<li><code>&#39;name|min-max&#39;:value</code> </li>
+<li><code>&#39;name|count&#39;:value</code></li>
+<li><code>&#39;name|min-max.dmin-dmax&#39;:value</code></li>
+<li><code>&#39;name|+step&#39;:value</code></li>
+<li><code>&#39;name|min-max.dcount&#39;:value</code></li>
+<li><code>&#39;name|count.dmin-dmax&#39;:value</code></li>
+<li><code>&#39;name|count.dcount&#39;:value</code></li>
+</ol>
+</li>
+<li><p>生成规则的含义依赖属性值的类型才能确认，这一点特别重要。也是mock的关键所在。<br>比如：</p>
+<ul>
+<li><code>&#39;name|min-max&#39;:string</code>: 通过重复[min,max]次string生成新字符串。</li>
+<li><code>&#39;name|min-max&#39;:number</code>: 生成一个number，返回在[min,max]。</li>
+</ul>
+</li>
+</ul>
+<h4 id="shu-xing-zhi"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h4><ol>
+<li>属性值可含@（占位符）</li>
+<li>指定最终的值和类型</li>
+<li>属性值类型<ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Object</li>
+<li>Array</li>
+<li>Function</li>
+<li>RegExp</li>
+<li>Path</li>
+</ul>
+</li>
+</ol>
+<p>学过js看着十分简单，只是多了RegExp 和 Path，其他简直一模一样。</p>
+<h3 id="shu-ju-zhan-wei-fu-ding-yi-gui-fan-dpd"><a href="#数据占位符定义规范DPD" class="headerlink" title="数据占位符定义规范DPD"></a>数据占位符定义规范DPD</h3><h4 id="zhan-wei-fu"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h4><p>1.占位符只是在属性字符串中占个位置，并不出现在最终的属性值中<br>2.格式：@占位符或者@占位符(参数[,参数])<br>3.占位符</p>
+<blockquote>
+<ul>
+<li>用@标识后面的字符串是占位符</li>
+<li>引用的是<code>Mock.Random</code>中的方法</li>
+<li>扩展定义占位符：<code>Mock.Random.extend()</code></li>
+<li>引用数据模板中的属性</li>
+<li>支持相对路径和绝对路径</li>
+</ul>
+</blockquote>
+<p>4.数据占位符类型<br>数据占位符一共有如下几种类型：</p>
+<ul>
+<li>Basic</li>
+<li>Date</li>
+<li>Image</li>
+<li>Color</li>
+<li>Text</li>
+<li>Name</li>
+<li>Web</li>
+<li>Address</li>
+<li>Helper</li>
+<li>Miscellaneous</li>
+</ul>
+<p>具体mock语法示例，请参考mock示例<a href="http://mockjs.com/examples.html" target="_blank" rel="external">^2</a>，里面详细的介绍了各个类型使用方法。</p>
+<h2 id="rap-xie-jie-kou-wen-dang-zhong-yun-yong-mock-3"><a href="#rap写接口文档中运用mock-3" class="headerlink" title="rap写接口文档中运用mock^3"></a>rap写接口文档中运用mock<a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">^3</a></h2><h3 id="shi-me-shi-rap"><a href="#什么是rap" class="headerlink" title="什么是rap"></a>什么是rap</h3><p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br><img src="/img/rap.jpg" alt="RAP"></p>
+<h3 id="zen-me-zai-rap-zhong-shi-shi-yong-mock"><a href="#怎么在rap中是使用mock" class="headerlink" title="怎么在rap中是使用mock"></a>怎么在rap中是使用mock</h3><p>有很多资料，且是图文并茂写博文<a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">^4</a>。总结起来，在rap中运用mock方法如下：</p>
+<ul>
+<li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>&#39;name|rule&#39;</code>;</li>
+<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。</li>
+</ul>
+<h2 id="can-kao"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">https://github.com/nuysoft/Mock/wiki</a></li>
+<li><a href="http://mockjs.com/examples.html" target="_blank" rel="external">http://mockjs.com/examples.html</a></li>
+<li><a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">https://github.com/thx/RAP/wiki/</a></li>
+<li><a href="http://www.imooc.com/article/17588" target="_blank" rel="external">http://www.imooc.com/article/17588</a></li>
+<li><a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html</a></li>
+</ol>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sicp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">mock</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">scheme</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RAP</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/sicp/" class="article-tag-list-link color5">sicp</a>
+        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/31/mock-rap-basic-uasge/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/07/25/python-http-post/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python实现http发送POST请求</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -244,9 +434,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
