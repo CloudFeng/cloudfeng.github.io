@@ -175,8 +175,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端写作效率。</p>
-<h2 id="mock-js-1"><a href="#mock-js-1" class="headerlink" title="mock.js^1"></a>mock.js<a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">^1</a></h2><p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
+        <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端协作效率。</p>
+<h2 id="mock-js1"><a href="#mock-js1" class="headerlink" title="mock.js1"></a>mock.js<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h2><p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
 <h3 id="yu-fa-gui-fan"><a href="#语法规范" class="headerlink" title="语法规范"></a>语法规范</h3><ul>
 <li>数据模板定义规范(DTD:Data Template Definition)</li>
 <li>数据占位符规范(DPD: Data Placeholder definition)</li>
@@ -240,20 +240,13 @@
 <li>Helper</li>
 <li>Miscellaneous</li>
 </ul>
-<p>具体mock语法示例，请参考mock示例<a href="http://mockjs.com/examples.html" target="_blank" rel="external">^2</a>，里面详细的介绍了各个类型使用方法。</p>
-<h2 id="rap-xie-jie-kou-wen-dang-zhong-yun-yong-mock-3"><a href="#rap写接口文档中运用mock-3" class="headerlink" title="rap写接口文档中运用mock^3"></a>rap写接口文档中运用mock<a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">^3</a></h2><h3 id="shi-me-shi-rap"><a href="#什么是rap" class="headerlink" title="什么是rap"></a>什么是rap</h3><p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br><img src="/img/rap.jpg" alt="RAP"></p>
-<h3 id="zen-me-zai-rap-zhong-shi-shi-yong-mock"><a href="#怎么在rap中是使用mock" class="headerlink" title="怎么在rap中是使用mock"></a>怎么在rap中是使用mock</h3><p>有很多资料，且是图文并茂写博文<a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">^4</a>。总结起来，在rap中运用mock方法如下：</p>
+<p>具体mock语法示例，请参考mock示例<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>，里面详细的介绍了各个类型使用方法。</p>
+<h2 id="rap-xie-jie-kou-wen-dang-zhong-yun-yong-mock3"><a href="#rap写接口文档中运用mock3" class="headerlink" title="rap写接口文档中运用mock3"></a>rap写接口文档中运用mock<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></h2><h3 id="shi-me-shi-rap"><a href="#什么是rap" class="headerlink" title="什么是rap"></a>什么是rap</h3><p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br><img src="/img/rap.jpg" alt="RAP"></p>
+<h3 id="zen-me-zai-rap-zhong-shi-shi-yong-mock"><a href="#怎么在rap中是使用mock" class="headerlink" title="怎么在rap中是使用mock"></a>怎么在rap中是使用mock</h3><p>有很多资料，且是图文并茂写博文<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup>,<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup>。总结起来，在rap中运用mock方法如下：</p>
 <ul>
 <li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>&#39;name|rule&#39;</code>;</li>
-<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。</li>
+<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">https://github.com/nuysoft/Mock/wiki</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;"><a href="http://mockjs.com/examples.html" target="_blank" rel="external">http://mockjs.com/examples.html</a></span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;"><a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">https://github.com/thx/RAP/wiki/</a></span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;"><a href="http://www.imooc.com/article/17588" target="_blank" rel="external">http://www.imooc.com/article/17588</a></span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;"><a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html</a></span><a href="#fnref:5" rev="footnote"> ↩</a></li></ol></div></div></li>
 </ul>
-<h2 id="can-kao"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">https://github.com/nuysoft/Mock/wiki</a></li>
-<li><a href="http://mockjs.com/examples.html" target="_blank" rel="external">http://mockjs.com/examples.html</a></li>
-<li><a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">https://github.com/thx/RAP/wiki/</a></li>
-<li><a href="http://www.imooc.com/article/17588" target="_blank" rel="external">http://www.imooc.com/article/17588</a></li>
-<li><a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html</a></li>
-</ol>
 
       
 
