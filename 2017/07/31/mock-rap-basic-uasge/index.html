@@ -181,35 +181,45 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端协作效率。</p>
-<h2 id="mock-js1"><a href="#mock-js1" class="headerlink" title="mock.js1"></a>mock.js<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h2><p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
-<h3 id="yu-fa-gui-fan"><a href="#语法规范" class="headerlink" title="语法规范"></a>语法规范</h3><ul>
+<h2 id="mock-js-lt-sup-id-quot-fnref-1-quot-gt-lt-a-href-quot-fn-1-quot-rel-quot-footnote-quot-gt-1-lt-a-gt-lt-sup-gt">mock.js&lt;sup id=&quot;fnref:1&quot;&gt;&lt;a href=&quot;#fn:1&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;</h2>
+<p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
+<h3 id="yu-fa-gui-fan">语法规范</h3>
+<ul>
 <li>数据模板定义规范(DTD:Data Template Definition)</li>
 <li>数据占位符规范(DPD: Data Placeholder definition)</li>
 </ul>
-<h3 id="shu-ju-mo-ban-ding-yi-gui-fan"><a href="#数据模板定义规范" class="headerlink" title="数据模板定义规范"></a>数据模板定义规范</h3><h4 id="ge-shi"><a href="#格式" class="headerlink" title="格式"></a>格式</h4><p><code>&#39;name|rule&#39;:value</code> (属性名|生成规则:属性值)，其中生成规则是可选的</p>
-<h4 id="sheng-cheng-gui-ze"><a href="#生成规则" class="headerlink" title="生成规则"></a>生成规则</h4><ul>
-<li><p>7种生成规则</p>
+<h3 id="shu-ju-mo-ban-ding-yi-gui-fan">数据模板定义规范</h3>
+<h4 id="ge-shi">格式</h4>
+<p><code>'name|rule':value</code> (属性名|生成规则:属性值)，其中生成规则是可选的</p>
+<h4 id="sheng-cheng-gui-ze">生成规则</h4>
+<ul>
+<li>
+<p>7种生成规则</p>
 <ol>
-<li><code>&#39;name|min-max&#39;:value</code> </li>
-<li><code>&#39;name|count&#39;:value</code></li>
-<li><code>&#39;name|min-max.dmin-dmax&#39;:value</code></li>
-<li><code>&#39;name|+step&#39;:value</code></li>
-<li><code>&#39;name|min-max.dcount&#39;:value</code></li>
-<li><code>&#39;name|count.dmin-dmax&#39;:value</code></li>
-<li><code>&#39;name|count.dcount&#39;:value</code></li>
+<li><code>'name|min-max':value</code></li>
+<li><code>'name|count':value</code></li>
+<li><code>'name|min-max.dmin-dmax':value</code></li>
+<li><code>'name|+step':value</code></li>
+<li><code>'name|min-max.dcount':value</code></li>
+<li><code>'name|count.dmin-dmax':value</code></li>
+<li><code>'name|count.dcount':value</code></li>
 </ol>
 </li>
-<li><p>生成规则的含义依赖属性值的类型才能确认，这一点特别重要。也是mock的关键所在。<br>比如：</p>
+<li>
+<p>生成规则的含义依赖属性值的类型才能确认，这一点特别重要。也是mock的关键所在。
+比如：</p>
 <ul>
-<li><code>&#39;name|min-max&#39;:string</code>: 通过重复[min,max]次string生成新字符串。</li>
-<li><code>&#39;name|min-max&#39;:number</code>: 生成一个number，返回在[min,max]。</li>
+<li><code>'name|min-max':string</code>: 通过重复[min,max]次string生成新字符串。</li>
+<li><code>'name|min-max':number</code>: 生成一个number，返回在[min,max]。</li>
 </ul>
 </li>
 </ul>
-<h4 id="shu-xing-zhi"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h4><ol>
+<h4 id="shu-xing-zhi">属性值</h4>
+<ol>
 <li>属性值可含@（占位符）</li>
 <li>指定最终的值和类型</li>
-<li>属性值类型<ul>
+<li>属性值类型
+<ul>
 <li>String</li>
 <li>Number</li>
 <li>Boolean</li>
@@ -222,17 +232,24 @@
 </li>
 </ol>
 <p>学过js看着十分简单，只是多了RegExp 和 Path，其他简直一模一样。</p>
-<h3 id="shu-ju-zhan-wei-fu-ding-yi-gui-fan-dpd"><a href="#数据占位符定义规范DPD" class="headerlink" title="数据占位符定义规范DPD"></a>数据占位符定义规范DPD</h3><h4 id="zhan-wei-fu"><a href="#占位符" class="headerlink" title="占位符"></a>占位符</h4><p>1.占位符只是在属性字符串中占个位置，并不出现在最终的属性值中<br>2.格式：@占位符或者@占位符(参数[,参数])<br>3.占位符</p>
+<h3 id="shu-ju-zhan-wei-fu-ding-yi-gui-fan-dpd">数据占位符定义规范DPD</h3>
+<h4 id="zhan-wei-fu">占位符</h4>
+<p>1.占位符只是在属性字符串中占个位置，并不出现在最终的属性值中
+2.格式：@占位符或者@占位符(参数[,参数])
+3.占位符</p>
 <blockquote>
 <ul>
 <li>用@标识后面的字符串是占位符</li>
+</ul>
+</blockquote>
+<ul>
 <li>引用的是<code>Mock.Random</code>中的方法</li>
 <li>扩展定义占位符：<code>Mock.Random.extend()</code></li>
 <li>引用数据模板中的属性</li>
 <li>支持相对路径和绝对路径</li>
 </ul>
-</blockquote>
-<p>4.数据占位符类型<br>数据占位符一共有如下几种类型：</p>
+<p>4.数据占位符类型
+数据占位符一共有如下几种类型：</p>
 <ul>
 <li>Basic</li>
 <li>Date</li>
@@ -245,12 +262,17 @@
 <li>Helper</li>
 <li>Miscellaneous</li>
 </ul>
-<p>具体mock语法示例，请参考mock示例<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>，里面详细的介绍了各个类型使用方法。</p>
-<h2 id="rap-xie-jie-kou-wen-dang-zhong-yun-yong-mock3"><a href="#rap写接口文档中运用mock3" class="headerlink" title="rap写接口文档中运用mock3"></a>rap写接口文档中运用mock<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></h2><h3 id="shi-me-shi-rap"><a href="#什么是rap" class="headerlink" title="什么是rap"></a>什么是rap</h3><p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br><img src="/img/rap.jpg" alt="RAP"></p>
-<h3 id="zen-me-zai-rap-zhong-shi-shi-yong-mock"><a href="#怎么在rap中是使用mock" class="headerlink" title="怎么在rap中是使用mock"></a>怎么在rap中是使用mock</h3><p>有很多资料，且是图文并茂写博文<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup>,<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup>。总结起来，在rap中运用mock方法如下：</p>
+<p>具体mock语法示例，请参考mock示例&lt;sup id=&quot;fnref:2&quot;&gt;&lt;a href=&quot;#fn:2&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;，里面详细的介绍了各个类型使用方法。</p>
+<h2 id="rap-xie-jie-kou-wen-dang-zhong-yun-yong-mock-lt-sup-id-quot-fnref-3-quot-gt-lt-a-href-quot-fn-3-quot-rel-quot-footnote-quot-gt-3-lt-a-gt-lt-sup-gt">rap写接口文档中运用mock&lt;sup id=&quot;fnref:3&quot;&gt;&lt;a href=&quot;#fn:3&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;</h2>
+<h3 id="shi-me-shi-rap">什么是rap</h3>
+<p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。
+<img src="/img/rap.jpg" alt="RAP"></p>
+<h3 id="zen-me-zai-rap-zhong-shi-shi-yong-mock">怎么在rap中是使用mock</h3>
+<p>有很多资料，且是图文并茂写博文&lt;sup id=&quot;fnref:4&quot;&gt;&lt;a href=&quot;#fn:4&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt;,&lt;sup id=&quot;fnref:5&quot;&gt;&lt;a href=&quot;#fn:5&quot; rel=&quot;footnote&quot;&gt;5&lt;/a&gt;&lt;/sup&gt;。总结起来，在rap中运用mock方法如下：</p>
 <ul>
-<li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>&#39;name|rule&#39;</code>;</li>
-<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;"><a href="https://github.com/nuysoft/Mock/wiki" target="_blank" rel="external">https://github.com/nuysoft/Mock/wiki</a></span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;"><a href="http://mockjs.com/examples.html" target="_blank" rel="external">http://mockjs.com/examples.html</a></span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;"><a href="https://github.com/thx/RAP/wiki/" target="_blank" rel="external">https://github.com/thx/RAP/wiki/</a></span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;"><a href="http://www.imooc.com/article/17588" target="_blank" rel="external">http://www.imooc.com/article/17588</a></span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;"><a href="http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html" target="_blank" rel="external">http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html</a></span><a href="#fnref:5" rev="footnote"> ↩</a></li></ol></div></div></li>
+<li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>'name|rule'</code>;</li>
+<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。
+&lt;div id=&quot;footnotes&quot;&gt;&lt;hr&gt;&lt;div id=&quot;footnotelist&quot;&gt;&lt;ol style=&quot;list-style:none; padding-left: 0;&quot;&gt;&lt;li id=&quot;fn:1&quot;&gt;&lt;span style=&quot;display: inline-block; vertical-align: top; padding-right: 10px;&quot;&gt;1.&lt;/span&gt;&lt;span style=&quot;display: inline-block; vertical-align: top;&quot;&gt;https://github.com/nuysoft/Mock/wiki&lt;/span&gt;&lt;a href=&quot;#fnref:1&quot; rev=&quot;footnote&quot;&gt; ↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:2&quot;&gt;&lt;span style=&quot;display: inline-block; vertical-align: top; padding-right: 10px;&quot;&gt;2.&lt;/span&gt;&lt;span style=&quot;display: inline-block; vertical-align: top;&quot;&gt;http://mockjs.com/examples.html&lt;/span&gt;&lt;a href=&quot;#fnref:2&quot; rev=&quot;footnote&quot;&gt; ↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:3&quot;&gt;&lt;span style=&quot;display: inline-block; vertical-align: top; padding-right: 10px;&quot;&gt;3.&lt;/span&gt;&lt;span style=&quot;display: inline-block; vertical-align: top;&quot;&gt;https://github.com/thx/RAP/wiki/&lt;/span&gt;&lt;a href=&quot;#fnref:3&quot; rev=&quot;footnote&quot;&gt; ↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:4&quot;&gt;&lt;span style=&quot;display: inline-block; vertical-align: top; padding-right: 10px;&quot;&gt;4.&lt;/span&gt;&lt;span style=&quot;display: inline-block; vertical-align: top;&quot;&gt;http://www.imooc.com/article/17588&lt;/span&gt;&lt;a href=&quot;#fnref:4&quot; rev=&quot;footnote&quot;&gt; ↩&lt;/a&gt;&lt;/li&gt;&lt;li id=&quot;fn:5&quot;&gt;&lt;span style=&quot;display: inline-block; vertical-align: top; padding-right: 10px;&quot;&gt;5.&lt;/span&gt;&lt;span style=&quot;display: inline-block; vertical-align: top;&quot;&gt;http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html&lt;/span&gt;&lt;a href=&quot;#fnref:5&quot; rev=&quot;footnote&quot;&gt; ↩&lt;/a&gt;&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;&lt;/div&gt;</li>
 </ul>
 
       
@@ -268,6 +290,11 @@
                   <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
                   <div class="reward-box">
                     
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
                     
                   </div>
                 </span>
@@ -371,6 +398,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/06/23/worklog/201806/3thweek/summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ARTS之旅
+        
+      </div>
+    </a>
+  
   
     <a href="/2017/07/25/python-http-post/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">python实现http发送POST请求</div>
@@ -414,7 +450,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 cloudfeng
+    		&copy; 2018 cloudfeng
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -522,6 +558,42 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">scheme</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">ARTS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">review</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">5小时法则</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">兴趣</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">share</a>
               </li>
             
             <div class="clearfix"></div>

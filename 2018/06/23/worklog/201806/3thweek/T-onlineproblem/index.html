@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>sicp 数据对象之集合操作 | cloudfeng Daily</title>
+  <title>一个bug引发另个bug | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念  选择函数与构造函数  构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义 数据定义就是一组选择函">
-<meta name="keywords" content="sicp,scheme">
+  <meta name="description" content="一个bug背景 在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本 上线的最后一天，所以建议不要修改，原因如下：  每次发版当天的环境会很差，各个关联方环境极其不稳定； 本身有很多需求都没全部覆盖测试； 改完之后都需要走回归测试，测试同事有时间么；  但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试 同事测试">
+<meta name="keywords" content="bug,线上问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sicp 数据对象之集合操作">
-<meta property="og:url" content="http://yoursite.com/2017/07/22/sicp-dataobject-set/index.html">
+<meta property="og:title" content="一个bug引发另个bug">
+<meta property="og:url" content="http://yoursite.com/2018/06/23/worklog/201806/3thweek/T-onlineproblem/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
-<meta property="og:description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念  选择函数与构造函数  构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义 数据定义就是一组选择函">
-<meta property="og:updated_time" content="2017-07-23T14:34:07.000Z">
+<meta property="og:description" content="一个bug背景 在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本 上线的最后一天，所以建议不要修改，原因如下：  每次发版当天的环境会很差，各个关联方环境极其不稳定； 本身有很多需求都没全部覆盖测试； 改完之后都需要走回归测试，测试同事有时间么；  但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试 同事测试">
+<meta property="og:updated_time" content="2018-06-24T05:32:19.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sicp 数据对象之集合操作">
-<meta name="twitter:description" content="本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。 基本概念  选择函数与构造函数  构造函数：说明一个数据对象是由哪些原始组成的。 选择函数：怎么将数据对象中的组成元素抽取出来。   数据抽象定义 数据定义就是一组选择函">
+<meta name="twitter:title" content="一个bug引发另个bug">
+<meta name="twitter:description" content="一个bug背景 在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本 上线的最后一天，所以建议不要修改，原因如下：  每次发版当天的环境会很差，各个关联方环境极其不稳定； 本身有很多需求都没全部覆盖测试； 改完之后都需要走回归测试，测试同事有时间么；  但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试 同事测试">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -158,122 +158,98 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sicp-dataobject-set" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-worklog/201806/3thweek/T-onlineproblem" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      sicp 数据对象之集合操作
+      一个bug引发另个bug
     </h1>
   
 
         
-        <a href="/2017/07/22/sicp-dataobject-set/" class="archive-article-date">
-  	<time datetime="2017-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-22</time>
+        <a href="/2018/06/23/worklog/201806/3thweek/T-onlineproblem/" class="archive-article-date">
+  	<time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-23</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本文主要介绍不同的数据抽象，对应用程序在使用公共函数时会造成何种影响。这里主要是使用集合使用三种数据来表示：集合作为未排序的表、集合作为排序的表、集合作为有序二叉树，探讨不同的数据对象形式表示集合时，对使用集合的程序性能的影响。</p>
-<h2 id="ji-ben-gai-nian">基本概念</h2>
+        <h2 id="yi-ge-bug-bei-jing">一个bug背景</h2>
+<p>在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本
+上线的最后一天，所以建议不要修改，原因如下：</p>
 <ul>
-<li>选择函数与构造函数
-<ul>
-<li>构造函数：说明一个数据对象是由哪些原始组成的。</li>
-<li>选择函数：怎么将数据对象中的组成元素抽取出来。</li>
+<li>每次发版当天的环境会很差，各个关联方环境极其不稳定；</li>
+<li>本身有很多需求都没全部覆盖测试；</li>
+<li>改完之后都需要走回归测试，测试同事有时间么；</li>
 </ul>
+<p>但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试
+同事测试出一个bug了，为说明此bug产生的缘由，说明一些简称：</p>
+<p>1.客户级别L：（0：低；1：高）;
+2.数据源：</p>
+<ul>
+<li>
+<p>客户OCR扫描完证件信息（A）</p>
 </li>
-<li>数据抽象定义
-数据定义就是一组选择函数与构造函数，以及为了使它们成为一套合法的表示。因此它们需要满足一组特定的条件。</li>
+<li>
+<p>本地数据库（B）</p>
+</li>
+<li>
+<p>客户预留信息（C）</p>
+</li>
+<li>
+<p>关系方的信息（D）
+3.渠道：A 和 B</p>
+<p>需求做一个比对，判断是否同一个人，此需求是小灰同事负责开发（同事之间需要和谐相处说，随意取名小
+灰。&lt;img class=&quot;github-emoji&quot;  title=&quot;smile&quot; alt=&quot;smile&quot; src=&quot;https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png?v8&quot; height=&quot;20&quot; width=&quot;20&quot; /&gt; ），在此将简单写成伪代码，如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">  res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     res = false</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            res = false</div><div class="line">        END</div><div class="line">    else </div><div class="line">        res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"> return res</div></pre></td></tr></table></figure></p>
+<p>周四测试同事发现低级别的客户，OCR扫的与本地库不同，居然也认为是本人，所以将bug给小灰和我。当
+时我看着日志，把数据对比的数据拿出来，写单元测试，发现确实如此。然后就叫小灰过来，给他讲了一下，
+发现的问题，A渠道来的在块1比较是不同的人，客户又是低级的而D数据不存，覆盖了之前校验的值，将其
+变为是本人了。后面他说：“不是很明白，回桌上自己想想”。最后他说改完了，移交测试了。由于我负责其
+他的需求开发，负责查日志，忙着就忘记去看小灰怎么改的。后面就上线了，由于小灰需要支持版本发布，
+周五调休。</p>
+</li>
 </ul>
-<p>看着上面两个定义是不是很拗口，不知道在说啥。举个例子来说，如果一个有理数<code>p</code>是由整数 <code>n</code> 和 整数 <code>d</code> 构造而成。也就是 <code>p = n /d</code>。</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">;构造函数 p = n / d</div><div class="line">p = (make-rat n d)</div><div class="line">;选择函数</div><div class="line">n = (numer p)</div><div class="line">d = (denom p)</div></pre></td></tr></table></figure></p>
-<h2 id="ji-he-cao-zuo">集合操作</h2>
-<p>在高中的数学我们学习过，集合表示一组无重复的元素聚集而成。在数据结构中，集合表示一组具有相同属性的元素，并且满足数学中的集合属性：无序性。</p>
-<p>常见集合的操作，判断某个元素是否属于某个集合、求两个集合的交集、求两个集合的并集。假设集合<code>A={1,2,3}、B={2,3,4}</code>，以及元素<code>m=2,n=5</code>，则：</p>
+<h2 id="ling-yi-ge-bug-bei-jing">另一个bug背景</h2>
+<p>周五一上班，大概10点多，收到很多邮件，一会查这个一会查另外一个。当天看到6笔报不是本人的异常，
+赶紧查日志。拉取最新的代码，查完分析代码。小灰修改后的代码，改写伪代码如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     res = false</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            res = false</div><div class="line">        END</div><div class="line">    //else  // 小灰修改处</div><div class="line">       // res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"></div><div class="line"> return res</div></pre></td></tr></table></figure></p>
+<p>分析出来是，B渠道，低级别客户，在数据D不存在的情况下，一直是非本人。所以与测试沟通造相关的数
+据，复现生成问题。</p>
+<h2 id="bug-xiu-fu-chu-li">bug修复处理</h2>
+<p>最后跟领导申请紧急版本处理修复，由于是由一个bug引起bug，问了如下三个问题：</p>
 <ul>
-<li>判断某个元素是否属于某个集合：m 属于A,也属于B，而n不属于A,也不属于B;</li>
-<li>A 与 B 的交集为：<code>{2, 3}</code>;</li>
-<li>A 与 B 的并集为：<code>{1, 2, 3, 4}</code>
-下面我们来看看使用三种不同的数据表示，会对写集合常见操作造成什么样影响。</li>
+<li>修改的代码是否有review</li>
+<li>测试同事是否有案例review</li>
+<li>是否负责人报备</li>
 </ul>
-<h2 id="ji-he-zuo-wei-wei-pai-xu-de-biao">集合作为未排序的表</h2>
-<h3 id="gou-zao-han-shu-yu-xuan-ze-han-shu">构造函数与选择函数</h3>
-<p>直接使用<code>list</code> 函数，但是集合中元素是排序的，比如集合<code>A={1, 10, 2, 4, 3}</code>。</p>
-<h3 id="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he">判断某个元素是否属于某个集合</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(define (element-of-set? x set)</div><div class="line">    (cond ((null? set) #f)</div><div class="line">          (else (or (equal? x (car set)) </div><div class="line">                    (element-of-set? x (cdr set))))))</div></pre></td></tr></table></figure></p>
-<h3 id="qiu-liang-ge-ji-he-de-jiao-ji">求两个集合的交集</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (intersection-set set1 set2)</div><div class="line">    (cond ((or (null? set1) (null? set2)) &apos;())</div><div class="line">          ((element-of-set? (car set1) set2) (cons (car set1) </div><div class="line">                                                  (intersection-set (cdr set1) set2)))</div><div class="line">          (else (intersection-set (cdr set1) set2))))</div></pre></td></tr></table></figure></p>
-<h3 id="qiu-liang-ge-ji-he-de-bing-ji">求两个集合的并集</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(define (union-set set1 set2)</div><div class="line">    (cond ((null? set1) set2)</div><div class="line">          ((null? set2) set1)</div><div class="line">          ((element-of-set? (car set1) set2)</div><div class="line">            (union-set (cdr set1) set2))</div><div class="line">         (else (cons (car set1) (union-set (cdr set1) set2)))))</div></pre></td></tr></table></figure></p>
-<h3 id="jiang-mou-ge-yuan-su-jia-ru-ji-he-zhong">将某个元素加入集合中</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(define (adjion-set x set)</div><div class="line">    (if (element-of-set? x set)</div><div class="line">        set</div><div class="line">        (cons x set)))</div></pre></td></tr></table></figure></p>
-<h2 id="ji-he-zuo-wei-pai-xu-de-biao">集合作为排序的表</h2>
-<h3 id="gou-zao-han-shu-yu-xuan-ze-han-shu">构造函数与选择函数</h3>
-<p>直接使用<code>list</code> 函数，但是集合中元素是排序的，比如集合<code>A={1, 2, 3, 4, 5, 10}</code>。</p>
-<h3 id="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he">判断某个元素是否属于某个集合</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (element-of-set? x set)</div><div class="line">    (cond ((null? set) #f)</div><div class="line">          ((equal? x (car set)) #t)</div><div class="line">          ((&lt; x (car set)) #f)</div><div class="line">          (else (element-of-set? x (cdr set)))))</div></pre></td></tr></table></figure></p>
-<h3 id="qiu-liang-ge-ji-he-de-jiao-ji">求两个集合的交集</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(define (intersection-sort-set set1 set2)</div><div class="line">    (if (or (null? set1) (null? set2))</div><div class="line">        &apos;()</div><div class="line">        (let ((x (car set1))</div><div class="line">              (y (car set2)))</div><div class="line">             (cond ((= x y) (cons x (ntersection-sort-set (cdr set1) (cdr set2))))</div><div class="line">                   ((&lt; x y) (intersection-sort-set (cdr set1) set2))</div><div class="line">                   (else (intersection-sort-set set1 (cdr set2)))))))</div></pre></td></tr></table></figure></p>
-<h3 id="jiang-mou-ge-yuan-su-jia-ru-dao-ji-he-zhong">将某个元素加入到集合中</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (adjoin-set x set)</div><div class="line">    (cond ((null? set) (cons x set))</div><div class="line">          ((equal? x (car set)) set)</div><div class="line">          ((&lt; x (car set)) (cons x set))</div><div class="line">          (else (cons (car set) (adjoin-set x (cdr set))))))</div></pre></td></tr></table></figure></p>
-<h3 id="qiu-liang-ge-ji-he-de-bing-ji">求两个集合的并集</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">(define (union-sort-set set1 set2)</div><div class="line">    (cond ((null? set1) set2)</div><div class="line">          ((null? set2) set1)</div><div class="line">          (else (let ((x (car set1))</div><div class="line">                      (y (car set2)))</div><div class="line">                   (cond ((&lt; x y) (cons x (nion-sort-set (cdr set1) set2)))</div><div class="line">                         ((&gt; x y) (cons y (union-sort-set set1 (cdr set2))))</div><div class="line">                         (else (cons x (union-sort-set(cdr set1) (cdr set2)))))))))</div></pre></td></tr></table></figure></p>
-<h2 id="ji-he-zuo-wei-you-xu-er-cha-shu">集合作为有序二叉树</h2>
-<h3 id="gou-zao-han-shu-yu-xuan-ze-han-shu">构造函数与选择函数</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">;(dataItem, left-branch, right-branch)</div><div class="line"></div><div class="line">(define (entry tree)</div><div class="line">    (car tree))</div><div class="line"></div><div class="line">(define (left-branch tree) (cadr tree))</div><div class="line"></div><div class="line">(define (right-branch tree) (caddr tree))</div><div class="line"></div><div class="line">(define (make-tree entry left-branch right-branch)</div><div class="line">    (list entry left-branch right-branch))</div></pre></td></tr></table></figure></p>
-<h3 id="pan-duan-mou-ge-yuan-su-shi-fou-shu-yu-mou-ge-ji-he">判断某个元素是否属于某个集合</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">(define (element-of-set? x set)</div><div class="line">    (if (null? set)</div><div class="line">        #f</div><div class="line">        (let ((dataItem (entry set)))</div><div class="line">            (cond ((= dataItem x) #t)</div><div class="line">                  ((&gt; dataItem x) (element-of-set x (left-branch set)))</div><div class="line">                  (else (element-of-set x (right-branch set)))))))</div></pre></td></tr></table></figure></p>
-<h3 id="qiu-liang-ge-ji-he-de-jiao-ji">求两个集合的交集</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">(define (intersection-set set1 set2)</div><div class="line">    (let ((list1 (tree-&gt;list set1))</div><div class="line">          (list2 (tree-&gt;list set2)))</div><div class="line">        (let ((res (intersection-sort-set list1 list2)))</div><div class="line">             (list-tree res))))</div></pre></td></tr></table></figure></p>
-<h3 id="qiu-liang-ge-ji-he-de-bing-ji">求两个集合的并集</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">; 辅助函数：将树形结构转为列表结构</div><div class="line">(define (tree-&gt;list tree)</div><div class="line">    (define (copy-to-list tree result-list)</div><div class="line">        (if (null? tree)</div><div class="line">            result-list</div><div class="line">            (copy-to-list (left-branch tree)</div><div class="line">                          (cons (entry tree)</div><div class="line">                                (copy-to-list (right-branch tree)</div><div class="line">                                              result-list)))))</div><div class="line">    (copy-to-list tree &apos;()))</div><div class="line"></div><div class="line">;辅助函数：将列表结构转位树形结构</div><div class="line">(define (list-tree elements)</div><div class="line">    (car (partial-tree elements (length elements))))</div><div class="line"></div><div class="line">(define (partial-tree elts n)</div><div class="line">    (if (= n 0)</div><div class="line">        (cons &apos;() elts)</div><div class="line">        (let ((left-size (quotient (- n 1) 2)))</div><div class="line">             (let ((left-result (partial-tree elts left-size)))</div><div class="line">                  (let ((left-tree (car left-result))</div><div class="line">                        (non-left-elts (cdr left-result))</div><div class="line">                        (right-size (- n (+ left-size 1))))</div><div class="line">                       (let ((this-entry (car non-left-elts))</div><div class="line">                             (right-result (partial-tree (cdr non-left-elts) right-size)))</div><div class="line">                            (let ((right-tree (car right-result))</div><div class="line">                                  (remaining-elts (cdr right-result)))</div><div class="line">                                 (cons (make-tree this-entry left-tree right-tree)</div><div class="line">                                        remaining-elts))))))))</div><div class="line"></div><div class="line">(define (union-set set1 set2)</div><div class="line">    (let ((list1 (tree-&gt;list set1))</div><div class="line">          (list2 (tree-&gt;list set2)))</div><div class="line">         (let ((res (union-sort-set list1 list2)))</div><div class="line">              (list-tree res))))</div></pre></td></tr></table></figure></p>
-<h3 id="tian-jia-yuan-su-dao-ji-he">添加元素到集合</h3>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">(define (adjoin-set x set)</div><div class="line">    (cond ((null? set) (make-tree x &apos;() &apos;()))</div><div class="line">          ((= x (entry set)) set)</div><div class="line">          ((&lt; x (entry set)) (make-tree (entry set) </div><div class="line">                                        (adjoin-set x (left-branch set))</div><div class="line">                                        (right-branch set)))</div><div class="line">          (else (make-tree (entry set)</div><div class="line">                           (left-branch set)</div><div class="line">                           (adjoin-set x (right-branch set))))))</div></pre></td></tr></table></figure></p>
+<p>我的回答都是否定的，当时发现第一个bug的时候，我跟测试负责人打了招呼，但是没有跟组长说，后面也没
+有review小灰修改的代码。处理此事我司步骤如下：</p>
+<ul>
+<li>发邮件申请紧急版本给部门长；</li>
+<li>开发直属领导与部门长说明bug问题；</li>
+<li>修复bug</li>
+<li>测试回归</li>
+<li>发布版本</li>
+<li>生成验证</li>
+</ul>
+<p>修改小灰的代码如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     return false // 修1</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            return false // 修改2</div><div class="line">        END</div><div class="line">    else  // 修改3 仍旧加上</div><div class="line">       res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"> return res</div></pre></td></tr></table></figure></p>
+<p>然后与组长一起review代码，影响业务比较大，所以需要快速解决，没有重构代码。好了之后，画好流程
+图，给测试同事讲解，再告诉测试同事在测试环境造什么样的数据，让其一个分支一个分支的测试。上线之
+后，自己又找人生产验证。</p>
 <h2 id="zong-jie">总结</h2>
-<p>通过三种不同的数据表示集合，分析了程序在使用集合操作，比如检查是否属于集合、集合的交集、集合并集等操作，在时间复杂度上是存在差异的。如下表格：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">表示法</th>
-<th style="text-align:left">检查元素是否属于集合</th>
-<th style="text-align:left">添加元素</th>
-<th style="text-align:left">交集</th>
-<th style="text-align:left">并集</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">未排序的表</td>
-<td style="text-align:left"><code>O(n)</code></td>
-<td style="text-align:left"><code>O(n)</code></td>
-<td style="text-align:left"><code>O(n^2)</code></td>
-<td style="text-align:left"><code>O(n^2)</code></td>
-</tr>
-<tr>
-<td style="text-align:left">排序的表</td>
-<td style="text-align:left"><code>O(n)</code></td>
-<td style="text-align:left"><code>O(n)</code></td>
-<td style="text-align:left"><code>O(n)</code></td>
-<td style="text-align:left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td style="text-align:left">有序二叉树</td>
-<td style="text-align:left"><code>O(log n)</code></td>
-<td style="text-align:left"><code>O(log n)</code></td>
-<td style="text-align:left"><code>O(n)</code></td>
-<td style="text-align:left"><code>O(n)</code></td>
-</tr>
-</tbody>
-</table>
-<p>也就是我们常说:</p>
-<blockquote>
-<p>程序=数据结构+算法</p>
-</blockquote>
+<p><strong>问责的时候，心里面确实不舒服，不是我的错，为啥要我承担。</strong> 后面想想，自己也有责任，发现了bug，
+没有和小灰一同修复。今天就把此两个bug回顾，总结如下：</p>
+<ul>
+<li>复杂的业务逻辑画好流程图，与测试同事一同案例评审；</li>
+<li>开发单元测试一定做足；</li>
+<li>不要逃避责任。</li>
+</ul>
 
       
 
@@ -313,11 +289,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">sicp</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">bug</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">scheme</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线上问题</a>
         		</li>
       		
 		</ul>
@@ -329,7 +305,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/sicp/" class="article-tag-list-link color5">sicp</a>
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
         		</li>
       		
 		</ul>
@@ -384,7 +360,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/22/sicp-dataobject-set/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/23/worklog/201806/3thweek/T-onlineproblem/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -398,15 +374,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/07/22/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/06/23/worklog/201806/3thweek/R-mutil-interests/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Hello World
+          Review:多兴趣成功以及5小时法则
         
       </div>
     </a>
   
+  
+    <a href="/2018/06/23/worklog/201806/3thweek/S-TDD-note/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">测试驱动开发笔记之入门</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
