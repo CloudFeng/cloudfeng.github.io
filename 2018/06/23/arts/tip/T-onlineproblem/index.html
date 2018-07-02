@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>测试驱动开发笔记之入门 | cloudfeng Daily</title>
+  <title>一个bug引发另个bug | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="无意间接触TDD 以前写个小函数之后，一直用main函数来做单元测试。看看是否有其他的方法，不用老这么整。 后面听到过xUnit啥，然后在网上也看一部分资料，Junit简要入门,junit-tutorials等。 弄完之后觉得好奇，想知道Junit是谁先提出的，无意间就找到 Kent Beck 的一本关于测试驱动开发的书： 《Test-Driven Development By Example》。">
-<meta name="keywords" content="TDD,share">
+  <meta name="description" content="一个bug背景 在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本 上线的最后一天，所以建议不要修改，原因如下：  每次发版当天的环境会很差，各个关联方环境极其不稳定； 本身有很多需求都没全部覆盖测试； 改完之后都需要走回归测试，测试同事有时间么；  但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试 同事测试">
+<meta name="keywords" content="bug,线上问题">
 <meta property="og:type" content="article">
-<meta property="og:title" content="测试驱动开发笔记之入门">
-<meta property="og:url" content="http://yoursite.com/2018/06/23/worklog/201806/3thweek/S-TDD-note/index.html">
+<meta property="og:title" content="一个bug引发另个bug">
+<meta property="og:url" content="http://yoursite.com/2018/06/23/arts/tip/T-onlineproblem/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
-<meta property="og:description" content="无意间接触TDD 以前写个小函数之后，一直用main函数来做单元测试。看看是否有其他的方法，不用老这么整。 后面听到过xUnit啥，然后在网上也看一部分资料，Junit简要入门,junit-tutorials等。 弄完之后觉得好奇，想知道Junit是谁先提出的，无意间就找到 Kent Beck 的一本关于测试驱动开发的书： 《Test-Driven Development By Example》。">
-<meta property="og:updated_time" content="2018-06-24T14:24:05.000Z">
+<meta property="og:description" content="一个bug背景 在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本 上线的最后一天，所以建议不要修改，原因如下：  每次发版当天的环境会很差，各个关联方环境极其不稳定； 本身有很多需求都没全部覆盖测试； 改完之后都需要走回归测试，测试同事有时间么；  但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试 同事测试">
+<meta property="og:updated_time" content="2018-07-02T12:55:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="测试驱动开发笔记之入门">
-<meta name="twitter:description" content="无意间接触TDD 以前写个小函数之后，一直用main函数来做单元测试。看看是否有其他的方法，不用老这么整。 后面听到过xUnit啥，然后在网上也看一部分资料，Junit简要入门,junit-tutorials等。 弄完之后觉得好奇，想知道Junit是谁先提出的，无意间就找到 Kent Beck 的一本关于测试驱动开发的书： 《Test-Driven Development By Example》。">
+<meta name="twitter:title" content="一个bug引发另个bug">
+<meta name="twitter:description" content="一个bug背景 在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本 上线的最后一天，所以建议不要修改，原因如下：  每次发版当天的环境会很差，各个关联方环境极其不稳定； 本身有很多需求都没全部覆盖测试； 改完之后都需要走回归测试，测试同事有时间么；  但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试 同事测试">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -158,19 +158,19 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-worklog/201806/3thweek/S-TDD-note" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-arts/tip/T-onlineproblem" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      测试驱动开发笔记之入门
+      一个bug引发另个bug
     </h1>
   
 
         
-        <a href="/2018/06/23/worklog/201806/3thweek/S-TDD-note/" class="archive-article-date">
+        <a href="/2018/06/23/arts/tip/T-onlineproblem/" class="archive-article-date">
   	<time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-23</time>
 </a>
         
@@ -178,48 +178,77 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="wu-yi-jian-jie-hong-tdd">无意间接触TDD</h2>
-<p>以前写个小函数之后，一直用main函数来做单元测试。看看是否有其他的方法，不用老这么整。
-后面听到过xUnit啥，然后在网上也看一部分资料，Junit简要入门,junit-tutorials等。
-弄完之后觉得好奇，想知道Junit是谁先提出的，无意间就找到 Kent Beck 的一本关于测试驱动开发的书：
-<a href="https://book.douban.com/subject/1230036/" target="_blank" rel="external">《Test-Driven Development By Example》</a>。</p>
-<h2 id="tdd-xiao-jie">TDD 小结</h2>
-<p>后面每天抽点时间把第一章的知识看完，主要围绕资金实例一步一步的介绍测试驱动开发，作者忒细心，
-深怕介绍的过快而没有讲清楚。今日把相关的要点列出来，最近慢慢在开始练习开发模式写代码。示例代码
-可以参考<a href="https://github.com/CloudFeng/learn-tdd" target="_blank" rel="external">TDD</a>。</p>
-<h3 id="ce-shi-qu-dong-kai-fa-de-mu-biao">测试驱动开发的目标</h3>
-<p>每一种开发方法都是为了解决某个问题而来的，而测试驱动开发的目的就是为让人写出整洁可用的代码。</p>
-<h3 id="ce-shi-qu-dong-kai-fa-de-tai-du">测试驱动开发的态度</h3>
+        <h2 id="yi-ge-bug-bei-jing">一个bug背景</h2>
+<p>在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本
+上线的最后一天，所以建议不要修改，原因如下：</p>
 <ul>
-<li>测试优先</li>
-<li>只有自动测试失败时，才重写代码</li>
-<li>不可运行/可运行/重构</li>
-<li>不断构建测试列表</li>
+<li>每次发版当天的环境会很差，各个关联方环境极其不稳定；</li>
+<li>本身有很多需求都没全部覆盖测试；</li>
+<li>改完之后都需要走回归测试，测试同事有时间么；</li>
 </ul>
-<h3 id="ce-shi-qu-dong-kai-fa-de-guo-cheng">测试驱动开发的过程</h3>
+<p>但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试
+同事测试出一个bug了，为说明此bug产生的缘由，说明一些简称：</p>
+<p>1.客户级别L：（0：低；1：高）;
+2.数据源：</p>
 <ul>
-<li>加入一个小的测试；</li>
-<li>运行所有测试，运行测试；</li>
-<li>适当修改;</li>
-<li>运行测试且成功;</li>
-<li>重构，消除重复设计，优化设计结构。</li>
-</ul>
-<h2 id="san-ge-ce-shi-qu-dong-kai-fa-xiao-ji-qiao">三个测试驱动开发小技巧</h2>
-<ul>
-<li>让测试利落运行的三种方法
-<ul>
-<li>伪方法:返回一个常量并逐渐用变量代替常量，直至伪实现代码成为真实地代码</li>
-<li>三角法：在例子达到2个或更多时才对代码实施一般化</li>
-<li>显明实现：实现真实的代码</li>
-</ul>
+<li>
+<p>客户OCR扫描完证件信息（A）</p>
 </li>
-<li>把消除代码与测试间的重复设计作为驱动设计的一种手段</li>
-<li>控制测试间隙的能力，不知如何下手，就放慢，在状况好时就开快一些</li>
+<li>
+<p>本地数据库（B）</p>
+</li>
+<li>
+<p>客户预留信息（C）</p>
+</li>
+<li>
+<p>关系方的信息（D）
+3.渠道：A 和 B</p>
+<p>需求做一个比对，判断是否同一个人，此需求是小灰同事负责开发（同事之间需要和谐相处说，随意取名小
+灰。&lt;img class=&quot;github-emoji&quot;  title=&quot;smile&quot; alt=&quot;smile&quot; src=&quot;https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png?v8&quot; height=&quot;20&quot; width=&quot;20&quot; /&gt; ），在此将简单写成伪代码，如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">  res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     res = false</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            res = false</div><div class="line">        END</div><div class="line">    else </div><div class="line">        res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"> return res</div></pre></td></tr></table></figure></p>
+<p>周四测试同事发现低级别的客户，OCR扫的与本地库不同，居然也认为是本人，所以将bug给小灰和我。当
+时我看着日志，把数据对比的数据拿出来，写单元测试，发现确实如此。然后就叫小灰过来，给他讲了一下，
+发现的问题，A渠道来的在块1比较是不同的人，客户又是低级的而D数据不存，覆盖了之前校验的值，将其
+变为是本人了。后面他说：“不是很明白，回桌上自己想想”。最后他说改完了，移交测试了。由于我负责其
+他的需求开发，负责查日志，忙着就忘记去看小灰怎么改的。后面就上线了，由于小灰需要支持版本发布，
+周五调休。</p>
+</li>
 </ul>
-<h2 id="can-kao-zi-liao">参考资料</h2>
+<h2 id="ling-yi-ge-bug-bei-jing">另一个bug背景</h2>
+<p>周五一上班，大概10点多，收到很多邮件，一会查这个一会查另外一个。当天看到6笔报不是本人的异常，
+赶紧查日志。拉取最新的代码，查完分析代码。小灰修改后的代码，改写伪代码如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     res = false</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            res = false</div><div class="line">        END</div><div class="line">    //else  // 小灰修改处</div><div class="line">       // res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"></div><div class="line"> return res</div></pre></td></tr></table></figure></p>
+<p>分析出来是，B渠道，低级别客户，在数据D不存在的情况下，一直是非本人。所以与测试沟通造相关的数
+据，复现生成问题。</p>
+<h2 id="bug-xiu-fu-chu-li">bug修复处理</h2>
+<p>最后跟领导申请紧急版本处理修复，由于是由一个bug引起bug，问了如下三个问题：</p>
 <ul>
-<li>http://www.vogella.com/tutorials/JUnit/article.html</li>
-<li>http://www.mkyong.com/tutorials/junit-tutorials/</li>
+<li>修改的代码是否有review</li>
+<li>测试同事是否有案例review</li>
+<li>是否负责人报备</li>
+</ul>
+<p>我的回答都是否定的，当时发现第一个bug的时候，我跟测试负责人打了招呼，但是没有跟组长说，后面也没
+有review小灰修改的代码。处理此事我司步骤如下：</p>
+<ul>
+<li>发邮件申请紧急版本给部门长；</li>
+<li>开发直属领导与部门长说明bug问题；</li>
+<li>修复bug</li>
+<li>测试回归</li>
+<li>发布版本</li>
+<li>生成验证</li>
+</ul>
+<p>修改小灰的代码如下：</p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     return false // 修1</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            return false // 修改2</div><div class="line">        END</div><div class="line">    else  // 修改3 仍旧加上</div><div class="line">       res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"> return res</div></pre></td></tr></table></figure></p>
+<p>然后与组长一起review代码，影响业务比较大，所以需要快速解决，没有重构代码。好了之后，画好流程
+图，给测试同事讲解，再告诉测试同事在测试环境造什么样的数据，让其一个分支一个分支的测试。上线之
+后，自己又找人生产验证。</p>
+<h2 id="zong-jie">总结</h2>
+<p><strong>问责的时候，心里面确实不舒服，不是我的错，为啥要我承担。</strong> 后面想想，自己也有责任，发现了bug，
+没有和小灰一同修复。今天就把此两个bug回顾，总结如下：</p>
+<ul>
+<li>复杂的业务逻辑画好流程图，与测试同事一同案例评审；</li>
+<li>开发单元测试一定做足；</li>
+<li>不要逃避责任。</li>
 </ul>
 
       
@@ -260,11 +289,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TDD</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">bug</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线上问题</a>
         		</li>
       		
 		</ul>
@@ -331,7 +360,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/23/worklog/201806/3thweek/S-TDD-note/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/23/arts/tip/T-onlineproblem/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -345,18 +374,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/06/23/worklog/201806/3thweek/T-onlineproblem/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/06/23/arts/share/S-TDD-note/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          一个bug引发另个bug
+          测试驱动开发笔记之入门
         
       </div>
     </a>
   
   
-    <a href="/2018/06/23/worklog/201806/3thweek/summary/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">ARTS之旅</div>
+    <a href="/2017/07/31/mock-rap-basic-uasge/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mock和RAP入门教程</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -484,14 +513,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">mock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -508,15 +529,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+                <a href="javascript:void(0)" class="js-tag color5">mock</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
+                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,7 +557,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">share</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
             
             <div class="clearfix"></div>
