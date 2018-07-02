@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>python实现http发送POST请求 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。 ¶语言选择以及依赖包 为了能够快速解决此问题，首先需要找到合适的工具，俗话说，“工欲善其事，必先利">
+  <meta name="description" content="现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。">
 <meta name="keywords" content="python,http">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python实现http发送POST请求">
 <meta property="og:url" content="http://yoursite.com/2017/07/25/python-http-post/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
-<meta property="og:description" content="现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。 ¶语言选择以及依赖包 为了能够快速解决此问题，首先需要找到合适的工具，俗话说，“工欲善其事，必先利">
+<meta property="og:description" content="现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。">
 <meta property="og:image" content="http://yoursite.com/img/testRes.jpg">
-<meta property="og:updated_time" content="2017-07-27T17:17:52.000Z">
+<meta property="og:updated_time" content="2018-07-02T19:08:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python实现http发送POST请求">
-<meta name="twitter:description" content="现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。 ¶语言选择以及依赖包 为了能够快速解决此问题，首先需要找到合适的工具，俗话说，“工欲善其事，必先利">
+<meta name="twitter:description" content="现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。">
 <meta name="twitter:image" content="http://yoursite.com/img/testRes.jpg">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
@@ -181,6 +181,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>现在开发是前后端完全分离的，在公司里面很多接口都和登陆态相关联起来。从而使得我在需求开发的时候依赖于前端同事打包完之后才开始测试自己的需求功能。所以比较耗费时间和精力。但是我们的服务接口是不依赖登陆态的，为了测试自己的服务接口，需要模拟发送HTTP请求，以便后面偷懒。本文就此介绍一下如何解决此问题。</p>
+<a id="more"></a>
 <h2 id="语言选择以及依赖包"><a class="header-anchor" href="#语言选择以及依赖包">¶</a>语言选择以及依赖包</h2>
 <p>为了能够快速解决此问题，首先需要找到合适的工具，俗话说，<strong>“工欲善其事，必先利其器。”</strong><br>
 在程序设计中首先就是语言的选择，相比于<code>java</code>，对<code>python</code>更为熟悉一点。说句皮外话，<br>
@@ -413,7 +414,7 @@ post请求，其中请求的参数为JSON格式。步骤如下：</p>
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="cloudfeng Daily">
 <meta property="og:description" content="在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一">
 <meta property="og:image" content="http://yoursite.com/img/rap.jpg">
-<meta property="og:updated_time" content="2017-08-02T14:04:48.000Z">
+<meta property="og:updated_time" content="2018-07-02T19:08:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mock和RAP入门教程">
 <meta name="twitter:description" content="在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一">
@@ -181,6 +181,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端协作效率。</p>
+<a id="more"></a>
 <h2 id="mockjs1"><a class="header-anchor" href="#mock-js-sup-id-fnref-1-a-href-fn-1-rel-footnote-1-a-sup">¶</a>mock.js<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h2>
 <p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
 <h3 id="语法规范"><a class="header-anchor" href="#语法规范">¶</a>语法规范</h3>
@@ -466,7 +467,7 @@
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
-		open_in_new: false,
+		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
 		innerArchive: true,
