@@ -155,129 +155,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-arts/tip/T-java-thread-unit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/tip/T-java-thread-unit/">Junit测试Java多线程小疑</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/29/arts/tip/T-java-thread-unit/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="遇到背景"><a class="header-anchor" href="#遇到背景">¶</a>遇到背景</h2>
-<p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。<br>
-发现与书中使用main方法来测试的结果是不一样的。</p>
-<h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
-<p>为了描述问题，先引用书中的例子：定义一个简单地任务，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LiftOff</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">	<span class="keyword">protected</span> <span class="keyword">int</span> countDown = <span class="number">10</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> taskCount = <span class="number">0</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> id = taskCount++;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">(<span class="keyword">int</span> countDown)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.countDown = countDown;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">status</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"#"</span> + id + <span class="string">"("</span> + (countDown &gt; <span class="number">0</span> ? countDown : <span class="string">"liftoff!"</span>) + <span class="string">"),"</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">while</span> (countDown-- &gt; <span class="number">0</span>) &#123;</div><div class="line">			System.out.println(status());</div><div class="line">			Thread.yield();</div><div class="line">		&#125;</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用Junit测试代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMoreBasicThread</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</div><div class="line">		Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> LiftOff());</div><div class="line">	    <span class="comment">//t.join();</span></div><div class="line">		t.start();</div><div class="line">	&#125;</div><div class="line">	System.out.println(<span class="string">"Waiting for LiftOff"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用main测试的结果与Junit测试的结果相比对，就会发现两者不同。</p>
-<table>
-<thead>
-<tr>
-<th>main函数测试的结果</th>
-<th>Waiting for LiftOff#0(9),#0(8),#0(7),#0(6),#0(5),#0(4),#0(3),#0(2),#0(1),#0(liftoff!),</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Junit测试的结果</td>
-<td>Waiting for LiftOff#0(9),#0(8),#0(7),#0(6),#0(5),#0(4),#0(3),#0(2),</td>
-</tr>
-</tbody>
-</table>
-<p>为什么使用Junit输出的结果会比使用main方法直接测试的要少。</p>
-<h2 id="分析与解决"><a class="header-anchor" href="#分析与解决">¶</a>分析与解决</h2>
-<p>一般情况下，只有当所有的守护线程完结之后JVM才会结束。为此，你可以在执行任务的线程上调用<br>
-<code>t.setDaemon(false)</code>来防止JVM在任务未执行完成之前就结束生命了。但是Junit会在主线程结束时调用<br>
-<code>System.exit()</code>。具体的见JunitCore.java中代码，下面是与此问题相关的代码<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>。解决方法就是在<br>
-调用<code>t.start()</code>之前调用<code>t.jion()</code>,让Junit线程等待任务的完成<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * Run the tests contained in &lt;code&gt;classes&lt;/code&gt;. Write feedback while the tests</div><div class="line">     * are running and write stack traces for all failed tests after all tests complete. This is</div><div class="line">     * similar to &#123;<span class="doctag">@link</span> #main(String[])&#125;, but intended to be used programmatically.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> classes Classes in which to find tests</div><div class="line">     * <span class="doctag">@return</span> a &#123;<span class="doctag">@link</span> Result&#125; describing the details of the test run and the failed tests.</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">runClasses</span><span class="params">(Class&lt;?&gt;... classes)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> runClasses(defaultComputer(), classes);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h2 id="参考资料"><a class="header-anchor" href="#参考资料">¶</a>参考资料</h2>
-<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">https://github.com/junit-team/junit4/blob/master/src/main/java/org/junit/runner/JUnitCore.java#L48</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">https://stackoverflow.com/questions/16616590/thread-behaving-strangely-in-junit</span><a href="#fnref:2" rev="footnote"> ↩</a></li></ol></div></div>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">junit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">thread</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/tip/T-java-thread-unit/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-arts/review/R-learn-by-hard-way" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -317,11 +194,11 @@ MDN一步一步做的一个mntfun静态页面。</p>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">learning</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
         		</li>
       		
 		</ul>
@@ -372,38 +249,31 @@ MDN一步一步做的一个mntfun静态页面。</p>
 
 
   
-    <article id="post-arts/algorithm/A-TwoSum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/tip/T-java-thread-unit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/23/arts/algorithm/A-TwoSum/">Algorithm:Two Sum</a>
+      <a class="article-title" href="/2018/06/29/arts/tip/T-java-thread-unit/">Junit测试Java多线程小疑</a>
     </h1>
   
 
         
-        <a href="/2018/06/23/arts/algorithm/A-TwoSum/" class="archive-article-date">
-  	<time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-23</time>
+        <a href="/2018/06/29/arts/tip/T-java-thread-unit/" class="archive-article-date">
+  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
-<p>Given an array of integers, return indices of the two numbers such that they add<br>
-up to a specific target.You may assume that each input would have ** exactly one<br>
-solution**, and you may not use the same element twice.</p>
-<p>Example</p>
-<blockquote>
-<p>Given nums = [2, 7, 11, 15], target = 9,<br>
-Because nums[0] + nums[1] = 2 + 7 = 9,<br>
-return [0, 1].</p>
-</blockquote>
+        <h2 id="遇到背景"><a class="header-anchor" href="#遇到背景">¶</a>遇到背景</h2>
+<p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。<br>
+发现与书中使用main方法来测试的结果是不一样的。</p>
         
-          <a class="article-more-a" href="/2018/06/23/arts/algorithm/A-TwoSum/#more">more >></a>
+          <a class="article-more-a" href="/2018/06/29/arts/tip/T-java-thread-unit/#more">more >></a>
         
       
 
@@ -417,7 +287,15 @@ return [0, 1].</p>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">junit</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">thread</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
         		</li>
       		
 		</ul>
@@ -438,7 +316,7 @@ return [0, 1].</p>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/23/arts/algorithm/A-TwoSum/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/06/29/arts/tip/T-java-thread-unit/">展开全文 >></a>
         </p>
       
 
@@ -532,6 +410,101 @@ return [0, 1].</p>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/06/23/arts/tip/T-onlineproblem/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-arts/share/S-TDD-note" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/23/arts/share/S-TDD-note/">测试驱动开发笔记之入门</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/23/arts/share/S-TDD-note/" class="archive-article-date">
+  	<time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="无意间接触tdd"><a class="header-anchor" href="#无意间接触tdd">¶</a>无意间接触TDD</h2>
+<p>以前写个小函数之后，一直用main函数来做单元测试。看看是否有其他的方法，不用老这么整。<br>
+后面听到过xUnit啥，然后在网上也看一部分资料，Junit简要入门,junit-tutorials等。<br>
+弄完之后觉得好奇，想知道Junit是谁先提出的，无意间就找到 Kent Beck 的一本关于测试驱动开发的书：<br>
+<a href="https://book.douban.com/subject/1230036/" target="_blank" rel="external">《Test-Driven Development By Example》</a>。</p>
+        
+          <a class="article-more-a" href="/2018/06/23/arts/share/S-TDD-note/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TDD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/23/arts/share/S-TDD-note/">展开全文 >></a>
         </p>
       
 
@@ -752,19 +725,19 @@ return [0, 1].</p>
 
 
   
-    <article id="post-arts/share/S-TDD-note" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/algorithm/A-TwoSum" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/23/arts/share/S-TDD-note/">测试驱动开发笔记之入门</a>
+      <a class="article-title" href="/2018/06/23/arts/algorithm/A-TwoSum/">Algorithm:Two Sum</a>
     </h1>
   
 
         
-        <a href="/2018/06/23/arts/share/S-TDD-note/" class="archive-article-date">
+        <a href="/2018/06/23/arts/algorithm/A-TwoSum/" class="archive-article-date">
   	<time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-23</time>
 </a>
         
@@ -772,13 +745,18 @@ return [0, 1].</p>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="无意间接触tdd"><a class="header-anchor" href="#无意间接触tdd">¶</a>无意间接触TDD</h2>
-<p>以前写个小函数之后，一直用main函数来做单元测试。看看是否有其他的方法，不用老这么整。<br>
-后面听到过xUnit啥，然后在网上也看一部分资料，Junit简要入门,junit-tutorials等。<br>
-弄完之后觉得好奇，想知道Junit是谁先提出的，无意间就找到 Kent Beck 的一本关于测试驱动开发的书：<br>
-<a href="https://book.douban.com/subject/1230036/" target="_blank" rel="external">《Test-Driven Development By Example》</a>。</p>
+        <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
+<p>Given an array of integers, return indices of the two numbers such that they add<br>
+up to a specific target.You may assume that each input would have ** exactly one<br>
+solution**, and you may not use the same element twice.</p>
+<p>Example</p>
+<blockquote>
+<p>Given nums = [2, 7, 11, 15], target = 9,<br>
+Because nums[0] + nums[1] = 2 + 7 = 9,<br>
+return [0, 1].</p>
+</blockquote>
         
-          <a class="article-more-a" href="/2018/06/23/arts/share/S-TDD-note/#more">more >></a>
+          <a class="article-more-a" href="/2018/06/23/arts/algorithm/A-TwoSum/#more">more >></a>
         
       
 
@@ -792,11 +770,7 @@ return [0, 1].</p>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TDD</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
         		</li>
       		
 		</ul>
@@ -817,7 +791,7 @@ return [0, 1].</p>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/23/arts/share/S-TDD-note/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/06/23/arts/algorithm/A-TwoSum/">展开全文 >></a>
         </p>
       
 
@@ -1249,19 +1223,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">share</a>
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1273,15 +1243,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
+                <a href="javascript:void(0)" class="js-tag color1">share</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1294,6 +1260,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
               </li>
             
             <div class="clearfix"></div>

@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Junit测试Java多线程小疑 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="¶遇到背景 本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。 发现与书中使用main方法来测试的结果是不一样的。 ¶问题描述 为了描述问题，先引用书中的例子：定义一个简单地任务，代码如下： 123456789101112131415161718192021public class LiftOff implements Runnable &amp;#1">
+  <meta name="description" content="¶遇到背景 本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。 发现与书中使用main方法来测试的结果是不一样的。">
 <meta name="keywords" content="junit,thread,tip">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Junit测试Java多线程小疑">
 <meta property="og:url" content="http://yoursite.com/2018/06/29/arts/tip/T-java-thread-unit/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
-<meta property="og:description" content="¶遇到背景 本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。 发现与书中使用main方法来测试的结果是不一样的。 ¶问题描述 为了描述问题，先引用书中的例子：定义一个简单地任务，代码如下： 123456789101112131415161718192021public class LiftOff implements Runnable &amp;#1">
-<meta property="og:updated_time" content="2018-07-03T16:21:12.000Z">
+<meta property="og:description" content="¶遇到背景 本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。 发现与书中使用main方法来测试的结果是不一样的。">
+<meta property="og:updated_time" content="2018-07-03T16:22:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Junit测试Java多线程小疑">
-<meta name="twitter:description" content="¶遇到背景 本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。 发现与书中使用main方法来测试的结果是不一样的。 ¶问题描述 为了描述问题，先引用书中的例子：定义一个简单地任务，代码如下： 123456789101112131415161718192021public class LiftOff implements Runnable &amp;#1">
+<meta name="twitter:description" content="¶遇到背景 本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。 发现与书中使用main方法来测试的结果是不一样的。">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -181,6 +181,7 @@
         <h2 id="遇到背景"><a class="header-anchor" href="#遇到背景">¶</a>遇到背景</h2>
 <p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。<br>
 发现与书中使用main方法来测试的结果是不一样的。</p>
+<a id="more"></a>
 <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
 <p>为了描述问题，先引用书中的例子：定义一个简单地任务，代码如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LiftOff</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">	<span class="keyword">protected</span> <span class="keyword">int</span> countDown = <span class="number">10</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> taskCount = <span class="number">0</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> id = taskCount++;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">(<span class="keyword">int</span> countDown)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.countDown = countDown;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">status</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"#"</span> + id + <span class="string">"("</span> + (countDown &gt; <span class="number">0</span> ? countDown : <span class="string">"liftoff!"</span>) + <span class="string">"),"</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">while</span> (countDown-- &gt; <span class="number">0</span>) &#123;</div><div class="line">			System.out.println(status());</div><div class="line">			Thread.yield();</div><div class="line">		&#125;</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -337,9 +338,18 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          脚踏实地学习
+        
+      </div>
+    </a>
   
-    <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">脚踏实地学习</div>
+  
+    <a href="/2018/06/23/arts/tip/T-onlineproblem/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一个bug引发另个bug</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -495,19 +505,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">share</a>
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -519,15 +525,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
+                <a href="javascript:void(0)" class="js-tag color1">share</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -540,6 +542,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
               </li>
             
             <div class="clearfix"></div>
