@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/7 | cloudfeng Daily</title>
+  <title>Review《How you can improve your workflow using the JavaScript console》 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="cloudfeng Daily">
-<meta property="og:url" content="http://yoursite.com/archives/2018/07/index.html">
+  <meta name="description" content="¶概述 本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。 ¶Console的作用 JS中的console是每个浏览器必备的一个特性。它允许开发者：  View a log of errors and warnings that occur on a web page. 查看出现在web页面中错误和警告 Interact with th">
+<meta name="keywords" content="review,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Review《How you can improve your workflow using the JavaScript console》">
+<meta property="og:url" content="http://yoursite.com/2018/07/07/arts/review/R-using-js-console/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
+<meta property="og:description" content="¶概述 本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。 ¶Console的作用 JS中的console是每个浏览器必备的一个特性。它允许开发者：  View a log of errors and warnings that occur on a web page. 查看出现在web页面中错误和警告 Interact with th">
+<meta property="og:updated_time" content="2018-07-08T13:33:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cloudfeng Daily">
+<meta name="twitter:title" content="Review《How you can improve your workflow using the JavaScript console》">
+<meta name="twitter:description" content="¶概述 本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。 ¶Console的作用 JS中的console是每个浏览器必备的一个特性。它允许开发者：  View a log of errors and warnings that occur on a web page. 查看出现在web页面中错误和警告 Interact with th">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -153,195 +158,206 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-arts/review/R-using-js-console" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Review《How you can improve your workflow using the JavaScript console》
+    </h1>
+  
+
+        
+        <a href="/2018/07/07/arts/review/R-using-js-console/" class="archive-article-date">
+  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。</p>
+<h2 id="console的作用"><a class="header-anchor" href="#console的作用">¶</a>Console的作用</h2>
+<p>JS中的console是每个浏览器必备的一个特性。它允许开发者：</p>
+<ul>
+<li>View a log of errors and warnings that occur on a web page.<br>
+查看出现在web页面中错误和警告</li>
+<li>Interact with the web page using JavaScript commands.<br>
+使用JS命令与web页面进行交互</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>Debug applications and traverse the DOM directly in the browser<br>
+直接绕过DOM调试应用</li>
+<li>Inspect and analyze network activity<br>
+监测和分析网络活动</li>
+</ul>
+<h2 id="调试类"><a class="header-anchor" href="#调试类">¶</a>调试类</h2>
+<p>使用如下函数，可以传入多个参数，它们会自动拼接，并以空格分隔，最终显示要查看的内容。</p>
+<ul>
+<li><code>Console.log</code></li>
+<li><code>Console.error</code></li>
+<li><code>Console.warn</code></li>
+<li><code>Console.info</code></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> niceJson = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"log"</span>, niceJson, <span class="keyword">new</span> <span class="built_in">Date</span>());</div><div class="line"><span class="built_in">console</span>.warn(<span class="string">"warn"</span>, niceJson, <span class="keyword">new</span> <span class="built_in">Date</span>());</div><div class="line"><span class="built_in">console</span>.info(<span class="string">"info"</span>, niceJson, <span class="keyword">new</span> <span class="built_in">Date</span>());</div></pre></td></tr></table></figure>
+<h2 id="归类"><a class="header-anchor" href="#归类">¶</a>归类</h2>
+<p>使用<code>console.group</code>把<code>log</code>（或者<code>info</code>或者<code>warn</code>)归为一起。</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.group(<span class="string">'doSomething Profile'</span>);</div><div class="line">    <span class="keyword">const</span> _data = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'evauating data:'</span>, _data);</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> _fullName = <span class="string">`<span class="subst">$&#123;obj.firstName&#125;</span> <span class="subst">$&#123;obj.lastName&#125;</span>`</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'fullName:'</span>, _fullName);</div><div class="line">    <span class="keyword">const</span> _id = <span class="built_in">Math</span>.random(<span class="number">1</span>);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, _id);</div><div class="line">    <span class="built_in">console</span>.groupEnd();</div><div class="line">&#125;</div><div class="line"></div><div class="line">doSomething(&#123;<span class="string">"firstName"</span>:<span class="string">"yun"</span>, <span class="string">"lastName"</span>:<span class="string">"feng"</span>&#125;);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>doSomething Profile<br>
+evauating data: Sun Jul 08 2018 15:46:11 GMT+0800 (China Standard Time)<br>
+fullName: yun feng<br>
+id: 0.26763583139597613</p>
+</blockquote>
+<h2 id="数据表格化"><a class="header-anchor" href="#数据表格化">¶</a>数据表格化</h2>
+<p>可以使用<code>console.table</code>将对象或者对象数组表格化。</p>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> typeOfConsole = [</div><div class="line">    &#123;<span class="attr">name</span>:<span class="string">'log'</span>, <span class="attr">type</span>:<span class="string">'standard'</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>:<span class="string">'info'</span>, <span class="attr">type</span>:<span class="string">'standard'</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>:<span class="string">'table'</span>, <span class="attr">type</span>:<span class="string">'wow'</span>&#125;</div><div class="line">];</div><div class="line"></div><div class="line"><span class="built_in">console</span>.table(typeOfConsole);</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<table>
+<thead>
+<tr>
+<th>(index)</th>
+<th>name</th>
+<th>type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>“log”</td>
+<td>“standard”</td>
+</tr>
+<tr>
+<td>1</td>
+<td>“info”</td>
+<td>“standard”</td>
+</tr>
+<tr>
+<td>2</td>
+<td>“table”</td>
+<td>“wow”</td>
+</tr>
+</tbody>
+</table>
+<p>示例2：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> mySocial = &#123;</div><div class="line">    <span class="attr">facebook</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">linkedin</span>:<span class="literal">false</span>,</div><div class="line">    <span class="attr">flickr</span>:<span class="literal">false</span>,</div><div class="line">    <span class="attr">instagram</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">Vkontaktebadoo</span>:<span class="literal">false</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.table(mySocial);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>(index)</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>facebook</td>
+<td>true</td>
+</tr>
+<tr>
+<td>linkedin</td>
+<td>false</td>
+</tr>
+<tr>
+<td>flickr</td>
+<td>false</td>
+</tr>
+<tr>
+<td>instagram</td>
+<td>true</td>
+</tr>
+<tr>
+<td>Vkontaktebadoo</td>
+<td>false</td>
+</tr>
+</tbody>
+</table>
+<h2 id="统计类"><a class="header-anchor" href="#统计类">¶</a>统计类</h2>
+<p>测试函数的运行时间或者统计某一行代码执行的总数。</p>
+<ul>
+<li><code>console.count</code></li>
+<li><code>console.time</code></li>
+<li><code>console.timeEnd</code></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.time(<span class="string">'total'</span>);</div><div class="line"><span class="built_in">console</span>.time(<span class="string">'init arr'</span>);</div><div class="line"><span class="keyword">const</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">20</span>);</div><div class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'init arr'</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; ++i) &#123;</div><div class="line">    arr[i] = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">    <span class="keyword">const</span> _type = (i % <span class="number">2</span> === <span class="number">0</span>) ? <span class="string">'even'</span> : <span class="string">'odd'</span>;</div><div class="line">    <span class="built_in">console</span>.count(_type + <span class="string">" added"</span>);</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.timeEnd(<span class="string">'total'</span>);</div></pre></td></tr></table></figure>
+<p>结果：</p>
+<blockquote>
+<p>init arr: 0.003662109375ms<br>
+even added: 1<br>
+odd added: 1<br>
+even added: 2<br>
+odd added: 2<br>
+even added: 3<br>
+odd added: 3<br>
+even added: 4<br>
+odd added: 4<br>
+even added: 5<br>
+odd added: 5<br>
+even added: 6<br>
+odd added: 6<br>
+even added: 7<br>
+odd added: 7<br>
+even added: 8<br>
+odd added: 8<br>
+even added: 9<br>
+odd added: 9<br>
+even added: 10<br>
+odd added: 10<br>
+total: 2.650146484375ms</p>
+</blockquote>
+<h2 id="堆栈跟踪类"><a class="header-anchor" href="#堆栈跟踪类">¶</a>堆栈跟踪类</h2>
+<ul>
+<li><code>console.trace</code></li>
+<li><code>console.assert</code></li>
+</ul>
+<p>示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lesserThan</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.assert(a &lt; b, &#123;<span class="string">"message"</span>:<span class="string">"a is not lesser than b"</span>, <span class="string">"a"</span>:a, <span class="string">"b:"</span>:b&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">lesserThan(<span class="number">6</span>, <span class="number">5</span>);</div><div class="line"><span class="built_in">console</span>.trace(<span class="string">"End"</span>);</div><div class="line"></div><div class="line"><span class="comment">// result</span></div><div class="line">VM634:<span class="number">2</span> Assertion failed: &#123;<span class="attr">message</span>: <span class="string">"a is not lesser than b"</span>, <span class="attr">a</span>: <span class="number">6</span>, <span class="attr">b</span>:: <span class="number">5</span>&#125;</div><div class="line">lesserThan @ VM634:<span class="number">2</span></div><div class="line">(anonymous) @ VM634:<span class="number">5</span></div><div class="line">VM634:<span class="number">6</span> End</div><div class="line">(anonymous) @ VM634:<span class="number">6</span></div></pre></td></tr></table></figure>
+<h2 id="清除console"><a class="header-anchor" href="#清除console">¶</a>清除<code>console</code></h2>
+<p>使用<a href="https://github.com/webpack-contrib/uglifyjs-webpack-plugin" target="_blank" rel="external"><code>uglifyjs-webpack-plugin</code></a>清除所有的<code>console</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> UglifyJsPlugin = <span class="built_in">require</span>(<span class="string">'uglify-webpack-plugin'</span>)</div><div class="line"><span class="keyword">var</span> debug = process.env.NODE_ENV !== <span class="string">'production'</span></div><div class="line"></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line">optimization:&#123;</div><div class="line">    <span class="attr">minimizer</span>:!debug ? [</div><div class="line">            <span class="keyword">new</span> UglifyJsPlugin(&#123;</div><div class="line">                <span class="comment">// compression specific options</span></div><div class="line">                uglifyOption: &#123;</div><div class="line">                    <span class="comment">// Eliminate comments</span></div><div class="line">                    comments:<span class="literal">false</span>,</div><div class="line">                    <span class="attr">compress</span>: &#123;</div><div class="line">                        <span class="comment">// removing warnings</span></div><div class="line">                        warnings:<span class="literal">false</span>,</div><div class="line">                        <span class="comment">// drop console statements</span></div><div class="line">                        drop_console: <span class="literal">true</span></div><div class="line">                    &#125;,</div><div class="line">                &#125;</div><div class="line">            &#125;)] :[]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<p>毕竟使用<code>console</code>是用来调试代码的，不能让这些代码上生产版本，所以需要注意之处。另外，就是在十分明确的地方就没有必要使用<code>console</code>,以免滥用误用。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/07/arts/share/S-grep/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/07/arts/share/S-grep/">Share：grep命令查日志和日志内容乱码</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">Algorithm:Remove Duplicates from Sorted Array</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/07/arts/7m1w-summary/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/07/arts/7m1w-summary/">ARTS-7月1周</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/07/arts/review/R-using-js-console/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/07/arts/review/R-using-js-console/">Review《How you can improve your workflow using the JavaScript console》</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -357,7 +373,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -370,74 +386,111 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/07/07/arts/review/R-using-js-console/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/07/07/arts/7m1w-summary/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ARTS-7月1周
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SLF4J 和 LOG4J</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">slf4j</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">log4j</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -460,8 +513,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
