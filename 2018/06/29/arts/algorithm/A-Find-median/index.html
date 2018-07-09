@@ -158,242 +158,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-arts/algorithm/A-Find-median" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Algorithm:Median of Two Sorted Arrays
-    </h1>
-  
-
-        
-        <a href="/2018/06/29/arts/algorithm/A-Find-median/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
-<p>There are two <strong>sorted arrays</strong> nums1 and nums2 of size m and n respectively.<br>
-Find the median of the two sorted arrays. The overall run time complexity<br>
-should be <strong>O(log(m+n))</strong>.</p>
-<p>Example 1:</p>
-<blockquote>
-<p>nums1 = [1, 3]<br>
-nums2 = [2]<br>
-The median is 2.0</p>
-</blockquote>
-<p>Example 2:</p>
-<blockquote>
-<p>nums1 = [1, 2]<br>
-nums2 = [3, 4]<br>
-The median is (2 + 3)/2 = 2.5</p>
-</blockquote>
-<ul>
-<li>Level: Hard</li>
-</ul>
-<a id="more"></a>
-<h2 id="解题思路与状态"><a class="header-anchor" href="#解题思路与状态">¶</a>解题思路与状态</h2>
-<h3 id="问题分析"><a class="header-anchor" href="#问题分析">¶</a>问题分析</h3>
-<ul>
-<li>已知条件<br>
-两个排序数组，数组num1，元素个数为m；数组num2，元素个数为n；</li>
-<li>问题<br>
-找到num1和num2的中位数</li>
-<li>约束<br>
-算法的运行最坏时间为 <code>O(log(m+n))</code></li>
-</ul>
-<h3 id="解题思路"><a class="header-anchor" href="#解题思路">¶</a>解题思路</h3>
-<h4 id="归并排序法"><a class="header-anchor" href="#归并排序法">¶</a>归并排序法</h4>
-<p>如果没有时间约束，就可以使用归并排序，若排序后的结果为nums3,元素个数为k=m+n;最终将问题转化为：<br>
-求数组nums3的中位数。</p>
-<ul>
-<li>若k为奇数，直接为nums3[k/2];</li>
-<li>若k为偶数，则为(nums3[k/2]+nums3[k/2-1])/2；</li>
-</ul>
-<p>此解法的时间复杂度为O(m+n),主要是归并排序上；空间复杂度为O(m+n)，用于暂存归并排序后的结果。<br>
-具体的代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// find the median of a sorted arrray</span></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">double</span> <span class="title">findMedianSortedSignleArray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || <span class="number">0</span> == nums.length) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span>  IllegalArgumentException(<span class="string">"sorted arrays are illegal."</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len = nums.length;</div><div class="line">    <span class="keyword">if</span> (<span class="number">0</span> == len % <span class="number">2</span>) &#123;</div><div class="line">        <span class="keyword">return</span> (nums[len/<span class="number">2</span>] + nums[len/<span class="number">2</span> - <span class="number">1</span>]) / <span class="number">2.0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> nums[len/<span class="number">2</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums1 || <span class="number">0</span> == nums1.length) &#123;</div><div class="line">        <span class="keyword">return</span> findMedianSortedSignleArray(nums2);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums2 || <span class="number">0</span> == nums2.length) &#123;</div><div class="line">        <span class="keyword">return</span> findMedianSortedSignleArray(nums1);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="comment">// using merge sort </span></div><div class="line">    <span class="keyword">int</span> n = nums1.length;</div><div class="line">    <span class="keyword">int</span> m = nums2.length;</div><div class="line">    </div><div class="line">    <span class="keyword">int</span>[] mergeNum = <span class="keyword">new</span> <span class="keyword">int</span>[n + m];</div><div class="line">    </div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (i &lt; n &amp; j &lt; m) &#123;</div><div class="line">        <span class="keyword">if</span> (nums1[i] &gt; nums2[j]) &#123;</div><div class="line">            mergeNum[k++] = nums2[j++];</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            mergeNum[k++] = nums1[i++];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (i &lt; n) &#123;</div><div class="line">        mergeNum[k++] = nums1[i++];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (j &lt; m) &#123;</div><div class="line">        mergeNum[k++] = nums2[j++];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> findMedianSortedSignleArray(mergeNum);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="递归算法"><a class="header-anchor" href="#递归算法">¶</a>递归算法</h3>
-<p>目前递归算法还未写出来，断断续续思考使用递归的想法有几天了，一直未果。现在留着不写，后续解决<br>
-之后在补上。</p>
-<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
-<p>对于使用递归算法解决此问题没能解决，内心是十分痛苦的。目前的思路是能否借助于二分查找算法解决，<br>
-最为关键的是递归结束的条件是什么。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/29/arts/algorithm/A-Find-median/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/06/29/arts/6m4w-summary/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          ARTS-6月4周
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">脚踏实地学习</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
-  
-
-  
-
-  
-
-
+            
           </div>
         </div>
       </div>
@@ -540,27 +305,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">share</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tip</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -572,15 +325,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">bug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
             
             <div class="clearfix"></div>

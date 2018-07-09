@@ -160,268 +160,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-arts/tip/T-onlineproblem" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      一个bug引发另个bug
-    </h1>
-  
-
-        
-        <a href="/2018/06/23/arts/tip/T-onlineproblem/" class="archive-article-date">
-  	<time datetime="2018-06-22T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-23</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="一个bug背景"><a class="header-anchor" href="#一个bug背景">¶</a>一个bug背景</h2>
-<p>在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本<br>
-上线的最后一天，所以建议不要修改，原因如下：</p>
-<a id="more"></a>
-<ul>
-<li>每次发版当天的环境会很差，各个关联方环境极其不稳定；</li>
-<li>本身有很多需求都没全部覆盖测试；</li>
-<li>改完之后都需要走回归测试，测试同事有时间么；</li>
-</ul>
-<p>但是组长觉得小小需求，测试负责人也说支持。最后妥协，修改了，当天就搞定了。周四开始回归测试，测试<br>
-同事测试出一个bug了，为说明此bug产生的缘由，说明一些简称：</p>
-<p>1.客户级别L：（0：低；1：高）;<br>
-2.数据源：</p>
-<ul>
-<li>
-<p>客户OCR扫描完证件信息（A）</p>
-</li>
-<li>
-<p>本地数据库（B）</p>
-</li>
-<li>
-<p>客户预留信息（C）</p>
-</li>
-<li>
-<p>关系方的信息（D）<br>
-3.渠道：A 和 B</p>
-<p>需求做一个比对，判断是否同一个人，此需求是小灰同事负责开发（同事之间需要和谐相处说，随意取名小<br>
-灰。<img class="github-emoji" title="smile" alt="smile" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png?v8" height="20" width="20"> ），在此将简单写成伪代码，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">  res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     res = false</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            res = false</div><div class="line">        END</div><div class="line">    else </div><div class="line">        res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"> return res</div></pre></td></tr></table></figure>
-<p>周四测试同事发现低级别的客户，OCR扫的与本地库不同，居然也认为是本人，所以将bug给小灰和我。当<br>
-时我看着日志，把数据对比的数据拿出来，写单元测试，发现确实如此。然后就叫小灰过来，给他讲了一下，<br>
-发现的问题，A渠道来的在块1比较是不同的人，客户又是低级的而D数据不存，覆盖了之前校验的值，将其<br>
-变为是本人了。后面他说：“不是很明白，回桌上自己想想”。最后他说改完了，移交测试了。由于我负责其<br>
-他的需求开发，负责查日志，忙着就忘记去看小灰怎么改的。后面就上线了，由于小灰需要支持版本发布，<br>
-周五调休。</p>
-</li>
-</ul>
-<h2 id="另一个bug背景"><a class="header-anchor" href="#另一个bug背景">¶</a>另一个bug背景</h2>
-<p>周五一上班，大概10点多，收到很多邮件，一会查这个一会查另外一个。当天看到6笔报不是本人的异常，<br>
-赶紧查日志。拉取最新的代码，查完分析代码。小灰修改后的代码，改写伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     res = false</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            res = false</div><div class="line">        END</div><div class="line">    //else  // 小灰修改处</div><div class="line">       // res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"></div><div class="line"> return res</div></pre></td></tr></table></figure>
-<p>分析出来是，B渠道，低级别客户，在数据D不存在的情况下，一直是非本人。所以与测试沟通造相关的数<br>
-据，复现生成问题。</p>
-<h2 id="bug修复处理"><a class="header-anchor" href="#bug修复处理">¶</a>bug修复处理</h2>
-<p>最后跟领导申请紧急版本处理修复，由于是由一个bug引起bug，问了如下三个问题：</p>
-<ul>
-<li>修改的代码是否有review</li>
-<li>测试同事是否有案例review</li>
-<li>是否负责人报备</li>
-</ul>
-<p>我的回答都是否定的，当时发现第一个bug的时候，我跟测试负责人打了招呼，但是没有跟组长说，后面也没<br>
-有review小灰修改的代码。处理此事我司步骤如下：</p>
-<ul>
-<li>发邮件申请紧急版本给部门长；</li>
-<li>开发直属领导与部门长说明bug问题；</li>
-<li>修复bug</li>
-<li>测试回归</li>
-<li>发布版本</li>
-<li>生成验证</li>
-</ul>
-<p>修改小灰的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">res = false</div><div class="line">  // 块1</div><div class="line">  if A then</div><div class="line">    if A == B then</div><div class="line">      res = true</div><div class="line">    else</div><div class="line">     return false // 修1</div><div class="line">    END</div><div class="line"> END</div><div class="line"></div><div class="line">// 块2</div><div class="line"> if L == 0 then</div><div class="line">    // 块2.1</div><div class="line">    if D 存在 then </div><div class="line">        if A == D then </div><div class="line">           res = true</div><div class="line">        else </div><div class="line">            return false // 修改2</div><div class="line">        END</div><div class="line">    else  // 修改3 仍旧加上</div><div class="line">       res = true</div><div class="line">    END</div><div class="line"> // 块2.2</div><div class="line"> else</div><div class="line">   if A == C then</div><div class="line">    res = true</div><div class="line">   else</div><div class="line">    res = false</div><div class="line">  END</div><div class="line"> END</div><div class="line"> return res</div></pre></td></tr></table></figure>
-<p>然后与组长一起review代码，影响业务比较大，所以需要快速解决，没有重构代码。好了之后，画好流程<br>
-图，给测试同事讲解，再告诉测试同事在测试环境造什么样的数据，让其一个分支一个分支的测试。上线之<br>
-后，自己又找人生产验证。</p>
-<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
-<p><strong>问责的时候，心里面确实不舒服，不是我的错，为啥要我承担。</strong> 后面想想，自己也有责任，发现了bug，<br>
-没有和小灰一同修复。今天就把此两个bug回顾，总结如下：</p>
-<ul>
-<li>复杂的业务逻辑画好流程图，与测试同事一同案例评审；</li>
-<li>开发单元测试一定做足；</li>
-<li>不要逃避责任。</li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">bug</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">线上问题</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/23/arts/tip/T-onlineproblem/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/06/23/arts/review/R-mutil-interests/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Review:多兴趣成功以及5小时法则
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2017/07/31/mock-rap-basic-uasge/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">mock和RAP入门教程</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
-  
-
-  
-
-  
-
-
+            
           </div>
         </div>
       </div>
@@ -568,27 +307,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">share</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tip</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -600,15 +327,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">bug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
             
             <div class="clearfix"></div>

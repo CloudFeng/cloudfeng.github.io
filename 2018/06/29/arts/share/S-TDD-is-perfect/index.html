@@ -160,239 +160,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-arts/share/S-TDD-is-perfect" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      测试驱动开发小思考
-    </h1>
-  
-
-        
-        <a href="/2018/06/29/arts/share/S-TDD-is-perfect/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="tdd疑问"><a class="header-anchor" href="#tdd疑问">¶</a>TDD疑问</h2>
-<p>最近学习TDD开发，用在平时开发的时候，就会发现TDD并不完美，特别是测试先行和各种需要覆盖<br>
-的测试。存在疑问如下：</p>
-<ul>
-<li>是否真的需要一开始就写测试，然后一步一步驱动去开发呢；</li>
-<li>后续测试用例的维护，特别与关联其他部门的接口，各种mock和stub；</li>
-<li>耗费的时候比先写好代码再测试更大；</li>
-</ul>
-<a id="more"></a>
-<h2 id="一些观点"><a class="header-anchor" href="#一些观点">¶</a>一些观点</h2>
-<p>对TDD有一些不成熟的想法，不一定非等需要严格按照TDD开发流程进行项目开发，找到适合自己的就行。TDD<br>
-对我来说很难掌握，但可以从TDD中学习和借鉴的是：</p>
-<ul>
-<li>开发自己列好测试清单，以便我们单元测试做得足够；</li>
-<li>重构自己写的代码；</li>
-</ul>
-<p>后面在StackoverFlow上看到一个帖子<a href="https://stackoverflow.com/questions/153234/how-deep-are-your-unit-tests/#" target="_blank" rel="external">How deep are your unit tests?</a>，附上问题和比较喜欢的答案：</p>
-<ol>
-<li>问题</li>
-</ol>
-<blockquote>
-<p>The thing I’ve found about TDD is that its takes time to get your tests set up and being naturally lazy I always want to write as little code as possible. The first thing I seem do is test my constructor has set all the properties but is this overkill?</p>
-</blockquote>
-<blockquote>
-<p>My question is to what level of granularity do you write you unit tests at?<br>
-…and is there a case of testing too much?</p>
-</blockquote>
-<p>比较喜欢的两个回答：</p>
-<ol>
-<li>TDD创始人Kent Beck回答：</li>
-</ol>
-<blockquote>
-<p>I get paid for code that works, not for tests, so my philosophy is <strong>to test as little as possible to reach a given level of confidence</strong> (I suspect this level of confidence is high compared to industry standards, but that could just be hubris). If I don’t typically make a kind of mistake (like setting the wrong variables in a constructor), I don’t test for it. <strong>I do tend to make sense of test errors, so I’m extra careful when I have logic with complicated conditionals</strong>. When coding on a team, I modify my strategy to carefully test code that we, collectively, tend to get wrong.</p>
-</blockquote>
-<blockquote>
-<p>Different people will have different testing strategies based on this philosophy, but that seems reasonable to me given the immature state of understanding of how tests can best fit into the inner loop of coding. Ten or twenty years from now we’ll likely have a more universal theory of which tests to write, which tests not to write, and how to tell the difference. In the meantime, experimentation seems in order.</p>
-</blockquote>
-<p>kitofr的回答</p>
-<blockquote>
-<p>Everything should be made as simple as possible, but not simpler. - A. Einstein<br>
-One of the most misunderstood things about TDD is the first word in it. Test. That’s why BDD came along. Because people didn’t really understand that the first D was the important one, namely Driven. We all tend to think a little bit to much about the Testing, and a little bit to little about the driving of design. And I guess that this is a vague answer to your question, <strong>but you should probably consider how to drive your code, instead of what you actually are testing; that is something a Coverage-tool can help you with. Design is a quite bigger and more problematic issue</strong>.</p>
-</blockquote>
-<p>后来看到耗子叔写了一篇<a href="https://coolshell.cn/articles/3649.html?spm=a2c4e.11153940.blogcont381465.6.135360acpMQfws" target="_blank" rel="external">TDD并不是看上去的那么美</a>,比我写的好，思考的深。<img class="github-emoji" title="blush" alt="blush" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f60a.png?v8" height="20" width="20"><br>
-另外关于<a href="https://softwareengineering.stackexchange.com/questions/59928/difference-between-unit-testing-and-test-driven-development" target="_blank" rel="external">Unit test VS TDD</a>讨论也是十分精彩的，推荐阅读。</p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TDD</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/06/29/arts/share/S-TDD-is-perfect/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          脚踏实地学习
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/06/29/arts/tip/T-java-thread-unit/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Junit测试Java多线程小疑</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
-  
-
-  
-
-  
-
-
+            
           </div>
         </div>
       </div>
@@ -539,27 +307,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">share</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tip</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -571,15 +327,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">bug</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
             
             <div class="clearfix"></div>
