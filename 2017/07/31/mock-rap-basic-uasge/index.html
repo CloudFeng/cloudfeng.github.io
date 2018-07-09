@@ -160,7 +160,307 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-mock-rap-basic-uasge" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mock和RAP入门教程
+    </h1>
+  
+
+        
+        <a href="/2017/07/31/mock-rap-basic-uasge/" class="archive-article-date">
+  	<time datetime="2017-07-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-31</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端协作效率。</p>
+<a id="more"></a>
+<h2 id="mockjs1"><a class="header-anchor" href="#mock-js-sup-id-fnref-1-a-href-fn-1-rel-footnote-1-a-sup">¶</a>mock.js<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h2>
+<p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
+<h3 id="语法规范"><a class="header-anchor" href="#语法规范">¶</a>语法规范</h3>
+<ul>
+<li>数据模板定义规范(DTD:Data Template Definition)</li>
+<li>数据占位符规范(DPD: Data Placeholder definition)</li>
+</ul>
+<h3 id="数据模板定义规范"><a class="header-anchor" href="#数据模板定义规范">¶</a>数据模板定义规范</h3>
+<h4 id="格式"><a class="header-anchor" href="#格式">¶</a>格式</h4>
+<p><code>'name|rule':value</code> (属性名|生成规则:属性值)，其中生成规则是可选的</p>
+<h4 id="生成规则"><a class="header-anchor" href="#生成规则">¶</a>生成规则</h4>
+<ul>
+<li>
+<p>7种生成规则</p>
+<ol>
+<li><code>'name|min-max':value</code></li>
+<li><code>'name|count':value</code></li>
+<li><code>'name|min-max.dmin-dmax':value</code></li>
+<li><code>'name|+step':value</code></li>
+<li><code>'name|min-max.dcount':value</code></li>
+<li><code>'name|count.dmin-dmax':value</code></li>
+<li><code>'name|count.dcount':value</code></li>
+</ol>
+</li>
+<li>
+<p>生成规则的含义依赖属性值的类型才能确认，这一点特别重要。也是mock的关键所在。<br>
+比如：</p>
+<ul>
+<li><code>'name|min-max':string</code>: 通过重复[min,max]次string生成新字符串。</li>
+<li><code>'name|min-max':number</code>: 生成一个number，返回在[min,max]。</li>
+</ul>
+</li>
+</ul>
+<h4 id="属性值"><a class="header-anchor" href="#属性值">¶</a>属性值</h4>
+<ol>
+<li>属性值可含@（占位符）</li>
+<li>指定最终的值和类型</li>
+<li>属性值类型
+<ul>
+<li>String</li>
+<li>Number</li>
+<li>Boolean</li>
+<li>Object</li>
+<li>Array</li>
+<li>Function</li>
+<li>RegExp</li>
+<li>Path</li>
+</ul>
+</li>
+</ol>
+<p>学过js看着十分简单，只是多了RegExp 和 Path，其他简直一模一样。</p>
+<h3 id="数据占位符定义规范dpd"><a class="header-anchor" href="#数据占位符定义规范dpd">¶</a>数据占位符定义规范DPD</h3>
+<h4 id="占位符"><a class="header-anchor" href="#占位符">¶</a>占位符</h4>
+<p>1.占位符只是在属性字符串中占个位置，并不出现在最终的属性值中<br>
+2.格式：@占位符或者@占位符(参数[,参数])<br>
+3.占位符</p>
+<blockquote>
+<ul>
+<li>用@标识后面的字符串是占位符</li>
+</ul>
+</blockquote>
+<ul>
+<li>引用的是<code>Mock.Random</code>中的方法</li>
+<li>扩展定义占位符：<code>Mock.Random.extend()</code></li>
+<li>引用数据模板中的属性</li>
+<li>支持相对路径和绝对路径</li>
+</ul>
+<p>4.数据占位符类型<br>
+数据占位符一共有如下几种类型：</p>
+<ul>
+<li>Basic</li>
+<li>Date</li>
+<li>Image</li>
+<li>Color</li>
+<li>Text</li>
+<li>Name</li>
+<li>Web</li>
+<li>Address</li>
+<li>Helper</li>
+<li>Miscellaneous</li>
+</ul>
+<p>具体mock语法示例，请参考mock示例<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>，里面详细的介绍了各个类型使用方法。</p>
+<h2 id="rap写接口文档中运用mock3"><a class="header-anchor" href="#rap写接口文档中运用mock-sup-id-fnref-3-a-href-fn-3-rel-footnote-3-a-sup">¶</a>rap写接口文档中运用mock<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></h2>
+<h3 id="什么是rap"><a class="header-anchor" href="#什么是rap">¶</a>什么是rap</h3>
+<p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br>
+<img src="/img/rap.jpg" alt="RAP"></p>
+<h3 id="怎么在rap中是使用mock"><a class="header-anchor" href="#怎么在rap中是使用mock">¶</a>怎么在rap中是使用mock</h3>
+<p>有很多资料，且是图文并茂写博文<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup>,<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup>。总结起来，在rap中运用mock方法如下：</p>
+<ul>
+<li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>'name|rule'</code>;</li>
+<li>右边备注写 <code>@mock=value</code>。其语法规则mock一样。</li>
+</ul>
+<div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">https://github.com/nuysoft/Mock/wiki</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">http://mockjs.com/examples.html</span><a href="#fnref:2" rev="footnote"> ↩</a></li><li id="fn:3"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">3.</span><span style="display: inline-block; vertical-align: top;">https://github.com/thx/RAP/wiki/</span><a href="#fnref:3" rev="footnote"> ↩</a></li><li id="fn:4"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">4.</span><span style="display: inline-block; vertical-align: top;">http://www.imooc.com/article/17588</span><a href="#fnref:4" rev="footnote"> ↩</a></li><li id="fn:5"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">5.</span><span style="display: inline-block; vertical-align: top;">http://blog.sina.com.cn/s/blog_c00ccc680102x0ue.html</span><a href="#fnref:5" rev="footnote"> ↩</a></li></ol></div></div>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">mock</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">RAP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/tools/" class="article-tag-list-link color1">tools</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/07/31/mock-rap-basic-uasge/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/06/23/arts/algorithm/A-TwoSum/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Algorithm:Two Sum
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/25/python-http-post/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">python实现http发送POST请求</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>  
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  const gitment = new Gitment({
+    id: 'http://yoursite.com/2017/07/31/mock-rap-basic-uasge/',
+    owner: 'CloudFeng',
+    repo: 'cloudfeng.github.io',
+    oauth: {
+      client_id: 'b299710280dec8bccf76',
+      client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075'
+    }
+  });
+  gitment.render(document.getElementById('gitment-comments'));
+</script>
+
+  
+
           </div>
         </div>
       </div>
@@ -255,14 +555,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">mock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -279,6 +571,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">mock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ARTS</a>
               </li>
              
@@ -288,10 +588,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">array</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -307,6 +603,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
@@ -319,18 +619,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">junit</a>
               </li>
              
@@ -340,6 +628,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
               </li>
              
               <li class="article-tag-list-item">

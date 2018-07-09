@@ -160,7 +160,264 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-arts/tip/T-slf4jandlog4j" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SLF4J 和 LOG4J
+    </h1>
+  
+
+        
+        <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="archive-article-date">
+  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
+<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
+<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
+<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
+<a id="more"></a>
+<h2 id="小实验"><a class="header-anchor" href="#小实验">¶</a>小实验</h2>
+<p>下载<a href="https://www.slf4j.org/download.html" target="_blank" rel="external">SLF4J相关的JAR</a>,引入到<code>lass path</code>。然后运行下面小程序:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.slf4j.Logger;</div><div class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    Logger logger = LoggerFactory.getLogger(HelloWorld.class);</div><div class="line">    logger.info(<span class="string">"Hello World"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>会报如下错误:</p>
+<blockquote>
+<p>SLF4J: Failed to load class “org.slf4j.impl.StaticLoggerBinder”.<br>
+SLF4J: Defaulting to no-operation (NOP) logger implementation<br>
+SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" target="_blank" rel="external">http://www.slf4j.org/codes.html#StaticLoggerBinder</a> for further details.</p>
+</blockquote>
+<p>不要担心，到这里说明你向前走了一步，把 <code>slf4j-simple-1.8.0-beta2.jar</code>,在运行一下就出现，你想要的结果了。</p>
+<blockquote>
+<p>[main] INFO HelloWorld - Hello World</p>
+</blockquote>
+<h2 id="使用log4j"><a class="header-anchor" href="#使用log4j">¶</a>使用LOG4J</h2>
+<p>后面想打印Debug级别的日志，所以<a href="https://logging.apache.org/log4j/2.x/download.html" target="_blank" rel="external">下载log4j的JAR包</a>。下载后把其加入<code>class path</code> , 然后执行下面这个测试程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.slf4j.Logger;</div><div class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wombat</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(Wombat.class);</div><div class="line">    Integer t;</div><div class="line">    Integer oldT;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTemperature</span><span class="params">(Integer temperature)</span> </span>&#123;</div><div class="line">        oldT = t;        </div><div class="line">        t = temperature;</div><div class="line">        logger.debug(<span class="string">"Temperature set to &#123;&#125;. Old temperature was &#123;&#125;."</span>, t, oldT);</div><div class="line">        <span class="keyword">if</span>(temperature.intValue() &gt; <span class="number">50</span>) &#123;</div><div class="line">            logger.info(<span class="string">"Temperature has risen above 50 degrees."</span>);</div><div class="line">        &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>输入 temperature 大于50则有日志，否则什么也没有。</p>
+<blockquote>
+<p>Temperature has risen above 50 degrees.</p>
+</blockquote>
+<p>然后把<code>slf4j-log4j</code>加入class path 下运行就报如下错误：</p>
+<blockquote>
+<p>SLF4J: Class path contains multiple SLF4J bindings.<br>
+	SLF4J: Found binding in [jar:file:/D:/tools/extraLib/log/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]<br>
+	SLF4J: Found binding in [jar:file:/D:/tools/extraLib/log/slf4j-simple-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]<br>
+	SLF4J: See <a href="http://www.slf4j.org/codes.html#multiple_bindings" target="_blank" rel="external">http://www.slf4j.org/codes.html#multiple_bindings</a> for an explanation.</p>
+</blockquote>
+<p>先把<code>slf4j-simple-1.8.0-beta2.jar</code>移除，然后在<code>src</code>目前下新建<code>log4j.properties</code>，并敲入如下内容，用于配置<code>log4j.properties</code>和设置debug级别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">log4j.rootLogger=DEBUG, stdout</div><div class="line"></div><div class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender </div><div class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout </div><div class="line">log4j.appender.stdout.layout.ConversionPattern=%c&#123;1&#125; - %m%n</div></pre></td></tr></table></figure>
+<p>最后运行，运行结果如下：</p>
+<blockquote></blockquote>
+<p>Wombat - Temperature set to 20. Old temperature was null.<br>
+Wombat - Temperature set to 60. Old temperature was 20.<br>
+Wombat - Temperature has risen above 50 degrees.</p>
+<p>为什么遇到上面两个问题，看到手册后面的文档说明就会明白,也是我们注意的地方。现摘录如下：</p>
+<blockquote>
+<p>To switch logging frameworks, just replace slf4j bindings on your class path. For example, to switch from java.util.logging to log4j, just replace slf4j-jdk14-1.8.0-beta2.jar with slf4j-log4j12-1.8.0-beta2.jar.</p>
+</blockquote>
+<blockquote>
+<p>SLF4J does not rely on any special class loader machinery. In fact, each SLF4J binding is hardwired at compile time to use one and only one specific logging framework. For example, the slf4j-log4j12-1.8.0-beta2.jar binding is bound at compile time to use log4j. In your code, in addition to slf4j-api-1.8.0-beta2.jar, you simply drop one and only one binding of your choice onto the appropriate class path location. Do not place more than one binding on your class path.</p>
+</blockquote>
+<p>特别是下面张图，就会明了<code>SLF4J</code>的是干嘛的了，解决了啥问题。</p>
+<img src="/img/concrete-bindings.png" width="60%" height="60%">
+<h2 id="小思考"><a class="header-anchor" href="#小思考">¶</a>小思考</h2>
+<p>阅读了一下<a href="https://www.slf4j.org/manual.html" target="_blank" rel="external">manual</a>，以及捣鼓了一下两个示例，对SLF4J有点小想法如下：</p>
+<ul>
+<li>SLF4J易于维护和升级<br>
+SLF4J是一个日志API，具体日志怎么整的是日志框架的事情，将日志与日志框架解耦，也即是后面如果项目需要升级比如将 LOG4J到LogBack。</li>
+<li>高效且易于阅读<br>
+现在组里面都是使用<code>+</code>拼接打印的日志的，而SLF4J中可以使用占位符<code>{}</code>,比如第二个例子就是。</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">slf4j</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">log4j</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/07/07/arts/tip/T-slf4jandlog4j/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/07/arts/share/S-grep/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Share：grep命令查日志和日志内容乱码</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+  <div id="gitment-comments"></div>  
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  const gitment = new Gitment({
+    id: 'http://yoursite.com/2018/07/07/arts/tip/T-slf4jandlog4j/',
+    owner: 'CloudFeng',
+    repo: 'cloudfeng.github.io',
+    oauth: {
+      client_id: 'b299710280dec8bccf76',
+      client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075'
+    }
+  });
+  gitment.render(document.getElementById('gitment-comments'));
+</script>
+
+  
+
           </div>
         </div>
       </div>
@@ -255,14 +512,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">mock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
@@ -279,6 +528,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">mock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">RAP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">ARTS</a>
               </li>
              
@@ -288,10 +545,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">array</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -307,6 +560,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
@@ -319,18 +576,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">bug</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">junit</a>
               </li>
              
@@ -340,6 +585,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">bug</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">线上问题</a>
               </li>
              
               <li class="article-tag-list-item">
