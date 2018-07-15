@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Category: python | cloudfeng Daily</title>
+  <title>Algorithm:Remove Duplicates from Sorted Array | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="cloudfeng Daily">
-<meta property="og:url" content="http://yoursite.com/categories/python/index.html">
+  <meta name="description" content="¶问题 Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modi">
+<meta name="keywords" content="algorithm,array">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Algorithm:Remove Duplicates from Sorted Array">
+<meta property="og:url" content="http://yoursite.com/2018/07/07/arts/algorithm/A-remove-duplicates-from-array/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
+<meta property="og:description" content="¶问题 Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modi">
+<meta property="og:updated_time" content="2018-07-15T06:38:52.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cloudfeng Daily">
+<meta name="twitter:title" content="Algorithm:Remove Duplicates from Sorted Array">
+<meta name="twitter:description" content="¶问题 Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length. Do not allocate extra space for another array, you must do this by modi">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -153,76 +158,240 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-arts/algorithm/A-remove-duplicates-from-array" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/07/25/python-http-post/" class="archive-article-date">
-  	<time datetime="2017-07-24T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-25</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/07/25/python-http-post/">python实现http发送POST请求</a>
+    <h1 class="article-title" itemprop="name">
+      Algorithm:Remove Duplicates from Sorted Array
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/07/07/arts/algorithm/A-remove-duplicates-from-array/" class="archive-article-date">
+  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>Given a sorted array nums, remove the duplicates <strong>in-place</strong> such that each element appear only once and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+ <a id="more"></a>
+<h3 id="example-1"><a class="header-anchor" href="#example-1">¶</a>Example 1:</h3>
+<blockquote>
+<p>Given nums = [1,1,2],<br>
+Your function should return length = 2, with the first two elements of nums being 1 and 2 respectively.<br>
+It doesn’t matter what you leave beyond the returned length.</p>
+</blockquote>
+<h3 id="example-2"><a class="header-anchor" href="#example-2">¶</a>Example 2:</h3>
+<blockquote>
+<p>Given nums = [0,0,1,1,1,2,2,3,3,4],<br>
+Your function should return length = 5, with the first five elements of nums being modified to 0, 1, 2, 3, and 4 respectively.<br>
+It doesn’t matter what values are set beyond the returned length.</p>
+</blockquote>
+<ul>
+<li>Level: Hard</li>
+</ul>
+<h2 id="解题思路"><a class="header-anchor" href="#解题思路">¶</a>解题思路</h2>
+<p>如果没有<code>O(1)</code>的空间复杂度，并且不关注修改后原来数组的结果。我们可以利用<code>set</code>或者<code>map</code>来解决此题。现在题目既然要求<code>O(1)</code>的空间复杂度解决，那么可以使用“双指针”的思路和排序数组的特性来解决此题,具体思路如下：</p>
+<ol>
+<li>设<code>pos</code>为新数组下标值，初始化为0；<code>idx</code>为原数组的下标，[1, n);</li>
+<li>若arr[pos] != arr[i],则 arr[pos++] = arr[i]</li>
+<li>重复2，直到 i = n;</li>
+<li>返回 新数组的长度：pos+1</li>
+</ol>
+<p>详细代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeDuplicates</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len = nums.length;</div><div class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> idx = <span class="number">1</span>; idx &lt; len; ++idx) &#123;</div><div class="line">        <span class="keyword">if</span> (nums[pos] != nums[idx]) &#123;</div><div class="line">            nums[++pos] = nums[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> pos + <span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>时间复杂度为O(n),其中n为排序数组的长度；</li>
+<li>空间复杂度为O(1)</li>
+</ul>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechat-withdraw.jpeg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/python/" class="article-tag-list-link color2">python</a>
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/07/07/arts/algorithm/A-remove-duplicates-from-array/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
+    <div>
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SLF4J 和 LOG4J</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
 
+  
+
+  
+  <div id="gitment-comments"></div>  
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  const gitment = new Gitment({
+    id: 'http://yoursite.com/2018/07/07/arts/algorithm/A-remove-duplicates-from-array/'.replace(/[^\w\s]/gi, '').substring(0,48),
+    owner: 'CloudFeng',
+    repo: 'cloudfeng.github.io',
+    oauth: {
+      client_id: 'b299710280dec8bccf76',
+      client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075'
+    }
+  });
+  gitment.render(document.getElementById('gitment-comments'));
+</script>
+
+  
 
           </div>
         </div>
@@ -246,10 +415,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
 		root: "/",
