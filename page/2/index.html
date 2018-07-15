@@ -155,19 +155,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-arts/review/R-learn-by-hard-way" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/algorithm/A-Find-median" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/review/R-learn-by-hard-way/">脚踏实地学习</a>
+      <a class="article-title" href="/2018/06/29/arts/algorithm/A-Find-median/">Algorithm:Median of Two Sorted Arrays</a>
     </h1>
   
 
         
-        <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" class="archive-article-date">
+        <a href="/2018/06/29/arts/algorithm/A-Find-median/" class="archive-article-date">
   	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
 </a>
         
@@ -175,12 +175,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周阅读了Peter Norving 写的一篇文章《Teach Yourself Programming in Ten Years》<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup><br>
-和 Alan Sorkin 写的一篇文章《The Greatest Developer Fallacy Or The Wisest Words You’ll Ever Hear?》<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> 。这两篇文章给我的感触比较深，所以本周就分享一下文章大概内容以及本周根据<br>
-MDN一步一步做的一个mntfun静态页面。</p>
+        <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
+<p>There are two <strong>sorted arrays</strong> nums1 and nums2 of size m and n respectively.<br>
+Find the median of the two sorted arrays. The overall run time complexity<br>
+should be <strong>O(log(m+n))</strong>.</p>
+<p>Example 1:</p>
+<blockquote>
+<p>nums1 = [1, 3]<br>
+nums2 = [2]<br>
+The median is 2.0</p>
+</blockquote>
+<p>Example 2:</p>
+<blockquote>
+<p>nums1 = [1, 2]<br>
+nums2 = [3, 4]<br>
+The median is (2 + 3)/2 = 2.5</p>
+</blockquote>
+<ul>
+<li>Level: Hard</li>
+</ul>
         
-          <a class="article-more-a" href="/2018/06/29/arts/review/R-learn-by-hard-way/#more">more >></a>
+          <a class="article-more-a" href="/2018/06/29/arts/algorithm/A-Find-median/#more">more >></a>
         
       
 
@@ -194,11 +209,11 @@ MDN一步一步做的一个mntfun静态页面。</p>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
         		</li>
       		
 		</ul>
@@ -219,14 +234,14 @@ MDN一步一步做的一个mntfun静态页面。</p>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/review/R-learn-by-hard-way/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/06/29/arts/algorithm/A-Find-median/">展开全文 >></a>
         </p>
       
       
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -325,7 +340,7 @@ MDN一步一步做的一个mntfun静态页面。</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -427,7 +442,7 @@ MDN一步一步做的一个mntfun静态页面。</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -525,7 +540,7 @@ MDN一步一步做的一个mntfun静态页面。</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -624,7 +639,7 @@ return [0, 1].</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -720,7 +735,7 @@ return [0, 1].</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -814,7 +829,7 @@ return [0, 1].</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -908,7 +923,7 @@ return [0, 1].</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -1002,7 +1017,7 @@ return [0, 1].</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -1091,7 +1106,7 @@ return [0, 1].</p>
       <div class="clearfix"></div>
       </div>
   </div>
-  <div class="article-info article-info-index">
+  <div class="article-read-info">
       <span id="busuanzi_container_page_pv">
         阅读<span id="busuanzi_value_page_pv"></span>次
       </span>
@@ -1220,19 +1235,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">http</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">mock</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RAP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">http</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1256,10 +1271,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
               </li>
              
@@ -1272,15 +1283,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">share</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
