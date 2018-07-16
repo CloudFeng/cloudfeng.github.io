@@ -178,9 +178,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- Table of Contents -->
-        
-        <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
+        <h2><span id="问题描述">问题描述</span></h2>
 <p>Given an array of integers, return indices of the two numbers such that they add<br>
 up to a specific target.You may assume that each input would have ** exactly one<br>
 solution**, and you may not use the same element twice.</p>
@@ -191,7 +189,7 @@ Because nums[0] + nums[1] = 2 + 7 = 9,<br>
 return [0, 1].</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="解题思路与状态"><a class="header-anchor" href="#解题思路与状态">¶</a>解题思路与状态</h2>
+<h2><span id="解题思路与状态">解题思路与状态</span></h2>
 <p>当时看完题目给自己定了一个30分钟的闹钟，可以在这段时间中搞定它。存在疑问：</p>
 <ul>
 <li>若数组排序，可以使用两边夹方法解决之；若不是怎么处理。</li>
@@ -204,13 +202,13 @@ return [0, 1].</p>
 仍旧没有想到使用一个<code>hashmap</code>来解决此问题。这个时候已经过去40分钟，心里面开始出现焦急状态，<br>
 无奈之下看答案了。两种<code>hashmap</code>的方法的空间复杂度为<code>O(n)</code>,时间复杂度为<code>O(n)</code>。下面就将每个<br>
 解法的关键点列出来。</p>
-<h3 id="暴力破解法"><a class="header-anchor" href="#暴力破解法">¶</a>暴力破解法</h3>
+<h3><span id="暴力破解法">暴力破解法</span></h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len = nums.length;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; len; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (nums[j] == target - nums[i]) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; i, j &#125;;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="双哈希法"><a class="header-anchor" href="#双哈希法">¶</a>双哈希法</h3>
+<h3><span id="双哈希法">双哈希法</span></h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">    &#125;</div><div class="line">    Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</div><div class="line">    <span class="keyword">int</span> len = nums.length;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        map.put(nums[i], i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">int</span> right = target - nums[i];</div><div class="line">        <span class="keyword">if</span> (map.containsKey(right) &amp;&amp; map.get(right) != i) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; i, map.get(right) &#125;;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="单哈希法"><a class="header-anchor" href="#单哈希法">¶</a>单哈希法</h3>
+<h3><span id="单哈希法">单哈希法</span></h3>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] twoSum(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">    &#125;</div><div class="line">    Map&lt;Integer, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;Integer,Integer&gt;();</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">int</span> right = target - nums[i];</div><div class="line">        <span class="keyword">if</span> (map.containsKey(right)) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123; i, map.get(right) &#125;;</div><div class="line">        &#125; </div><div class="line">        map.put(right, i);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[] &#123;-<span class="number">1</span>, -<span class="number">1</span>&#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<h2><span id="总结">总结</span></h2>
 <p>以后做算法题或者解决难题的时候，要懂得放一放，不要非得在一定的时间之内完成，特别是在做算法题。<br>
 毕竟在leetcode上做算法题不是为了刷题目，而是为了锻炼自己的思维还有夯实算法知识。</p>
 
@@ -271,11 +269,9 @@ return [0, 1].</p>
 	</div>
 
 
-      <div>
-          <span id="busuanzi_container_page_pv">
-            阅读<span id="busuanzi_value_page_pv"></span>次
-          </span>
-        </div>
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
       
       
         
@@ -337,11 +333,11 @@ return [0, 1].</p>
   
 <nav id="article-nav">
   
-    <a href="/2018/06/23/arts/review/R-mutil-interests/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/06/23/arts/share/S-TDD-note/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Review:多兴趣成功以及5小时法则
+          测试驱动开发笔记之入门
         
       </div>
     </a>
@@ -353,9 +349,6 @@ return [0, 1].</p>
     </a>
   
 </nav>
-
-
-
 
 
 
@@ -550,6 +543,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">junit</a>
               </li>
              
@@ -566,15 +563,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
               </li>
             
             <div class="clearfix"></div>

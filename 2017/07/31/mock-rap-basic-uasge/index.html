@@ -180,21 +180,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- Table of Contents -->
-        
         <p>在很早以前公司里面就接入了rap在线管理接口文档平台，通过图形化书写接口文档，给前端同事使用。但是之前也仅仅是用于写接口文档，从来没有研究过它还有其他用途。最近与自己合作的一个前端同事说，你为啥不利用好rap来写接口文档，它会自动生成mock数据，我们就不用将rap默认生成的数据修改后，再本地测试一下。弄完之后再与你们联调。今儿就花了2个小时左右研究一下rap，顺藤摸瓜出来mock。下面简单介绍一下，mock以及如何在rap中使用mock，生成比较好的模拟数据，提高前后端协作效率。</p>
 <a id="more"></a>
-<h2 id="mockjs1"><a class="header-anchor" href="#mock-js-sup-id-fnref-1-a-href-fn-1-rel-footnote-1-a-sup">¶</a>mock.js<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></h2>
+<h2><span id="mockjs1">mock.js<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup></span></h2>
 <p><code>mock.js</code>随机生成数据，让前端开发人员在开发阶段时独立于后端，使用mockjs可以自测代码。</p>
-<h3 id="语法规范"><a class="header-anchor" href="#语法规范">¶</a>语法规范</h3>
+<h3><span id="语法规范">语法规范</span></h3>
 <ul>
 <li>数据模板定义规范(DTD:Data Template Definition)</li>
 <li>数据占位符规范(DPD: Data Placeholder definition)</li>
 </ul>
-<h3 id="数据模板定义规范"><a class="header-anchor" href="#数据模板定义规范">¶</a>数据模板定义规范</h3>
-<h4 id="格式"><a class="header-anchor" href="#格式">¶</a>格式</h4>
+<h3><span id="数据模板定义规范">数据模板定义规范</span></h3>
+<h4><span id="格式">格式</span></h4>
 <p><code>'name|rule':value</code> (属性名|生成规则:属性值)，其中生成规则是可选的</p>
-<h4 id="生成规则"><a class="header-anchor" href="#生成规则">¶</a>生成规则</h4>
+<h4><span id="生成规则">生成规则</span></h4>
 <ul>
 <li>
 <p>7种生成规则</p>
@@ -217,7 +215,7 @@
 </ul>
 </li>
 </ul>
-<h4 id="属性值"><a class="header-anchor" href="#属性值">¶</a>属性值</h4>
+<h4><span id="属性值">属性值</span></h4>
 <ol>
 <li>属性值可含@（占位符）</li>
 <li>指定最终的值和类型</li>
@@ -235,8 +233,8 @@
 </li>
 </ol>
 <p>学过js看着十分简单，只是多了RegExp 和 Path，其他简直一模一样。</p>
-<h3 id="数据占位符定义规范dpd"><a class="header-anchor" href="#数据占位符定义规范dpd">¶</a>数据占位符定义规范DPD</h3>
-<h4 id="占位符"><a class="header-anchor" href="#占位符">¶</a>占位符</h4>
+<h3><span id="数据占位符定义规范dpd">数据占位符定义规范DPD</span></h3>
+<h4><span id="占位符">占位符</span></h4>
 <p>1.占位符只是在属性字符串中占个位置，并不出现在最终的属性值中<br>
 2.格式：@占位符或者@占位符(参数[,参数])<br>
 3.占位符</p>
@@ -266,11 +264,11 @@
 <li>Miscellaneous</li>
 </ul>
 <p>具体mock语法示例，请参考mock示例<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>，里面详细的介绍了各个类型使用方法。</p>
-<h2 id="rap写接口文档中运用mock3"><a class="header-anchor" href="#rap写接口文档中运用mock-sup-id-fnref-3-a-href-fn-3-rel-footnote-3-a-sup">¶</a>rap写接口文档中运用mock<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></h2>
-<h3 id="什么是rap"><a class="header-anchor" href="#什么是rap">¶</a>什么是rap</h3>
+<h2><span id="rap写接口文档中运用mock3">rap写接口文档中运用mock<sup id="fnref:3"><a href="#fn:3" rel="footnote">3</a></sup></span></h2>
+<h3><span id="什么是rap">什么是rap</span></h3>
 <p>RAP是前后端沟通桥梁的通信接口，是一个图形化的接口文档管理的软件。它可以自动生成mock数据，在开发时候前端同事可以不依赖于后端的数据，而是根据mock规则自动生成的模拟数据进行测试。<br>
 <img src="/img/rap.jpg" alt="RAP"></p>
-<h3 id="怎么在rap中是使用mock"><a class="header-anchor" href="#怎么在rap中是使用mock">¶</a>怎么在rap中是使用mock</h3>
+<h3><span id="怎么在rap中是使用mock">怎么在rap中是使用mock</span></h3>
 <p>有很多资料，且是图文并茂写博文<sup id="fnref:4"><a href="#fn:4" rel="footnote">4</a></sup>,<sup id="fnref:5"><a href="#fn:5" rel="footnote">5</a></sup>。总结起来，在rap中运用mock方法如下：</p>
 <ul>
 <li>左边变量写 <code>name|rule</code>，此处相当于就是mock中的<code>'name|rule'</code>;</li>
@@ -338,11 +336,9 @@
 	</div>
 
 
-      <div>
-          <span id="busuanzi_container_page_pv">
-            阅读<span id="busuanzi_value_page_pv"></span>次
-          </span>
-        </div>
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
       
       
         
@@ -404,11 +400,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/06/23/arts/share/S-TDD-note/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/06/23/arts/6m3w-summary/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          测试驱动开发笔记之入门
+          ARTS之旅
         
       </div>
     </a>
@@ -420,9 +416,6 @@
     </a>
   
 </nav>
-
-
-
 
 
 
@@ -617,6 +610,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">junit</a>
               </li>
              
@@ -633,15 +630,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
               </li>
             
             <div class="clearfix"></div>

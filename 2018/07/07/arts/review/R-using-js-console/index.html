@@ -178,11 +178,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <!-- Table of Contents -->
-        
-        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+        <h2><span id="概述">概述</span></h2>
 <p>本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。</p>
-<h2 id="console的作用"><a class="header-anchor" href="#console的作用">¶</a>Console的作用</h2>
+<h2><span id="console的作用">Console的作用</span></h2>
 <p>JS中的console是每个浏览器必备的一个特性。它允许开发者：</p>
 <ul>
 <li>View a log of errors and warnings that occur on a web page.<br>
@@ -197,7 +195,7 @@
 <li>Inspect and analyze network activity<br>
 监测和分析网络活动</li>
 </ul>
-<h2 id="调试类"><a class="header-anchor" href="#调试类">¶</a>调试类</h2>
+<h2><span id="调试类">调试类</span></h2>
 <p>使用如下函数，可以传入多个参数，它们会自动拼接，并以空格分隔，最终显示要查看的内容。</p>
 <ul>
 <li><code>Console.log</code></li>
@@ -207,7 +205,7 @@
 </ul>
 <p>示例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> niceJson = &#123;<span class="attr">a</span>:<span class="number">1</span>, <span class="attr">b</span>:<span class="number">2</span>, <span class="attr">c</span>:<span class="number">3</span>&#125;;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"log"</span>, niceJson, <span class="keyword">new</span> <span class="built_in">Date</span>());</div><div class="line"><span class="built_in">console</span>.warn(<span class="string">"warn"</span>, niceJson, <span class="keyword">new</span> <span class="built_in">Date</span>());</div><div class="line"><span class="built_in">console</span>.info(<span class="string">"info"</span>, niceJson, <span class="keyword">new</span> <span class="built_in">Date</span>());</div></pre></td></tr></table></figure>
-<h2 id="归类"><a class="header-anchor" href="#归类">¶</a>归类</h2>
+<h2><span id="归类">归类</span></h2>
 <p>使用<code>console.group</code>把<code>log</code>（或者<code>info</code>或者<code>warn</code>)归为一起。</p>
 <p>示例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doSomething</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.group(<span class="string">'doSomething Profile'</span>);</div><div class="line">    <span class="keyword">const</span> _data = <span class="keyword">new</span> <span class="built_in">Date</span>();</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'evauating data:'</span>, _data);</div><div class="line">    </div><div class="line">    <span class="keyword">const</span> _fullName = <span class="string">`<span class="subst">$&#123;obj.firstName&#125;</span> <span class="subst">$&#123;obj.lastName&#125;</span>`</span></div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'fullName:'</span>, _fullName);</div><div class="line">    <span class="keyword">const</span> _id = <span class="built_in">Math</span>.random(<span class="number">1</span>);</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, _id);</div><div class="line">    <span class="built_in">console</span>.groupEnd();</div><div class="line">&#125;</div><div class="line"></div><div class="line">doSomething(&#123;<span class="string">"firstName"</span>:<span class="string">"yun"</span>, <span class="string">"lastName"</span>:<span class="string">"feng"</span>&#125;);</div></pre></td></tr></table></figure>
@@ -217,7 +215,7 @@ evauating data: Sun Jul 08 2018 15:46:11 GMT+0800 (China Standard Time)<br>
 fullName: yun feng<br>
 id: 0.26763583139597613</p>
 </blockquote>
-<h2 id="数据表格化"><a class="header-anchor" href="#数据表格化">¶</a>数据表格化</h2>
+<h2><span id="数据表格化">数据表格化</span></h2>
 <p>可以使用<code>console.table</code>将对象或者对象数组表格化。</p>
 <p>示例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> typeOfConsole = [</div><div class="line">    &#123;<span class="attr">name</span>:<span class="string">'log'</span>, <span class="attr">type</span>:<span class="string">'standard'</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>:<span class="string">'info'</span>, <span class="attr">type</span>:<span class="string">'standard'</span>&#125;,</div><div class="line">    &#123;<span class="attr">name</span>:<span class="string">'table'</span>, <span class="attr">type</span>:<span class="string">'wow'</span>&#125;</div><div class="line">];</div><div class="line"></div><div class="line"><span class="built_in">console</span>.table(typeOfConsole);</div></pre></td></tr></table></figure>
@@ -280,7 +278,7 @@ id: 0.26763583139597613</p>
 </tr>
 </tbody>
 </table>
-<h2 id="统计类"><a class="header-anchor" href="#统计类">¶</a>统计类</h2>
+<h2><span id="统计类">统计类</span></h2>
 <p>测试函数的运行时间或者统计某一行代码执行的总数。</p>
 <ul>
 <li><code>console.count</code></li>
@@ -314,17 +312,17 @@ even added: 10<br>
 odd added: 10<br>
 total: 2.650146484375ms</p>
 </blockquote>
-<h2 id="堆栈跟踪类"><a class="header-anchor" href="#堆栈跟踪类">¶</a>堆栈跟踪类</h2>
+<h2><span id="堆栈跟踪类">堆栈跟踪类</span></h2>
 <ul>
 <li><code>console.trace</code></li>
 <li><code>console.assert</code></li>
 </ul>
 <p>示例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">lesserThan</span>(<span class="params">a, b</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.assert(a &lt; b, &#123;<span class="string">"message"</span>:<span class="string">"a is not lesser than b"</span>, <span class="string">"a"</span>:a, <span class="string">"b:"</span>:b&#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">lesserThan(<span class="number">6</span>, <span class="number">5</span>);</div><div class="line"><span class="built_in">console</span>.trace(<span class="string">"End"</span>);</div><div class="line"></div><div class="line"><span class="comment">// result</span></div><div class="line">VM634:<span class="number">2</span> Assertion failed: &#123;<span class="attr">message</span>: <span class="string">"a is not lesser than b"</span>, <span class="attr">a</span>: <span class="number">6</span>, <span class="attr">b</span>:: <span class="number">5</span>&#125;</div><div class="line">lesserThan @ VM634:<span class="number">2</span></div><div class="line">(anonymous) @ VM634:<span class="number">5</span></div><div class="line">VM634:<span class="number">6</span> End</div><div class="line">(anonymous) @ VM634:<span class="number">6</span></div></pre></td></tr></table></figure>
-<h2 id="清除console"><a class="header-anchor" href="#清除console">¶</a>清除<code>console</code></h2>
+<h2><span id="清除console">清除<code>console</code></span></h2>
 <p>使用<a href="https://github.com/webpack-contrib/uglifyjs-webpack-plugin" target="_blank" rel="external"><code>uglifyjs-webpack-plugin</code></a>清除所有的<code>console</code>。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> UglifyJsPlugin = <span class="built_in">require</span>(<span class="string">'uglify-webpack-plugin'</span>)</div><div class="line"><span class="keyword">var</span> debug = process.env.NODE_ENV !== <span class="string">'production'</span></div><div class="line"></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line">optimization:&#123;</div><div class="line">    <span class="attr">minimizer</span>:!debug ? [</div><div class="line">            <span class="keyword">new</span> UglifyJsPlugin(&#123;</div><div class="line">                <span class="comment">// compression specific options</span></div><div class="line">                uglifyOption: &#123;</div><div class="line">                    <span class="comment">// Eliminate comments</span></div><div class="line">                    comments:<span class="literal">false</span>,</div><div class="line">                    <span class="attr">compress</span>: &#123;</div><div class="line">                        <span class="comment">// removing warnings</span></div><div class="line">                        warnings:<span class="literal">false</span>,</div><div class="line">                        <span class="comment">// drop console statements</span></div><div class="line">                        drop_console: <span class="literal">true</span></div><div class="line">                    &#125;,</div><div class="line">                &#125;</div><div class="line">            &#125;)] :[]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="总结"><a class="header-anchor" href="#总结">¶</a>总结</h2>
+<h2><span id="总结">总结</span></h2>
 <p>毕竟使用<code>console</code>是用来调试代码的，不能让这些代码上生产版本，所以需要注意之处。另外，就是在十分明确的地方就没有必要使用<code>console</code>,以免滥用误用。</p>
 
       
@@ -388,11 +386,9 @@ total: 2.650146484375ms</p>
 	</div>
 
 
-      <div>
-          <span id="busuanzi_container_page_pv">
-            阅读<span id="busuanzi_value_page_pv"></span>次
-          </span>
-        </div>
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
       
       
         
@@ -454,25 +450,22 @@ total: 2.650146484375ms</p>
   
 <nav id="article-nav">
   
-    <a href="/2018/07/07/arts/algorithm/A-remove-duplicates-from-array/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/07/07/arts/share/S-grep/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Algorithm:Remove Duplicates from Sorted Array
+          Share：grep命令查日志和日志内容乱码
         
       </div>
     </a>
   
   
-    <a href="/2018/06/29/arts/tip/T-java-thread-unit/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Junit测试Java多线程小疑</div>
+    <a href="/2018/06/29/arts/6m4w-summary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ARTS-6月4周</div>
       <i class="icon-circle-right"></i>
     </a>
   
 </nav>
-
-
-
 
 
 
@@ -667,6 +660,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">junit</a>
               </li>
              
@@ -683,15 +680,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
               </li>
             
             <div class="clearfix"></div>
