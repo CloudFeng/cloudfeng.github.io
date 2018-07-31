@@ -256,84 +256,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="缘由">缘由</span></h2>
+        <h2 id="缘由"><a class="header-anchor" href="#缘由">¶</a>缘由</h2>
 <p>最近学习linux系统中相关的命令，补一下这块知识。每次需要用相关的命令，都是各种搜索，并且不知道本后<br>
 的原理。</p>
-<h2><span id="linux-文件基本属性">Linux 文件基本属性</span></h2>
+<h2 id="linux-文件基本属性"><a class="header-anchor" href="#linux-文件基本属性">¶</a>Linux 文件基本属性</h2>
 <p>使用 <code>ls -l</code>,查看的当前目录下地文件或目录。第一个字符代表这个文件是目录、文件或链接文件等等。</p>
-<ul>
-<li><code>d</code>:目录；</li>
-<li><code>-</code>:文件；</li>
-<li><code>l</code>:链接文档(link file)；</li>
-<li><code>b</code>:装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
-<li><code>c</code>:装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。</li>
-</ul>
-<p>接下来的3组，每组以RWX或者<code>-</code>组合。<br>
-<code>R</code>:read；<br>
-<code>W</code>:write；<br>
-<code>X</code>:execute；<br>
-<code>-</code>:RWX中没有权限。</p>
-<p>第一组表示：文件的所有者的权限；<br>
-第二组表示：文件所属组的权限；<br>
-第三组表示：他用户拥有该文件的权限</p>
-<h2><span id="更改文件相关属性的命令">更改文件相关属性的命令</span></h2>
-<ul>
-<li>
-<p>更改文件属组： <code>chgrp [-R] 属组文件名</code></p>
-</li>
-<li>
-<p>更改文件属主，也可以同时更改文件属组：<code>chown [–R] 属主名 文件名</code> 或者 <code>chown [-R] 属主名：属组名 文件名</code></p>
-</li>
-<li>
-<p>更改文件9个属性：通过数字或者字符设置</p>
-<ul>
-<li>Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。</li>
-<li><code>RWX-</code>对应的数字：<code>R:4;W:2;X:1;-:0</code></li>
-<li>命令：<code>chmod [-R] xyz 文件或目录</code>, xyz是<code>RWX-</code>数字之和；</li>
-<li>使用下面的命令操作：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>命令</th>
-<th>所有者</th>
-<th>操作</th>
-<th>文件或目录</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>chmod</td>
-<td>u</td>
-<td>+(加入)</td>
-<td>r</td>
-</tr>
-<tr>
-<td></td>
-<td>g</td>
-<td>-(除去)</td>
-<td>w</td>
-</tr>
-<tr>
-<td></td>
-<td>o</td>
-<td>=(设定)</td>
-<td>x</td>
-</tr>
-<tr>
-<td></td>
-<td>a</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>其中，(1)u:user (2)g:group (3)o:others (4)a:all</p>
-</li>
-</ul>
-<h2><span id="参考资料">参考资料</span></h2>
-<p>[Linux文件基本属性]：<a href="https://www.w3cschool.cn/linux/linux-file-attr-permission.html" target="_blank" rel="external">https://www.w3cschool.cn/linux/linux-file-attr-permission.html</a></p>
-
+        
+          <a class="article-more-a" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/#more">more >></a>
+        
       
 
       
@@ -405,7 +335,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="创建数值列表">创建数值列表</span></h2>
+        <h2 id="创建数值列表"><a class="header-anchor" href="#创建数值列表">¶</a>创建数值列表</h2>
 <ol>
 <li>使用 <code>range</code>函数, 得到的元素属于：[start, stop)</li>
 </ol>
@@ -414,82 +344,9 @@
 <li>使用list函数，构建一个列表</li>
 </ol>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> list(range(<span class="number">1</span>,<span class="number">10</span>,<span class="number">3</span>)):</div><div class="line">    print(elem)</div></pre></td></tr></table></figure>
-<ol start="3">
-<li>使用<code>append</code>函数</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">squares = []</div><div class="line"><span class="keyword">for</span> value <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">5</span>):</div><div class="line">    squares.append(value ** <span class="number">2</span>)</div><div class="line"></div><div class="line">print(squares)</div></pre></td></tr></table></figure>
-<ol start="4">
-<li>使用切片构建一个新的列表</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">my_foods = [<span class="string">'pizza'</span>, <span class="string">'falafel'</span>, <span class="string">'carrot cake'</span>]</div><div class="line">friend_foods = my_foods[:]</div><div class="line">friend_foods.append(<span class="string">'ice cream'</span>)</div><div class="line"></div><div class="line">print(<span class="string">"My favorite foods are:"</span>)</div><div class="line">print(my_foods)</div><div class="line"></div><div class="line">print(<span class="string">"\nMy friend's favorite foods are:"</span>)</div><div class="line">print(friend_foods)</div></pre></td></tr></table></figure>
-<h2><span id="列表操作">列表操作</span></h2>
-<h3><span id="列表排序操作">列表排序操作</span></h3>
-<ol>
-<li>改变原来list的排序法: <code>sort</code>属性</li>
-</ol>
-<ul>
-<li>正序排</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">cars.sort()</div><div class="line">print(cars)</div></pre></td></tr></table></figure>
-<ul>
-<li>逆序排</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">cars.sort(reverse=<span class="keyword">True</span>)</div><div class="line">print(cars)</div></pre></td></tr></table></figure>
-<ol start="2">
-<li>不改变原来list的排序法：<code>sorted</code></li>
-</ol>
-<ul>
-<li>正序排</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">print(sorted(cars))</div></pre></td></tr></table></figure>
-<ul>
-<li>逆序排</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">print(sorted(car,reverse=<span class="keyword">True</span>))</div></pre></td></tr></table></figure>
-<ol start="3">
-<li>倒着打印列表</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>,<span class="string">'audi'</span>,<span class="string">'toyota'</span>,<span class="string">'subaru'</span>]</div><div class="line">print(cars)</div><div class="line">cars.reverse()</div><div class="line">print(cars)</div></pre></td></tr></table></figure>
-<h2><span id="列表长度">列表长度</span></h2>
-<ol>
-<li>获取列表的长度: <code>len(cars)</code></li>
-<li>列表索引是从0开始的，在不为空的情况下可以使用 <code>-1</code>表示访问最后一个元素</li>
-</ol>
-<h2><span id="列表遍历">列表遍历</span></h2>
-<ol>
-<li>遍历列表，可以使用类似java的foreach语法</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">magicians = [<span class="string">'alice'</span>, <span class="string">'david'</span>, <span class="string">'carolina'</span>]</div><div class="line"><span class="keyword">for</span> magician <span class="keyword">in</span> magicians:</div><div class="line">    print(magician.title() + <span class="string">", that was great trick!"</span>)</div><div class="line">    print(<span class="string">"I can't wait to see your next trick, "</span> + magician.title() + <span class="string">".\n"</span>)</div><div class="line">print(<span class="string">"Thank you everyone,that was a great magic show!"</span>)</div></pre></td></tr></table></figure>
-<h2><span id="简单统计">简单统计</span></h2>
-<p>对<strong>数字</strong>列表元素惊醒简单地统计</p>
-<ul>
-<li>min</li>
-<li>max</li>
-<li>sum</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">digits = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">9</span>]</div><div class="line">print(str(digits) + <span class="string">"'s min:"</span> + str(min(digits))+ <span class="string">" max:"</span> </div><div class="line">    + str(max(digits)) + <span class="string">" sum:"</span> + str(sum(digits)))</div></pre></td></tr></table></figure>
-<h2><span id="切片操作">切片操作</span></h2>
-<ol>
-<li>语法：<code>var_list[start:end]</code> 构建的列表元素属于 <code>var_list[start],...,var_list[end-1]</code></li>
-<li>说明：
-<ul>
-<li><code>var_list[:end]</code>：从头开始到end-1</li>
-<li><code>var_list[start:]</code>:从start开始到<code>len(var_list)-1</code></li>
-<li><code>var_list[:]</code>:整个var_list</li>
-</ul>
-</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">players = [<span class="string">'charles'</span>, <span class="string">'matina'</span>, <span class="string">'michael'</span>, <span class="string">'florence'</span>, <span class="string">'eli'</span>]</div><div class="line">print(players[<span class="number">0</span>:<span class="number">3</span>])</div><div class="line">print(players[:<span class="number">3</span>])</div><div class="line">print(players[:])</div><div class="line">print(players[<span class="number">2</span>:])</div></pre></td></tr></table></figure>
-<ol start="3">
-<li>应用：分页展示</li>
-</ol>
-<h2><span id="元组">元组</span></h2>
-<ol>
-<li>元组：不可变得列表；不能修改元组中的元素，但可以改变元组变量</li>
-<li>使用园括号定义</li>
-<li>使用下标或者foreach遍历元组</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dimensions = (<span class="number">200</span>, <span class="number">50</span>)</div><div class="line">print(dimensions[<span class="number">0</span>])</div><div class="line">print(str(dimensions[<span class="number">1</span>]) + <span class="string">"\n"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> dimension <span class="keyword">in</span> dimensions:</div><div class="line">    print(dimension)</div><div class="line"></div><div class="line">dimensions = (<span class="number">400</span>, <span class="number">100</span>)</div><div class="line">print(dimensions)</div></pre></td></tr></table></figure>
+        
+          <a class="article-more-a" href="/2018/07/22/arts/share/S-python-list-note/#more">more >></a>
+        
       
 
       
@@ -1062,11 +919,11 @@ Output: [1,2,2,3,5,6]<br>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">learning</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">learning</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
         		</li>
       		
 		</ul>
@@ -1200,15 +1057,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">随记</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">mock</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">RAP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">随记</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1248,6 +1105,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
               </li>
              
@@ -1257,10 +1118,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">兴趣</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
