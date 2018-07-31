@@ -155,20 +155,598 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-arts/algorithm/A-remove-element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/review/R-Distributed-locks-with-redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
+      <a class="article-title" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">Share:Redis中的分布式锁</a>
     </h1>
   
 
         
-        <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="archive-article-date">
-  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
+        <a href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="概述">概述</span></h2>
+<p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
+<p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
+<h2><span id="实现">实现</span></h2>
+<p>在描述Redlock算法之前，列举目前基于Redis设计的分布式锁，具体如下：</p>
+<ul>
+    <li>
+        <a href="https://github.com/antirez/redlock-rb" target="_blank" rel="external">Redlock-rb</a> (Ruby 实现)。 有一个
+        <a href="https://github.com/leandromoreira/redlock-rb" target="_blank" rel="external">Redlock-rb的fork</a>，它新增gem便于发布或者更多</li>
+    <li>
+        <a href="https://github.com/SPSCommerce/redlock-py" target="_blank" rel="external">Redlock-py</a> (Python 实现)。</li>
+    <li>
+        <a href="https://github.com/joanvila/aioredlock" target="_blank" rel="external">Aioredlock</a> (Asyncio Python 实现)。</li>
+    <li>
+        <a href="https://github.com/ronnylt/redlock-php" target="_blank" rel="external">Redlock-php</a> (PHP 实现)。</li>
+    <li>
+        <a href="https://github.com/malkusch/lock#phpredismutex" target="_blank" rel="external">PHPRedisMutex</a> (further PHP 实现)</li>
+    <li>
+        <a href="https://github.com/cheprasov/php-redis-lock" target="_blank" rel="external">cheprasov/php-redis-lock</a> (PHP 库)</li>
+    <li>
+        <a href="https://github.com/hjr265/redsync.go" target="_blank" rel="external">Redsync.go</a> (Go 实现)。</li>
+    <li>
+        <a href="https://github.com/mrniko/redisson" target="_blank" rel="external">Redisson</a> (Java 实现)。</li>
+    <li>
+        <a href="https://github.com/sbertrang/redis-distlock" target="_blank" rel="external">Redis::DistLock</a> (Perl 实现)。</li>
+    <li>
+        <a href="https://github.com/jacket-code/redlock-cpp" target="_blank" rel="external">Redlock-cpp</a> (C++ 实现)。</li>
+    <li>
+        <a href="https://github.com/kidfashion/redlock-cs" target="_blank" rel="external">Redlock-cs</a> (C#/.NET 实现)。</li>
+    <li>
+        <a href="https://github.com/samcook/RedLock.net" target="_blank" rel="external">RedLock.net</a> (C#/.NET 实现)， 包括异步和支持锁的扩展。</li>
+    <li>
+        <a href="https://github.com/psibernetic/scarletlock" target="_blank" rel="external">ScarletLock</a> (C# .NET 实现 with configurable datastore)</li>
+    <li>
+        <a href="https://github.com/mike-marcacci/node-redlock" target="_blank" rel="external">node-redlock</a> (NodeJS 实现)，支持锁的扩展。</li>
+</ul>
+<h2><span id="安全性和活跃性保证">安全性和活跃性保证</span></h2>
+<p>从我们自己的视角来看，构建我们的设计模型具有三个特性，最低限度地保证高效使用分布式锁。</p>
+<p>安全性：互斥性，在任何时刻，仅有一个客户端能否获得锁。<br>
+活跃性A：无死锁。不管客户端锁定资源宕或者被分割，最终就可能获得一个锁，<br>
+活跃性B:容错性。只要有大多数Redis节点正常工作，客户端就可以获得和释放锁。</p>
+<h2><span id="为何基于故障转移1实现不够">为何基于故障转移<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>实现不够</span></h2>
+<p>让我们分析一下目前基于Redis分布式锁库的工作，以便了解我们所做的改进。</p>
+<p>使用Redis锁住资源最为简单的方法是在一个实例中创建一个key。所创建的key通常带有一个过期时间，使用了Redis过期的特性，因此它最终会释放锁（安全性和活跃性保证的第二点）。若客户端需要释放资源，只需要删除此key即可。</p>
+<p>粗看起来，此机制很好，但是存在一个问题：在我们的体系架构中是一个单点故障。Redis主节点宕了会发生什么？ 当然，我们可以加入一个从节点！并且在主节点不可用时使用从节点。不幸的是，此方案不可行。这么做会导致我们不能实现互斥安全性，是因为Redis主从复制是异步的。</p>
+<p>使用上述的模型存在一个很明显的竞态条件，如下：</p>
+<ol>
+<li>客户 A 在主节点获取一个锁；</li>
+<li>主节点在客户 A 锁住资源的key没能及时写入到从节点情况下宕了；</li>
+<li>从节点被选举为主节点；</li>
+<li>客户 B 获得客户A锁住的资源的锁。安全性被破坏！</li>
+</ol>
+<p>在特定的场景下，比如在失败的场景下，多个客户端能在同一时刻获得同一个锁，此模型是很好的。如果上述场景符合你的需求，你可以使用基于主从复制解决方案。否则，我们建议实现本文中描述的方案。</p>
+<h2><span id="单实例正确实现方式">单实例正确实现方式</span></h2>
+<p>在我们尝试解决上述单实例实现方案缺陷之前，如何在此场景下，如何确保它是正确的。当竞态条件可以接收的时候，此方案是一个可行的方案。另外，在单实例中锁机制是我们在本文中描述分布式算法的基础。为了获得锁，可以使用下面的命令：<code>SET resource_name my_random_value NX PX 30000</code></p>
+<p>此命令会在当key不存在的时候（NX 选项），就会创建一个key，带有一个30000毫秒过期时间（PX 选项）。与key关联的值为“my_random_value”。此值在所有客户端和所有请求锁中，必须是唯一的。使用随机值是为了安全释放锁，使用脚本告诉Redis：只有在key存在并且对应的value值是我们期待的时候才删除它。下面实现此方案的Lua脚本：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> redis.call(<span class="string">"get"</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] <span class="keyword">then</span></div><div class="line">    <span class="keyword">return</span> redis.call(<span class="string">"del"</span>,KEYS[<span class="number">1</span>])</div><div class="line"><span class="keyword">else</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>为了避免误释放其他线程创建的锁是十分重要，比如一个客户端可能获得锁，因某操作所用时间超过锁有效时间（key失效的时间）而阻塞，而另外一个线程在此期间获得锁，然后删除此锁（注：把相同的key删除）。所以，仅仅使用<code>DEL</code>命令是不安全的，会删除其他客户端获得的锁。使用上述脚本，判断每个锁被一个随机的字串串做了标记，所以只有设置此key的客户端才能删除此锁。</p>
+<p>随机字符串的值是什么？我假定是来自 <code>/dev/urandom</code>的20字节，不过你也可以使用其他的方式生成一个唯一的值。比如<br>
+在<code>/dev/urandom</code>中安全的挑选RC4种子，然后生成一个伪随机流。一个简单地方案：以毫秒为精度的unix系统时间拼接客户端ID，组成一个随机字符串的可以。虽然不完全安全，但在很多场景下是可以使用的。</p>
+<p>key有效时间称之为“锁的有效时间”。它既是自动释放锁的时间，同时也是客户端在另外一个客户端再次获得此锁之前的操作时间，然而并没有在技术上确保互斥性，仅仅是给客户端获得锁的一个窗口时间。</p>
+<p>到目前为止，由单个一直可用的实例构成的非分布式系统上，我们有一个好的方法获取和释放锁。让我们把此概念扩展到分布式系统中，而在分布式系统中，我们不能确保给出安全性和活跃性的保障。</p>
+<h2><span id="redlock算法">Redlock算法</span></h2>
+<p>算法的分布式版本，我们假定有N个Redis主节点，这些节点完全独立，因此我们不使用复制或者其他隐式协作系统。我们已经描述了单节点下，如何安全地获得和释放锁。同时也保证了单实例中使用此方法获得和释放锁安全性和活跃性。示例中，我们假定<code>N=5</code>,它是一个合理的值。【为啥这么说？】因此，我们在不同机器或者虚拟机上运行5个Redis主节点，以确保他们若是宕了也是完全独立。</p>
+<p>为了获得锁，客户端需要进行如下操作：</p>
+<ol>
+<li>获得当前时间，以毫秒计；即为currentTimeInMs</li>
+<li>N个实例使用相同的key和随机值，顺序地尝试获得锁。在此步中，每个实例获取锁时，客户端会用一个超时时间，它比所有锁自动释放的时间小。比如，若自动释放锁时间为10s,那么超时时间在5ms~50ms之间。这样做事为了避免客户端为了等待一个宕机Redis节点，长时间处于阻塞状态：若一个实例不可用，我们会尽快与下一个实例“通话”。</li>
+<li>客户端计算获得锁的时间，通过减去步骤1得到的当前时间。即为<code>acqTimeInMS = acqLockCurrentTimeInMS-currentTimeInMs</code>。当且仅当客户端从多个实例获得锁，设为n（n &gt;= N/2+1）;并且总共获得锁的时间为totalAcqTime，如果totalAcqTime小于锁的有效时间(intitValidtyTimeInMS),那么就认为客户端获得了锁。</li>
+<li>若锁获得，那么有效时间<code>validtyTimeInMS</code>,可以认为是初始的有效时间减去步骤2中计算获得锁耗费的时间。</li>
+<li>如果客户端因某种原因不能获得锁失败（不管客户端不能锁住N/2+1实例还是有效时间为负数），它将释放所有的实例（包括哪些客户端并没有获得锁的实例）。</li>
+</ol>
+<p>所有步骤的伪代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">if n &lt; N/2+1 then</div><div class="line">    no</div><div class="line">end</div><div class="line">for i : n then</div><div class="line">    acqTimeInMS = acqLockCurrentTimeInMS-currentTimeInMs</div><div class="line">    totalAcqTime += acqTimeInMS</div><div class="line">end</div><div class="line"></div><div class="line">validtyTimeInMS = intitValidtyTimeInMS - totalAcqTime</div><div class="line"></div><div class="line">if validtyTimeInMS &gt; 0 then</div><div class="line">    yes</div><div class="line">else</div><div class="line">    no</div><div class="line">end </div><div class="line"></div><div class="line">if no then</div><div class="line"> unlock all instance</div></pre></td></tr></table></figure>
+<h2><span id="算法是异步的吗">算法是异步的吗？</span></h2>
+<p>算法所依赖的假设，一个是进程之间没有同步时钟，每个进程中本地时间按照近似相同频率；另外一个是自动释放时钟存在一点小误差。这些假设近似一台真实地电脑：每台电脑都有本地时钟，同时我们一般依赖不同电脑之间存在一点时钟偏移。</p>
+<p>基于此，我们需要制定我们互斥性规则：只要确保客户端所占锁将在锁有效时间（第三步所得）减去一定的时间（为了弥补进程间的是时钟偏移）。</p>
+<p>有关相似系统需要一定的时钟偏移更多信息，可以参考此论文：<a href="http://dl.acm.org/citation.cfm?id=74870" target="_blank" rel="external">Leases: an efficient fault-tolerant mechanism for distributed file cache consistency</a>。</p>
+<p>【疑问：依赖于系统时间，并非是个好事情，万一被改了呢？】</p>
+<h2><span id="失败重试">失败重试</span></h2>
+<p>当一个客户端不能够获得锁，它会等待一个随机时延之后重新获取。这么做事为了缓解多个客户端在同一时刻对同一个资源同时加锁（此种情况下可能会导致一个脑裂<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>问题使得谁也不能取胜）。另外，客户端从多个Redis实例获取锁的时间越快，脑裂发生的机会就越小。因此在理想情况下，客户端采用多路复用技术在同一时刻给N个实例发送<code>SET</code>命令。</p>
+<p>需要强调的是，当客户端获取大部分的锁失败时，应尽快释放所获得的锁是如此的重要。是因为没有必要等待key过期之后再去获取锁（然而，如果发生网络分区和客户端不能与Redis实例通信，对于等待key过期，将会有一点可用性的惩罚）。</p>
+<h2><span id="释放锁">释放锁</span></h2>
+<p>释放锁十分简单，仅涉及到在所有实例中是否锁，不管怎么样，客户端相信能够成功地锁住一个实例。</p>
+<h2><span id="安全性讨论">安全性讨论</span></h2>
+<p>此算法是否安全？我们从不同场景来理解。<br>
+首先我们假设一个客户端已经从多个实例中获得锁。因此，所有的实例都包含一个相同时效的key。然而，key在不同的时刻设置的，所以会在不同的时间失效。若第一个key在T1时刻设置（假设时间在连接第一个实例），最后一个key在T2时刻设置（从最后一个实例返回的时间）；那么第一个key至少在<code>MIN_VALIDITY=TTL-(T2-T1)-CLOCK_DRIFT</code>之后时效，其他key将在<code>MIN_VALIDITY</code>之后失效。因此我们所有的key时效时间至少为<code>MIN_VALIDITY</code>。</p>
+<p>在key设置期间，另外一个客户端不能获得锁，是因为<code>N/2+1</code>key已经存在，导致 <code>N/2+1</code>节点操作<code>SET NX</code>命令不会成功。所以，若一个锁已经被占用，那么在同一个时刻是不能被其他客户端占用的。（验证了互斥性）</p>
+<p>然而我们也了解，多个客户端在同一时刻试图获取锁，不会相继成功的。若一个客户端锁住大多数实例耗费了相近，甚至比最大有效时间还大（使用<code>SET</code>命令设置的TTL），可以认为锁是失效的，并且会释放所有实例的锁，因此我们仅需要考虑的场景是一个客户端锁住大多数实例所用的时间比TTL小的情况。对于此场景，我们在上面已经计算了<code>MIN_VALIDITY</code>。在<code>MIN_VALIDITY</code>时间内，没有客户端能够重新获得锁。所以，多个客户端会在同一个时刻锁住<code>N/2+1</code>实例，若MIN_VALIDITY大于TLL,则锁是失效的。</p>
+<p>你能为此提供一个形式化的证明或者指出现有那些类似的算法或者找出一个不管，我们为此十分感激。</p>
+<h2><span id="活跃性讨论">活跃性讨论</span></h2>
+<p>系统活跃性基于下面三个主要特性：</p>
+<ol>
+<li>锁的自动释放(因为key失效)：keys最终可以重新被锁住。</li>
+<li>事实上，客户端会在获得锁失败时溢出锁，或者当锁被占用以及工作结束时，我们也没有必要等待锁失效才重新获取锁。</li>
+<li>实际上，当一个客户端需要重新获得锁，它会等待一小段时间，此时间会比获得大多数锁的时间要长，以便减少在资源竞态下发生脑裂问题的概率。</li>
+</ol>
+<p>在发生网路分区是，我们加罚一个等于TLL的惩罚时间，所以若是有持续的分区，我们可以让惩罚时无限大。此时，每个客户端移除锁之前，获取锁并且被分区化。</p>
+<p>一般情况下，若长时间的网络分区，也会导致系统变得不可用。</p>
+<h2><span id="性能-宕机恢复-文件同步">性能、宕机恢复、文件同步</span></h2>
+<p>很多用户使用Redis作为一个锁服务器，获取锁和释放锁都是高性能，低时延的。同时，也需要在每秒中多次获取、释放锁。为了满足此需求，采用多路复用策略与N个Redis服务器通信以便减少时延（或者假定每个客户端与实例之间的RTT都相近，弱化多路复用以非阻塞的方式发送socket，发送所有的命令以及后面读取所有的命令）。</p>
+<p>然而，如果我们想要实现“崩溃-恢复”系统模式，需要考虑另外一个持久化功能。</p>
+<p>在此我们来看问题所在，我们假定Redis没有配置持久化，一个客户端从5个实例中获取了3个实例的锁，当其中某一台需要重启之后获得锁，此时还是从3个实例锁住相同的资源，其他客户端若能获得锁，那么将违背锁的互斥性原则。</p>
+<p>假如我们设置了AOF持久化，事情就会变得好一点了。比如，我们通过发送 <code>SHUTDOWN</code> 命令和重启一台Redis服务器。因为Redis失效在语义上是实现的，所有当Redis服务停机时，key的有效时间也一直再慢慢流逝，所有的要求都是满足的。然而，只要Redis服务是干净的停下，那么一切都是好的。当断电的情况下又如何呢？若在默认情况下，配置Redis，让其每秒将数据同步到磁盘，那么重启一次服务，key就可能会丢失。理论上，若要不管任何情况下实例重启都保证锁是安全的，我们需要设置持久化模式为： <code>fsync=always</code>。这样的话，相比于同级别的分布式锁系统，性能会受到严重损害。</p>
+<p>然而，初看起来事情比看起来要好一些。只要一个实例因崩溃后重启不在参与到任何一个活动的锁，那么当前活动锁集合会被实例锁住的而不是重新加入系统的实例占用，从保证了算法安全性。<br>
+为了保证这一点，我们一个实例，在比最大的TLL时间后仍然不可用，其中TLL是所有key有效时间，那么此实例就变得非法并且自动释放所有资源。</p>
+<p>在不使用任何Redis持有化，使用延时重启在一般情况下能够实现安全性。但是需要注意的是，会转变为可用而受到惩罚时间。如果很多节点崩溃，系统将在TLL时间内变得全部不可用（全部的意思在TLL内，没有任何资源被锁住）。</p>
+<h2><span id="让算法更可靠扩展锁">让算法更可靠：扩展锁</span></h2>
+<p>如果客户端的工作是由一些小步骤组成的，那就可能使用默认的限制时间的小型锁，并实现锁扩展机制的算法。一般来说，如果客户端在计算过程的中途，而锁的有效期抵达了一个较小的值，那么就可能扩展锁机制。通过发送一个Lua脚本，通知所有实例，若key存在且对应的value值仍旧就是客户端获得锁之前的值，就让它们延长对应此Key的TTL值。</p>
+<p>客户端仅需要考虑锁的重新获取，若客户端扩展锁可能在短时间内有大量的实例获得此锁。</p>
+<p>虽然这并不是从技术的角度改变算法，因此重新获得锁的最大值是要限制的，否则一个活跃性就会遭到破坏。</p>
+<h2><span id="需要帮助">需要帮助？</span></h2>
+<p>如果你对分布式系统有深入的研究，若能提供你的观点或者分析，十分不错的。若能同时使用其他语言实现，也是不错的。在此表示感谢。</p>
+<h2><span id="redlock-的分析">Redlock 的分析</span></h2>
+<ol>
+    <li>Martin Kleppmann <a href="http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="external">分析的文章</a>。我不是很同意他的意见，并且发表了 <a href="http://antirez.com/news/101" target="_blank" rel="external">我对其分析的回应</a>。</li>
+</ol>
+<h2><span id="参考资料">参考资料</span></h2>
+<p><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> : <a href="https://en.wikipedia.org/wiki/Failover" target="_blank" rel="external">https://en.wikipedia.org/wiki/Failover</a><br>
+<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> : <a href="https://en.wikipedia.org/wiki/Split-brain_(computing)" target="_blank" rel="external">https://en.wikipedia.org/wiki/Split-brain_(computing)</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">distributed lock</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/tip/T-linux-file-basic-ma" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">Linux 文件基本属性笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/tip/T-linux-file-basic-ma/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="缘由">缘由</span></h2>
+<p>最近学习linux系统中相关的命令，补一下这块知识。每次需要用相关的命令，都是各种搜索，并且不知道本后<br>
+的原理。</p>
+<h2><span id="linux-文件基本属性">Linux 文件基本属性</span></h2>
+<p>使用 <code>ls -l</code>,查看的当前目录下地文件或目录。第一个字符代表这个文件是目录、文件或链接文件等等。</p>
+<ul>
+<li><code>d</code>:目录；</li>
+<li><code>-</code>:文件；</li>
+<li><code>l</code>:链接文档(link file)；</li>
+<li><code>b</code>:装置文件里面的可供储存的接口设备(可随机存取装置)；</li>
+<li><code>c</code>:装置文件里面的串行端口设备，例如键盘、鼠标(一次性读取装置)。</li>
+</ul>
+<p>接下来的3组，每组以RWX或者<code>-</code>组合。<br>
+<code>R</code>:read；<br>
+<code>W</code>:write；<br>
+<code>X</code>:execute；<br>
+<code>-</code>:RWX中没有权限。</p>
+<p>第一组表示：文件的所有者的权限；<br>
+第二组表示：文件所属组的权限；<br>
+第三组表示：他用户拥有该文件的权限</p>
+<h2><span id="更改文件相关属性的命令">更改文件相关属性的命令</span></h2>
+<ul>
+<li>
+<p>更改文件属组： <code>chgrp [-R] 属组文件名</code></p>
+</li>
+<li>
+<p>更改文件属主，也可以同时更改文件属组：<code>chown [–R] 属主名 文件名</code> 或者 <code>chown [-R] 属主名：属组名 文件名</code></p>
+</li>
+<li>
+<p>更改文件9个属性：通过数字或者字符设置</p>
+<ul>
+<li>Linux文件的基本权限就有九个，分别是owner/group/others三种身份各有自己的read/write/execute权限。</li>
+<li><code>RWX-</code>对应的数字：<code>R:4;W:2;X:1;-:0</code></li>
+<li>命令：<code>chmod [-R] xyz 文件或目录</code>, xyz是<code>RWX-</code>数字之和；</li>
+<li>使用下面的命令操作：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>所有者</th>
+<th>操作</th>
+<th>文件或目录</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>chmod</td>
+<td>u</td>
+<td>+(加入)</td>
+<td>r</td>
+</tr>
+<tr>
+<td></td>
+<td>g</td>
+<td>-(除去)</td>
+<td>w</td>
+</tr>
+<tr>
+<td></td>
+<td>o</td>
+<td>=(设定)</td>
+<td>x</td>
+</tr>
+<tr>
+<td></td>
+<td>a</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>其中，(1)u:user (2)g:group (3)o:others (4)a:all</p>
+</li>
+</ul>
+<h2><span id="参考资料">参考资料</span></h2>
+<p>[Linux文件基本属性]：<a href="https://www.w3cschool.cn/linux/linux-file-attr-permission.html" target="_blank" rel="external">https://www.w3cschool.cn/linux/linux-file-attr-permission.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/7m3w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/7m3w-summary/">ARTS-7月3周</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/7m3w-summary/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="7月3周arts总结"><a class="header-anchor" href="#7月3周arts总结">¶</a>7月3周ARTS总结</h2>
+<p>希望自己继续保持下去，分享第五个ARTS的内容：<br>
+1.A：按照类型做算法题，并复习算法。来源是leetco的算法题目<a href="../algorithm/A-88-merge-sorted-array">Algorithm:88.Merge Sorted Array</a>，倒着来的归并排序。</p>
+        
+          <a class="article-more-a" href="/2018/07/22/arts/7m3w-summary/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/7m3w-summary/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/share/S-python-list-note" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/share/S-python-list-note/">Share：python中list操作</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/share/S-python-list-note/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="创建数值列表">创建数值列表</span></h2>
+<ol>
+<li>使用 <code>range</code>函数, 得到的元素属于：[start, stop)</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> value <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>):</div><div class="line">    print(value)</div></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用list函数，构建一个列表</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> list(range(<span class="number">1</span>,<span class="number">10</span>,<span class="number">3</span>)):</div><div class="line">    print(elem)</div></pre></td></tr></table></figure>
+<ol start="3">
+<li>使用<code>append</code>函数</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">squares = []</div><div class="line"><span class="keyword">for</span> value <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">5</span>):</div><div class="line">    squares.append(value ** <span class="number">2</span>)</div><div class="line"></div><div class="line">print(squares)</div></pre></td></tr></table></figure>
+<ol start="4">
+<li>使用切片构建一个新的列表</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">my_foods = [<span class="string">'pizza'</span>, <span class="string">'falafel'</span>, <span class="string">'carrot cake'</span>]</div><div class="line">friend_foods = my_foods[:]</div><div class="line">friend_foods.append(<span class="string">'ice cream'</span>)</div><div class="line"></div><div class="line">print(<span class="string">"My favorite foods are:"</span>)</div><div class="line">print(my_foods)</div><div class="line"></div><div class="line">print(<span class="string">"\nMy friend's favorite foods are:"</span>)</div><div class="line">print(friend_foods)</div></pre></td></tr></table></figure>
+<h2><span id="列表操作">列表操作</span></h2>
+<h3><span id="列表排序操作">列表排序操作</span></h3>
+<ol>
+<li>改变原来list的排序法: <code>sort</code>属性</li>
+</ol>
+<ul>
+<li>正序排</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">cars.sort()</div><div class="line">print(cars)</div></pre></td></tr></table></figure>
+<ul>
+<li>逆序排</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">cars.sort(reverse=<span class="keyword">True</span>)</div><div class="line">print(cars)</div></pre></td></tr></table></figure>
+<ol start="2">
+<li>不改变原来list的排序法：<code>sorted</code></li>
+</ol>
+<ul>
+<li>正序排</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">print(sorted(cars))</div></pre></td></tr></table></figure>
+<ul>
+<li>逆序排</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>, <span class="string">'audi'</span>, <span class="string">'toyota'</span>, <span class="string">'subra'</span>]</div><div class="line">print(sorted(car,reverse=<span class="keyword">True</span>))</div></pre></td></tr></table></figure>
+<ol start="3">
+<li>倒着打印列表</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cars = [<span class="string">'bmw'</span>,<span class="string">'audi'</span>,<span class="string">'toyota'</span>,<span class="string">'subaru'</span>]</div><div class="line">print(cars)</div><div class="line">cars.reverse()</div><div class="line">print(cars)</div></pre></td></tr></table></figure>
+<h2><span id="列表长度">列表长度</span></h2>
+<ol>
+<li>获取列表的长度: <code>len(cars)</code></li>
+<li>列表索引是从0开始的，在不为空的情况下可以使用 <code>-1</code>表示访问最后一个元素</li>
+</ol>
+<h2><span id="列表遍历">列表遍历</span></h2>
+<ol>
+<li>遍历列表，可以使用类似java的foreach语法</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">magicians = [<span class="string">'alice'</span>, <span class="string">'david'</span>, <span class="string">'carolina'</span>]</div><div class="line"><span class="keyword">for</span> magician <span class="keyword">in</span> magicians:</div><div class="line">    print(magician.title() + <span class="string">", that was great trick!"</span>)</div><div class="line">    print(<span class="string">"I can't wait to see your next trick, "</span> + magician.title() + <span class="string">".\n"</span>)</div><div class="line">print(<span class="string">"Thank you everyone,that was a great magic show!"</span>)</div></pre></td></tr></table></figure>
+<h2><span id="简单统计">简单统计</span></h2>
+<p>对<strong>数字</strong>列表元素惊醒简单地统计</p>
+<ul>
+<li>min</li>
+<li>max</li>
+<li>sum</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">digits = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">0</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">7</span>, <span class="number">9</span>]</div><div class="line">print(str(digits) + <span class="string">"'s min:"</span> + str(min(digits))+ <span class="string">" max:"</span> </div><div class="line">    + str(max(digits)) + <span class="string">" sum:"</span> + str(sum(digits)))</div></pre></td></tr></table></figure>
+<h2><span id="切片操作">切片操作</span></h2>
+<ol>
+<li>语法：<code>var_list[start:end]</code> 构建的列表元素属于 <code>var_list[start],...,var_list[end-1]</code></li>
+<li>说明：
+<ul>
+<li><code>var_list[:end]</code>：从头开始到end-1</li>
+<li><code>var_list[start:]</code>:从start开始到<code>len(var_list)-1</code></li>
+<li><code>var_list[:]</code>:整个var_list</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">players = [<span class="string">'charles'</span>, <span class="string">'matina'</span>, <span class="string">'michael'</span>, <span class="string">'florence'</span>, <span class="string">'eli'</span>]</div><div class="line">print(players[<span class="number">0</span>:<span class="number">3</span>])</div><div class="line">print(players[:<span class="number">3</span>])</div><div class="line">print(players[:])</div><div class="line">print(players[<span class="number">2</span>:])</div></pre></td></tr></table></figure>
+<ol start="3">
+<li>应用：分页展示</li>
+</ol>
+<h2><span id="元组">元组</span></h2>
+<ol>
+<li>元组：不可变得列表；不能修改元组中的元素，但可以改变元组变量</li>
+<li>使用园括号定义</li>
+<li>使用下标或者foreach遍历元组</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">dimensions = (<span class="number">200</span>, <span class="number">50</span>)</div><div class="line">print(dimensions[<span class="number">0</span>])</div><div class="line">print(str(dimensions[<span class="number">1</span>]) + <span class="string">"\n"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span> dimension <span class="keyword">in</span> dimensions:</div><div class="line">    print(dimension)</div><div class="line"></div><div class="line">dimensions = (<span class="number">400</span>, <span class="number">100</span>)</div><div class="line">print(dimensions)</div></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/share/S-python-list-note/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/algorithm/A-88-merge-sorted-array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">Algorithm:88.Merge Sorted Array</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
 </a>
         
       </header>
@@ -176,11 +754,22 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
-<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
+<p>
+Description:Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+</p><p><strong>Note:</strong></p>
+<ul>
+<li>The number of elements initialized in nums1 and nums2 are m and n respectively.</li>
+<li>You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<blockquote>
+Input:<br>
+    nums1 = [1,2,3,0,0,0], m = 3<br>
+    nums2 = [2,5,6],       n = 3<br>
+Output: [1,2,2,3,5,6]<br>
+</blockquote>
         
-          <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/#more">more >></a>
         
       
 
@@ -222,7 +811,7 @@
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">展开全文 >></a>
         </p>
       
       
@@ -273,11 +862,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
         		</li>
       		
 		</ul>
@@ -467,6 +1056,84 @@
 
 
   
+    <article id="post-arts/algorithm/A-remove-element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="archive-article-date">
+  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
+        
+          <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
     <article id="post-arts/review/R-the-key-to-code" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -539,408 +1206,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/15/arts/review/R-the-key-to-code/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/review/R-using-js-console" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/review/R-using-js-console/">Review《How you can improve your workflow using the JavaScript console》</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/review/R-using-js-console/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。</p>
-<h2 id="console的作用"><a class="header-anchor" href="#console的作用">¶</a>Console的作用</h2>
-<p>JS中的console是每个浏览器必备的一个特性。它允许开发者：</p>
-<ul>
-<li>View a log of errors and warnings that occur on a web page.<br>
-查看出现在web页面中错误和警告</li>
-<li>Interact with the web page using JavaScript commands.<br>
-使用JS命令与web页面进行交互</li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/review/R-using-js-console/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/review/R-using-js-console/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/7m1w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/7m1w-summary/">ARTS-7月1周</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/7m1w-summary/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="7月1周arts总结"><a class="header-anchor" href="#7月1周arts总结">¶</a>7月1周ARTS总结</h2>
-<p>希望自己继续保持下去，分享第三个ARTS的内容：<br>
-1.A：来源是leetcode在做了一个难点的算法题目<a href="../algorithm/A-Remove-Duplicates-from-Sorted-Array">Remove Duplicates from Sorted Array</a>，利用排序数组的特性以及“双指针”思想解决之。</p>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/7m1w-summary/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/7m1w-summary/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/tip/T-slf4jandlog4j" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
-<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
-<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
-<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/tip/T-slf4jandlog4j/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">slf4j</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">log4j</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/share/S-grep" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/share/S-grep/">Share：grep命令查日志和日志内容乱码</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/share/S-grep/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="grep命令查日志"><a class="header-anchor" href="#grep命令查日志">¶</a>grep命令查日志</h2>
-<p>本周突然接到通知，开发同事需要周六日轮流值班处理生产问题。本周六我做了支持。<br>
-查询日志的时候，使用最多的就是<code>grep</code>命令。周六碰到一个客户不能提前还款。<br>
-使用如下参数查找：</p>
-<ul>
-<li>查询 <code>关键字词</code> 匹配所在的行：<code>grep -n '关键字词' 文件</code></li>
-<li>查询<code>关键字词</code> 前面或者后面多少行，<code>grep -Anum1 -Bnum2 关键字词 文件</code></li>
-</ul>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/share/S-grep/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/share/S-grep/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/algorithm/A-Remove-Duplicates-from-Sorted-Array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">Algorithm:Remove Duplicates from Sorted Array</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given a sorted array nums, remove the duplicates <strong>in-place</strong> such that each element appear only once and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">展开全文 >></a>
         </p>
       
       
@@ -1090,11 +1355,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">distributed lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1106,11 +1383,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1118,11 +1391,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">tip</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1134,11 +1411,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color3">心智</a>
               </li>
              
               <li class="article-tag-list-item">
