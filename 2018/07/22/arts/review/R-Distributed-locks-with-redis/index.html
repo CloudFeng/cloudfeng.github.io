@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>Share:Redis中的分布式锁 | cloudfeng Daily</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="概述 在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。 本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 Redlock，它实现一个DLM。我们相">
+  <meta name="description" content="¶概述 在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。 本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 Redlock，它实现一个DLM。我们">
 <meta name="keywords" content="array,distributed lock,redis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Share:Redis中的分布式锁">
 <meta property="og:url" content="http://yoursite.com/2018/07/22/arts/review/R-Distributed-locks-with-redis/index.html">
 <meta property="og:site_name" content="cloudfeng Daily">
-<meta property="og:description" content="概述 在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。 本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 Redlock，它实现一个DLM。我们相">
-<meta property="og:updated_time" content="2018-07-31T16:19:59.000Z">
+<meta property="og:description" content="¶概述 在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。 本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 Redlock，它实现一个DLM。我们">
+<meta property="og:updated_time" content="2018-07-31T16:24:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Share:Redis中的分布式锁">
-<meta name="twitter:description" content="概述 在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。 本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 Redlock，它实现一个DLM。我们相">
+<meta name="twitter:description" content="¶概述 在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。 本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 Redlock，它实现一个DLM。我们">
   
     <link rel="alternative" href="/atom.xml" title="cloudfeng Daily" type="application/atom+xml">
   
@@ -181,6 +181,7 @@
         <h2><span id="概述">概述</span></h2>
 <p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
 <p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
+<a id="more"></a>
 <h2><span id="实现">实现</span></h2>
 <p>在描述Redlock算法之前，列举目前基于Redis设计的分布式锁，具体如下：</p>
 <ul>
@@ -605,15 +606,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -625,11 +618,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">share</a>
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -637,11 +630,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color1">share</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">tip</a>
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">心智</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -653,7 +650,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+                <a href="javascript:void(0)" class="js-tag color4">tip</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
