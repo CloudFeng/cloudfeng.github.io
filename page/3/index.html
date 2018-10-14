@@ -155,116 +155,33 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-arts/review/R-using-js-console" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/tip/T-linux-file-basic-ma" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/review/R-using-js-console/">Review《How you can improve your workflow using the JavaScript console》</a>
+      <a class="article-title" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">Linux 文件基本属性笔记</a>
     </h1>
   
 
         
-        <a href="/2018/07/07/arts/review/R-using-js-console/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+        <a href="/2018/07/22/arts/tip/T-linux-file-basic-ma/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。</p>
-<h2 id="console的作用"><a class="header-anchor" href="#console的作用">¶</a>Console的作用</h2>
-<p>JS中的console是每个浏览器必备的一个特性。它允许开发者：</p>
-<ul>
-<li>View a log of errors and warnings that occur on a web page.<br>
-查看出现在web页面中错误和警告</li>
-<li>Interact with the web page using JavaScript commands.<br>
-使用JS命令与web页面进行交互</li>
-</ul>
+        <h2 id="缘由"><a class="header-anchor" href="#缘由">¶</a>缘由</h2>
+<p>最近学习linux系统中相关的命令，补一下这块知识。每次需要用相关的命令，都是各种搜索，并且不知道本后<br>
+的原理。</p>
+<h2 id="linux-文件基本属性"><a class="header-anchor" href="#linux-文件基本属性">¶</a>Linux 文件基本属性</h2>
+<p>使用 <code>ls -l</code>,查看的当前目录下地文件或目录。第一个字符代表这个文件是目录、文件或链接文件等等。</p>
         
-          <a class="article-more-a" href="/2018/07/07/arts/review/R-using-js-console/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">review</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">javascript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/review/R-using-js-console/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/tip/T-slf4jandlog4j" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
-<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
-<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
-<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/tip/T-slf4jandlog4j/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/#more">more >></a>
         
       
 
@@ -282,11 +199,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">slf4j</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">log4j</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -310,7 +223,7 @@
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">展开全文 >></a>
         </p>
       
       
@@ -321,113 +234,31 @@
 
 
   
-    <article id="post-arts/share/S-grep" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/7m3w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/share/S-grep/">Share：grep命令查日志和日志内容乱码</a>
+      <a class="article-title" href="/2018/07/22/arts/7m3w-summary/">ARTS-7月3周</a>
     </h1>
   
 
         
-        <a href="/2018/07/07/arts/share/S-grep/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+        <a href="/2018/07/22/arts/7m3w-summary/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="grep命令查日志"><a class="header-anchor" href="#grep命令查日志">¶</a>grep命令查日志</h2>
-<p>本周突然接到通知，开发同事需要周六日轮流值班处理生产问题。本周六我做了支持。<br>
-查询日志的时候，使用最多的就是<code>grep</code>命令。周六碰到一个客户不能提前还款。<br>
-使用如下参数查找：</p>
-<ul>
-<li>查询 <code>关键字词</code> 匹配所在的行：<code>grep -n '关键字词' 文件</code></li>
-<li>查询<code>关键字词</code> 前面或者后面多少行，<code>grep -Anum1 -Bnum2 关键字词 文件</code></li>
-</ul>
+        <h2 id="7月3周arts总结"><a class="header-anchor" href="#7月3周arts总结">¶</a>7月3周ARTS总结</h2>
+<p>希望自己继续保持下去，分享第五个ARTS的内容：<br>
+1.A：按照类型做算法题，并复习算法。来源是leetco的算法题目<a href="../algorithm/A-88-merge-sorted-array">Algorithm:88.Merge Sorted Array</a>，倒着来的归并排序。</p>
         
-          <a class="article-more-a" href="/2018/07/07/arts/share/S-grep/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/share/S-grep/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/7m1w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/7m1w-summary/">ARTS-7月1周</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/arts/7m1w-summary/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="7月1周arts总结"><a class="header-anchor" href="#7月1周arts总结">¶</a>7月1周ARTS总结</h2>
-<p>希望自己继续保持下去，分享第三个ARTS的内容：<br>
-1.A：来源是leetcode在做了一个难点的算法题目<a href="../algorithm/A-Remove-Duplicates-from-Sorted-Array">Remove Duplicates from Sorted Array</a>，利用排序数组的特性以及“双指针”思想解决之。</p>
-        
-          <a class="article-more-a" href="/2018/07/07/arts/7m1w-summary/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/7m3w-summary/#more">more >></a>
         
       
 
@@ -469,7 +300,7 @@
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/7m1w-summary/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/7m3w-summary/">展开全文 >></a>
         </p>
       
       
@@ -480,31 +311,37 @@
 
 
   
-    <article id="post-arts/algorithm/A-Remove-Duplicates-from-Sorted-Array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/share/S-python-list-note" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">Algorithm:Remove Duplicates from Sorted Array</a>
+      <a class="article-title" href="/2018/07/22/arts/share/S-python-list-note/">Share：python中list操作</a>
     </h1>
   
 
         
-        <a href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/" class="archive-article-date">
-  	<time datetime="2018-07-06T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+        <a href="/2018/07/22/arts/share/S-python-list-note/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given a sorted array nums, remove the duplicates <strong>in-place</strong> such that each element appear only once and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+        <h2 id="创建数值列表"><a class="header-anchor" href="#创建数值列表">¶</a>创建数值列表</h2>
+<ol>
+<li>使用 <code>range</code>函数, 得到的元素属于：[start, stop)</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> value <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>):</div><div class="line">    print(value)</div></pre></td></tr></table></figure>
+<ol start="2">
+<li>使用list函数，构建一个列表</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> list(range(<span class="number">1</span>,<span class="number">10</span>,<span class="number">3</span>)):</div><div class="line">    print(elem)</div></pre></td></tr></table></figure>
         
-          <a class="article-more-a" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/share/S-python-list-note/#more">more >></a>
         
       
 
@@ -518,7 +355,177 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/share/S-python-list-note/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/algorithm/A-88-merge-sorted-array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">Algorithm:88.Merge Sorted Array</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>
+Description:Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+</p><p><strong>Note:</strong></p>
+<ul>
+<li>The number of elements initialized in nums1 and nums2 are m and n respectively.</li>
+<li>You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<blockquote>
+Input:<br>
+    nums1 = [1,2,3,0,0,0], m = 3<br>
+    nums2 = [2,5,6],       n = 3<br>
+Output: [1,2,2,3,5,6]<br>
+</blockquote>
+        
+          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/review/R-Distributed-locks-with-redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">Share:Redis中的分布式锁</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
+<p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
+        
+          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">distributed lock</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -546,7 +553,7 @@
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">展开全文 >></a>
         </p>
       
       
@@ -557,38 +564,32 @@
 
 
   
-    <article id="post-arts/6m4w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/algorithm/A-remove-element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/6m4w-summary/">ARTS-6月4周</a>
+      <a class="article-title" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
     </h1>
   
 
         
-        <a href="/2018/06/29/arts/6m4w-summary/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+        <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="archive-article-date">
+  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="本周arts总结"><a class="header-anchor" href="#本周arts总结">¶</a>本周ARTS总结</h2>
-<p>6月最后一周的ARTS一直没有写完，主要原因有两点：</p>
-<ul>
-<li>算法题目一直没有想到一个很好的想法解决；</li>
-<li>这周家里和工作上都有很多事情，只能零碎的写写；</li>
-</ul>
-<p>希望自己继续保持下去，分享第二个ARTS的内容：</p>
-<ol>
-<li>leetcode在做了一个难点的算法题目<a href="../algorithm/A-Find-median">Median of Two Sorted Arrays</a>，使用归并排序的算法解决之，但不是最好的，到目前还没有想到到最优解。</li>
-</ol>
+        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
         
-          <a class="article-more-a" href="/2018/06/29/arts/6m4w-summary/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/#more">more >></a>
         
       
 
@@ -602,7 +603,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
         		</li>
       		
 		</ul>
@@ -616,10 +621,6 @@
         		<li class="article-tag-list-item">
         			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
         		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
-        		</li>
       		
 		</ul>
 	</div>
@@ -630,7 +631,7 @@
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/6m4w-summary/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/">展开全文 >></a>
         </p>
       
       
@@ -641,20 +642,20 @@
 
 
   
-    <article id="post-arts/review/R-learn-by-hard-way" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/review/R-the-key-to-code" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/review/R-learn-by-hard-way/">脚踏实地学习</a>
+      <a class="article-title" href="/2018/07/15/arts/review/R-the-key-to-code/">Review - The Key to Accelerating Your Skills While You Learn to Code</a>
     </h1>
   
 
         
-        <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+        <a href="/2018/07/15/arts/review/R-the-key-to-code/" class="archive-article-date">
+  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
 </a>
         
       </header>
@@ -662,11 +663,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周阅读了Peter Norving 写的一篇文章《Teach Yourself Programming in Ten Years》<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup><br>
-和 Alan Sorkin 写的一篇文章《The Greatest Developer Fallacy Or The Wisest Words You’ll Ever Hear?》<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> 。这两篇文章给我的感触比较深，所以本周就分享一下文章大概内容以及本周根据<br>
-MDN一步一步做的一个mntfun静态页面。</p>
+<p>本周阅读了KEN MAZAIKA写的一篇文章《The Key to Accelerating Your Skills While You Learn to Code》<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>。主要讲解了如何快速学习编程，我们既要学习领域知识，也要学习过程知识。还有一点就是编程心态<br>
+和编程是一个持续性学习。作者将其分为三个阶段：</p>
+<ul>
+<li>跟着手册学习或者练习阶段；</li>
+<li>心态练习阶段，解决具体问题；</li>
+<li>跳出舒适区</li>
+</ul>
         
-          <a class="article-more-a" href="/2018/06/29/arts/review/R-learn-by-hard-way/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/review/R-the-key-to-code/#more">more >></a>
         
       
 
@@ -708,7 +713,7 @@ MDN一步一步做的一个mntfun静态页面。</p>
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/review/R-learn-by-hard-way/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/review/R-the-key-to-code/">展开全文 >></a>
         </p>
       
       
@@ -719,47 +724,31 @@ MDN一步一步做的一个mntfun静态页面。</p>
 
 
   
-    <article id="post-arts/algorithm/A-Find-median" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/7m2w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/algorithm/A-Find-median/">Algorithm:Median of Two Sorted Arrays</a>
+      <a class="article-title" href="/2018/07/15/arts/7m2w-summary/">ARTS-7月2周</a>
     </h1>
   
 
         
-        <a href="/2018/06/29/arts/algorithm/A-Find-median/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+        <a href="/2018/07/15/arts/7m2w-summary/" class="archive-article-date">
+  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
-<p>There are two <strong>sorted arrays</strong> nums1 and nums2 of size m and n respectively.<br>
-Find the median of the two sorted arrays. The overall run time complexity<br>
-should be <strong>O(log(m+n))</strong>.</p>
-<p>Example 1:</p>
-<blockquote>
-<p>nums1 = [1, 3]<br>
-nums2 = [2]<br>
-The median is 2.0</p>
-</blockquote>
-<p>Example 2:</p>
-<blockquote>
-<p>nums1 = [1, 2]<br>
-nums2 = [3, 4]<br>
-The median is (2 + 3)/2 = 2.5</p>
-</blockquote>
-<ul>
-<li>Level: Hard</li>
-</ul>
+        <h2 id="7月2周arts总结"><a class="header-anchor" href="#7月2周arts总结">¶</a>7月2周ARTS总结</h2>
+<p>希望自己继续保持下去，分享第四个ARTS的内容：<br>
+1.A：按照类型做算法题，并复习算法。来源是leetco的算法题目<a href="../algorithm/A-remove-element">Remove Element</a>，利用“双指针”思想解决之。</p>
         
-          <a class="article-more-a" href="/2018/06/29/arts/algorithm/A-Find-median/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/7m2w-summary/#more">more >></a>
         
       
 
@@ -773,11 +762,7 @@ The median is (2 + 3)/2 = 2.5</p>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
         		</li>
       		
 		</ul>
@@ -791,6 +776,10 @@ The median is (2 + 3)/2 = 2.5</p>
         		<li class="article-tag-list-item">
         			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -801,7 +790,7 @@ The median is (2 + 3)/2 = 2.5</p>
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/algorithm/A-Find-median/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/7m2w-summary/">展开全文 >></a>
         </p>
       
       
@@ -812,37 +801,34 @@ The median is (2 + 3)/2 = 2.5</p>
 
 
   
-    <article id="post-arts/share/S-TDD-is-perfect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/tip/T-linux-file-command" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/share/S-TDD-is-perfect/">测试驱动开发小思考</a>
+      <a class="article-title" href="/2018/07/15/arts/tip/T-linux-file-command/">linux 磁盘管理的几个小命令</a>
     </h1>
   
 
         
-        <a href="/2018/06/29/arts/share/S-TDD-is-perfect/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
+        <a href="/2018/07/15/arts/tip/T-linux-file-command/" class="archive-article-date">
+  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="tdd疑问"><a class="header-anchor" href="#tdd疑问">¶</a>TDD疑问</h2>
-<p>最近学习TDD开发，用在平时开发的时候，就会发现TDD并不完美，特别是测试先行和各种需要覆盖<br>
-的测试。存在疑问如下：</p>
+        <h2><span id="linux-磁盘管理的小命令">linux 磁盘管理的小命令</span></h2>
+<p>工作上经常要清理一些文件以及查看磁盘的使用量，本周分享一下常用的几个磁盘管理命令。</p>
 <ul>
-<li>是否真的需要一开始就写测试，然后一步一步驱动去开发呢；</li>
-<li>后续测试用例的维护，特别与关联其他部门的接口，各种mock和stub；</li>
-<li>耗费的时候比先写好代码再测试更大；</li>
+<li><code>df</code>：列出文件系统的整体磁盘使用量</li>
+<li><code>du</code>：检查磁盘空间使用量，文件和目录磁盘使用空间</li>
+<li><code>fdisk</code>：用于磁盘分区</li>
 </ul>
-        
-          <a class="article-more-a" href="/2018/06/29/arts/share/S-TDD-is-perfect/#more">more >></a>
-        
+
       
 
       
@@ -854,94 +840,13 @@ The median is (2 + 3)/2 = 2.5</p>
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TDD</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/share/S-TDD-is-perfect/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/tip/T-java-thread-unit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/29/arts/tip/T-java-thread-unit/">Junit测试Java多线程小疑</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/29/arts/tip/T-java-thread-unit/" class="archive-article-date">
-  	<time datetime="2018-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="遇到背景"><a class="header-anchor" href="#遇到背景">¶</a>遇到背景</h2>
-<p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。发<br>
-现与书中使用main方法来测试的结果是不一样的。</p>
-        
-          <a class="article-more-a" href="/2018/06/29/arts/tip/T-java-thread-unit/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">junit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">thread</a>
-        		</li>
-      		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -964,7 +869,85 @@ The median is (2 + 3)/2 = 2.5</p>
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/29/arts/tip/T-java-thread-unit/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/tip/T-linux-file-command/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/share/S-self-think" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/15/arts/share/S-self-think/">Share：遇到不中听的话，也要找到合理之处</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/15/arts/share/S-self-think/" class="archive-article-date">
+  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="背景"><a class="header-anchor" href="#背景">¶</a>背景</h2>
+<p>最近看吴军老师的《硅谷来信》，其中有一段讨论“即便遇到不中听的话，也要试着找出其中的合理之处。”<br>
+现在每次反思自己的行为都会想起这句话，现在每次听到不中听的话，都会反驳回去。对人对己都不是特别好，<br>
+今日将其摘抄一下，以便再次理解一次。</p>
+        
+          <a class="article-more-a" href="/2018/07/15/arts/share/S-self-think/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">share</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">心智</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/15/arts/share/S-self-think/">展开全文 >></a>
         </p>
       
       
@@ -977,7 +960,7 @@ The median is (2 + 3)/2 = 2.5</p>
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 
@@ -1106,15 +1089,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
+                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">array</a>
+                <a href="javascript:void(0)" class="js-tag color1">share</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">math</a>
+                <a href="javascript:void(0)" class="js-tag color1">消费心理学</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">5分钟商学院</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grep</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1123,14 +1118,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">review</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">distributed lock</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1150,31 +1137,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">distributed lock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">array</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">TDD</a>
+                <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">share</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">消费心理学</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">5分钟商学院</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">grep</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">心智</a>
+                <a href="javascript:void(0)" class="js-tag color5">math</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1194,15 +1177,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">slf4j</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">log4j</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Tip</a>
               </li>
             
             <div class="clearfix"></div>
