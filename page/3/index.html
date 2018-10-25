@@ -155,20 +155,20 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-arts/algorithm/A-88-merge-sorted-array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/algorithm/A-258-add-digits" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">Algorithm:88.Merge Sorted Array</a>
+      <a class="article-title" href="/2018/07/29/arts/algorithm/A-258-add-digits/">Algorithm:88.Merge Sorted Array</a>
     </h1>
   
 
         
-        <a href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/" class="archive-article-date">
-  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+        <a href="/2018/07/29/arts/algorithm/A-258-add-digits/" class="archive-article-date">
+  	<time datetime="2018-07-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-29</time>
 </a>
         
       </header>
@@ -177,21 +177,24 @@
       
         <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
 <p>
-Description:Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
-</p><p><strong>Note:</strong></p>
+Given a non-negative integer num, repeatedly add all its digits until the result has only one digit<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>.
+</p>
+<p><strong>Note:</strong></p>
 <ul>
 <li>The number of elements initialized in nums1 and nums2 are m and n respectively.</li>
 <li>You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.</li>
 </ul>
 <p><strong>Example:</strong></p>
 <blockquote>
-Input:<br>
-    nums1 = [1,2,3,0,0,0], m = 3<br>
-    nums2 = [2,5,6],       n = 3<br>
-Output: [1,2,2,3,5,6]<br>
+Input: 38 <br>
+Output: 2 <br>
+Explanation: The process is like: 3 + 8 = 11, 1 + 1 = 2. 
+             Since 2 has only one digit, return it.
 </blockquote>
+<p><strong>Follow up:</strong></p>
+<p>Could you do it without any loop/recursion in O(1) runtime?</p>
         
-          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/#more">more >></a>
+          <a class="article-more-a" href="/2018/07/29/arts/algorithm/A-258-add-digits/#more">more >></a>
         
       
 
@@ -209,7 +212,7 @@ Output: [1,2,2,3,5,6]<br>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">math</a>
         		</li>
       		
 		</ul>
@@ -233,7 +236,7 @@ Output: [1,2,2,3,5,6]<br>
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/29/arts/algorithm/A-258-add-digits/">展开全文 >></a>
         </p>
       
       
@@ -313,87 +316,6 @@ Output: [1,2,2,3,5,6]<br>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/review/R-Distributed-locks-with-redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">Share:Redis中的分布式锁</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/" class="archive-article-date">
-  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
-<p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
-        
-          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">distributed lock</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">展开全文 >></a>
         </p>
       
       
@@ -564,6 +486,176 @@ Output: [1,2,2,3,5,6]<br>
 
 
   
+    <article id="post-arts/algorithm/A-88-merge-sorted-array" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">Algorithm:88.Merge Sorted Array</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>
+Description:Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+</p><p><strong>Note:</strong></p>
+<ul>
+<li>The number of elements initialized in nums1 and nums2 are m and n respectively.</li>
+<li>You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<blockquote>
+Input:<br>
+    nums1 = [1,2,3,0,0,0], m = 3<br>
+    nums2 = [2,5,6],       n = 3<br>
+Output: [1,2,2,3,5,6]<br>
+</blockquote>
+        
+          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">algorithm</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
+    <article id="post-arts/review/R-Distributed-locks-with-redis" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">Share:Redis中的分布式锁</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/" class="archive-article-date">
+  	<time datetime="2018-07-21T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
+<p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
+        
+          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">array</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">distributed lock</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      <span id="busuanzi_container_page_pv">
+        阅读<span id="busuanzi_value_page_pv"></span>次
+      </span>
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">展开全文 >></a>
+        </p>
+      
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+  
     <article id="post-arts/algorithm/A-remove-element" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -632,83 +724,6 @@ Output: [1,2,2,3,5,6]<br>
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/07/15/arts/algorithm/A-remove-element/">展开全文 >></a>
-        </p>
-      
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-  
-    <article id="post-arts/7m2w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/15/arts/7m2w-summary/">ARTS-7月2周</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/15/arts/7m2w-summary/" class="archive-article-date">
-  	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="7月2周arts总结"><a class="header-anchor" href="#7月2周arts总结">¶</a>7月2周ARTS总结</h2>
-<p>希望自己继续保持下去，分享第四个ARTS的内容：<br>
-1.A：按照类型做算法题，并复习算法。来源是leetco的算法题目<a href="../algorithm/A-remove-element">Remove Element</a>，利用“双指针”思想解决之。</p>
-        
-          <a class="article-more-a" href="/2018/07/15/arts/7m2w-summary/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      <span id="busuanzi_container_page_pv">
-        阅读<span id="busuanzi_value_page_pv"></span>次
-      </span>
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/15/arts/7m2w-summary/">展开全文 >></a>
         </p>
       
       
@@ -879,19 +894,19 @@ Output: [1,2,2,3,5,6]<br>
 
 
   
-    <article id="post-arts/tip/T-linux-file-command" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-arts/7m2w-summary" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/15/arts/tip/T-linux-file-command/">linux 磁盘管理的几个小命令</a>
+      <a class="article-title" href="/2018/07/15/arts/7m2w-summary/">ARTS-7月2周</a>
     </h1>
   
 
         
-        <a href="/2018/07/15/arts/tip/T-linux-file-command/" class="archive-article-date">
+        <a href="/2018/07/15/arts/7m2w-summary/" class="archive-article-date">
   	<time datetime="2018-07-14T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-15</time>
 </a>
         
@@ -899,14 +914,12 @@ Output: [1,2,2,3,5,6]<br>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2><span id="linux-磁盘管理的小命令">linux 磁盘管理的小命令</span></h2>
-<p>工作上经常要清理一些文件以及查看磁盘的使用量，本周分享一下常用的几个磁盘管理命令。</p>
-<ul>
-<li><code>df</code>：列出文件系统的整体磁盘使用量</li>
-<li><code>du</code>：检查磁盘空间使用量，文件和目录磁盘使用空间</li>
-<li><code>fdisk</code>：用于磁盘分区</li>
-</ul>
-
+        <h2 id="7月2周arts总结"><a class="header-anchor" href="#7月2周arts总结">¶</a>7月2周ARTS总结</h2>
+<p>希望自己继续保持下去，分享第四个ARTS的内容：<br>
+1.A：按照类型做算法题，并复习算法。来源是leetco的算法题目<a href="../algorithm/A-remove-element">Remove Element</a>，利用“双指针”思想解决之。</p>
+        
+          <a class="article-more-a" href="/2018/07/15/arts/7m2w-summary/#more">more >></a>
+        
       
 
       
@@ -919,11 +932,7 @@ Output: [1,2,2,3,5,6]<br>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">tip</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">ARTS</a>
         		</li>
       		
 		</ul>
@@ -937,6 +946,10 @@ Output: [1,2,2,3,5,6]<br>
         		<li class="article-tag-list-item">
         			<a href="/categories/ARTS/" class="article-tag-list-link color5">ARTS</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/summary/" class="article-tag-list-link color3">summary</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -947,7 +960,7 @@ Output: [1,2,2,3,5,6]<br>
       </span>
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/15/arts/tip/T-linux-file-command/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/15/arts/7m2w-summary/">展开全文 >></a>
         </p>
       
       
@@ -1089,15 +1102,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Binary Search</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">algorithm</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">array</a>
+                <a href="javascript:void(0)" class="js-tag color5">math</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">math</a>
+                <a href="javascript:void(0)" class="js-tag color1">array</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1117,11 +1134,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">PM</a>
+                <a href="javascript:void(0)" class="js-tag color4">learning</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">learning</a>
+                <a href="javascript:void(0)" class="js-tag color3">PM</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1133,15 +1150,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">TDD</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">share</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">javascript</a>
               </li>
              
               <li class="article-tag-list-item">
