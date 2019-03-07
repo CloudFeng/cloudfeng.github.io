@@ -121,7 +121,7 @@
         </li>
       </a>
     
-      <a href="/tags">
+      <a href="/tags/">
         <li class="mobile-menu-item">
           
           
@@ -130,7 +130,7 @@
         </li>
       </a>
     
-      <a href="/categories">
+      <a href="/categories/">
         <li class="mobile-menu-item">
           
           
@@ -139,7 +139,7 @@
         </li>
       </a>
     
-      <a href="/about">
+      <a href="/about/">
         <li class="mobile-menu-item">
           
           
@@ -179,7 +179,7 @@
         </li>
       
         <li class="menu-item">
-          <a class="menu-item-link" href="/tags">
+          <a class="menu-item-link" href="/tags/">
             
             
               Tags
@@ -188,7 +188,7 @@
         </li>
       
         <li class="menu-item">
-          <a class="menu-item-link" href="/categories">
+          <a class="menu-item-link" href="/categories/">
             
             
               Categories
@@ -197,7 +197,7 @@
         </li>
       
         <li class="menu-item">
-          <a class="menu-item-link" href="/about">
+          <a class="menu-item-link" href="/about/">
             
             
               About
@@ -536,6 +536,60 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">707. Design Linked List</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-19
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+              <a href="/categories/ARTS/Algorithm/">Algorithm</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>本周做一个<a href="https://leetcode.com/problems/design-linked-list/" target="_blank" rel="external">单链表操作的题目</a>。边写代码边测试，弄了近一个小时，中间有被中断，虽然一次就是acc了，但速度还是不够快。而且运行时间也不够快，分析了一下，可以使用头尾指针和长度运行时间会更快。比如插表尾法可以从O(n)降为O(1)。</p>
+<p>这次给一个粗糙的算法。</p>
+          <div class="read-more">
+            <a href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/10/19/arts/10m3w-summary/">ARTS-10月2周</a>
         
       </h1>
@@ -588,60 +642,6 @@
 </ul>
           <div class="read-more">
             <a href="/2018/10/19/arts/10m3w-summary/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">707. Design Linked List</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-19
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/Algorithm/">Algorithm</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>本周做一个<a href="https://leetcode.com/problems/design-linked-list/" target="_blank" rel="external">单链表操作的题目</a>。边写代码边测试，弄了近一个小时，中间有被中断，虽然一次就是acc了，但速度还是不够快。而且运行时间也不够快，分析了一下，可以使用头尾指针和长度运行时间会更快。比如插表尾法可以从O(n)降为O(1)。</p>
-<p>这次给一个粗糙的算法。</p>
-          <div class="read-more">
-            <a href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -784,7 +784,7 @@ the decimal part is truncated, 2 is returned.</p>
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/10/07/arts/algorithm/A-35-Search-Insert-Position/">35. Search Insert Position</a>
+          <a class="post-link" href="/2018/10/07/arts/10m1w-summary/">ARTS-10月1周</a>
         
       </h1>
 
@@ -795,7 +795,9 @@ the decimal part is truncated, 2 is returned.</p>
         
           <span class="post-category">
             
-              <a href="/categories/Algorithm/">Algorithm</a>
+              <a href="/categories/ARTS/">ARTS</a>
+            
+              <a href="/categories/ARTS/summary/">summary</a>
             
           </span>
         
@@ -815,31 +817,12 @@ the decimal part is truncated, 2 is returned.</p>
         
 
         
-          <h2 id="题目描述"><a class="header-anchor" href="#题目描述">¶</a>题目描述</h2>
-<p>Given a sorted array and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.</p>
-<p>You may assume no duplicates in the array.</p>
-<p>Example 1:</p>
-<blockquote>
-Input: [1,3,5,6], 5<br>
-Output: 2
-</blockquote>
-<p>Example 2:</p>
-<blockquote>
-Input: [1,3,5,6], 2<br>
-Output: 1
-</blockquote>
-<p>Example 3:</p>
-<blockquote>
-Input: [1,3,5,6], 7<br>
-Output: 4
-</blockquote>
-<p>Example 4:</p>
-<blockquote>
-Input: [1,3,5,6], 0<br>
-Output: 0
-</blockquote>
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周继续做二分查找类型的题目：<a href="../algorithm/A-35-Search-Insert-Position"><code>35. Search Insert Position</code></a>。</p>
+<h2 id="review：introduction-to-java-bytecode"><a class="header-anchor" href="#review：introduction-to-java-bytecode">¶</a>Review：Introduction to Java Bytecode</h2>
+<p>本周分享的文章来源是DZone，标题:<a href="https://docs.oracle.com/javase/specs/jvms/se9/html/jvms-6.html" target="_blank" rel="external">Introduction to Java Bytecode</a>。文章首先介绍了JVM的数据类型，不同的数据类型对字节码指令也不同；接着介绍了基于栈架构的java运行时内存区域以及相关的构成,比如使用下图中解释stack元素frame的构成；后面就是几个简单例子，但是作者图文并茂的解释，十分通俗易懂，推荐阅读。</p>
           <div class="read-more">
-            <a href="/2018/10/07/arts/algorithm/A-35-Search-Insert-Position/" class="read-more-link">Read more..</a>
+            <a href="/2018/10/07/arts/10m1w-summary/" class="read-more-link">Read more..</a>
           </div>
         
       
