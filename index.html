@@ -38,7 +38,7 @@
 
 
 
-<link rel="canonical" href="http://yoursite.com/"/>
+<link rel="canonical" href="https://cloudfeng.github.io/"/>
 
 
 
@@ -224,7 +224,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/11/30/arts/11m4w-summary/">ARTS之旅（22周）</a>
+          <a class="post-link" href="/2018/11/30/arts/algorithm/160_Intersection_of_Two_Linked_Lists/">160. Intersection of Two Linked Lists</a>
         
       </h1>
 
@@ -262,7 +262,7 @@
 <h3 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h3>
 <p>给定两个单链表，写一个函数找出其第一个相交的点。</p>
           <div class="read-more">
-            <a href="/2018/11/30/arts/11m4w-summary/" class="read-more-link">Read more..</a>
+            <a href="/2018/11/30/arts/algorithm/160_Intersection_of_Two_Linked_Lists/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -280,7 +280,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/11/18/arts/11m3w-summary/">ARTS之旅（21周）</a>
+          <a class="post-link" href="/2018/11/18/arts/algorithm/21_Merge_Two_Sorted_Lists/">21. Merge Two Sorted Lists</a>
         
       </h1>
 
@@ -292,8 +292,6 @@
           <span class="post-category">
             
               <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/summary/">summary</a>
             
           </span>
         
@@ -322,7 +320,7 @@
     Output: 1->1->2->3->4->4
 </pre>
           <div class="read-more">
-            <a href="/2018/11/18/arts/11m3w-summary/" class="read-more-link">Read more..</a>
+            <a href="/2018/11/18/arts/algorithm/21_Merge_Two_Sorted_Lists/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -340,7 +338,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/11/11/arts/11m2w-summary/">ARTS之旅（20周）</a>
+          <a class="post-link" href="/2018/11/11/arts/algorithm/141_Linked_List_Cycle/">141. Linked List Cycle</a>
         
       </h1>
 
@@ -351,9 +349,7 @@
         
           <span class="post-category">
             
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/summary/">summary</a>
+              <a href="/categories/Algorithm/">Algorithm</a>
             
           </span>
         
@@ -383,7 +379,7 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.next != <span class="keyword">null</span>) &#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        <span class="comment">// delete duplicate last node，</span></div><div class="line">        <span class="keyword">if</span> (node.next.next == <span class="keyword">null</span>) &#123;</div><div class="line">            node.next = <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            node = node.next;</div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <div class="read-more">
-            <a href="/2018/11/11/arts/11m2w-summary/" class="read-more-link">Read more..</a>
+            <a href="/2018/11/11/arts/algorithm/141_Linked_List_Cycle/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -663,6 +659,63 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/10/12/arts/10m2w-summary/">ARTS-10月2周</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-12
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+              <a href="/categories/ARTS/summary/">summary</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周继续做二分查找类型的题目：<a href="../algorithm/A-69-sqrt"><code>69.Sqrt(x)</code></a>。</p>
+<h2 id="review：the-2018-devops-roadmap"><a class="header-anchor" href="#review：the-2018-devops-roadmap">¶</a>Review：The 2018 DevOps RoadMap</h2>
+<p>本周分享的文章来源是Medium，副标题：An illustrated guide to becoming a DevOps Engineer with links<br>
+to relevant courses。本文主要根据<a href="https://github.com/kamranahmedse/developer-roadmap" target="_blank" rel="external">kamranahmedse</a>提供的DevOps图（如下），给出相应地学习视频，具体的相关的视频地址就不提供了，具体可以参考作者的原文。</p>
+          <div class="read-more">
+            <a href="/2018/10/12/arts/10m2w-summary/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/10/12/arts/algorithm/A-69-sqrt/">69.Sqrt(x)</a>
         
       </h1>
@@ -731,63 +784,6 @@ the decimal part is truncated, 2 is returned.</p>
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/10/12/arts/10m2w-summary/">ARTS-10月2周</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-12
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/summary/">summary</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
-<p>本周继续做二分查找类型的题目：<a href="../algorithm/A-69-sqrt"><code>69.Sqrt(x)</code></a>。</p>
-<h2 id="review：the-2018-devops-roadmap"><a class="header-anchor" href="#review：the-2018-devops-roadmap">¶</a>Review：The 2018 DevOps RoadMap</h2>
-<p>本周分享的文章来源是Medium，副标题：An illustrated guide to becoming a DevOps Engineer with links<br>
-to relevant courses。本文主要根据<a href="https://github.com/kamranahmedse/developer-roadmap" target="_blank" rel="external">kamranahmedse</a>提供的DevOps图（如下），给出相应地学习视频，具体的相关的视频地址就不提供了，具体可以参考作者的原文。</p>
-          <div class="read-more">
-            <a href="/2018/10/12/arts/10m2w-summary/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
           <a class="post-link" href="/2018/10/07/arts/algorithm/A-35-Search-Insert-Position/">35. Search Insert Position</a>
         
       </h1>
@@ -799,9 +795,7 @@ to relevant courses。本文主要根据<a href="https://github.com/kamranahmeds
         
           <span class="post-category">
             
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/Algorithm/">Algorithm</a>
+              <a href="/categories/Algorithm/">Algorithm</a>
             
           </span>
         
