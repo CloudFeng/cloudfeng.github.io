@@ -17,12 +17,12 @@
 
 
 
-  <meta name="description" content="ARTS之旅（19周）"/>
+  <meta name="description" content="237. Delete Node in a Linked List"/>
 
 
 
 
-  <meta name="keywords" content="ARTS, cloudfeng" />
+  <meta name="keywords" content="linkedlist, cloudfeng" />
 
 
 
@@ -42,7 +42,7 @@
 
 
 
-<link rel="canonical" href="https://cloudfeng.github.io/2018/10/27/arts/10m4w-summary/"/>
+<link rel="canonical" href="https://cloudfeng.github.io/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/"/>
 
 
 
@@ -90,7 +90,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title> ARTS之旅（19周） - cloudfeng </title>
+    <title> 237. Delete Node in a Linked List - cloudfeng </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -224,20 +224,18 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          ARTS之旅（19周）
+          237. Delete Node in a Linked List
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-10-27
+          2018-11-04
         </span>
         
           <span class="post-category">
             
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/summary/">summary</a>
+              <a href="/categories/Algorithm/">Algorithm</a>
             
           </span>
         
@@ -250,7 +248,7 @@
   <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">思路</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Review: 每周一篇英文文章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Tip</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Share</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">思路</span></a></li></ol></li></ol>
     </div>
   </div>
 
@@ -259,48 +257,24 @@
     <div class="post-content">
       
         <h2><span id="algorithm">Algorithm</span></h2>
-<p>本周做的算法题是 <a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank" rel="external">876. Middle of the Linked List</a>。</p>
+<p>本周做的算法题是 <a href="https://leetcode.com/problems/delete-node-in-a-linked-list/" target="_blank" rel="external">237. Delete Node in a Linked List</a>。</p>
 <h3><span id="问题描述">问题描述</span></h3>
-<p>给一个非空的链表，找到其中间节点。若有两个中间节点，返回第二个。例子：</p>
+<p>写一个函数删除单链表中得一个节点（非尾节点），并假定给定的节点是可以获取的。</p>
+<p>例子：给定一个单链表：<code>4 -&gt; 5 -&gt; 1 -&gt; 9</code></p>
 <ol>
-<li>
-<p>[1,2,3,4,5] 返回 3</p>
-</li>
-<li>
-<p>[1,2,3,4,5] 返回 4</p>
-</li>
+<li>若删除节点 5， 链表变为： <code>4 -&gt; 1 -&gt; 9</code></li>
+<li>若删除节点 1， 链表变为： <code>4 -&gt; 5 -&gt; 9</code></li>
 </ol>
 <h3><span id="思路">思路</span></h3>
 <ol>
-<li>
-<p>将遍历链表，将元素放入一个数组arr里面，然后直接返回<code>arr[len/2]</code>,时间复杂度是O(len)（链表长度），空间复杂度O(len)。</p>
-</li>
-<li>
-<p>快慢指针法，快慢指针遍历链表，快的比慢多走一倍。快指针遍历完链表，慢指针就是中间节点。时间复杂度O(len)（链表长度），空间复杂度O(1)。</p>
-</li>
+<li>将要删除的节点之后向节点的值赋值到删除的节点移动，后续的节点补上，若删除是倒数第二个节点，时间复杂度为 O(n-1), 其中n为链表的长度。</li>
 </ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.next != <span class="keyword">null</span>) &#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        <span class="comment">// delete duplicate last node，</span></div><div class="line">        <span class="keyword">if</span> (node.next.next == <span class="keyword">null</span>) &#123;</div><div class="line">            node.next = <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            node = node.next;</div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == head) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    ListNode fastNode = head;</div><div class="line">    ListNode slowNode = head;</div><div class="line">    </div><div class="line">    <span class="keyword">while</span> (fastNode != <span class="keyword">null</span> &amp;&amp; fastNode.next != <span class="keyword">null</span>) &#123;</div><div class="line">        fastNode = fastNode.next.next;</div><div class="line">        slowNode = slowNode.next;</div><div class="line">    &#125; </div><div class="line">    <span class="keyword">return</span> slowNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2><span id="review-每周一篇英文文章">Review: 每周一篇英文文章</span></h2>
-<p>本周阅读的英文信息如下：</p>
-<ul>
-<li>
-<p>标题：The Math Behind The 5-Hour Rule: Why You Need To Learn 1 Hour Per Day Just To Stay Relevant</p>
-</li>
-<li>
-<p>来源：medium</p>
-</li>
-</ul>
-<p>作者为了说明5小时原则的必要性，从两个方面来说明：</p>
-<ul>
-<li>所学的知识会不断的淘汰</li>
-<li>所处时代高学历的人越来越多，竞争更为激烈</li>
-</ul>
-<p>最后作者提出了一些如何进行5小时法则，重点就是利用时间的边角料，比如开车可以听音频啥的。但对于难的材料还是需要集中精力和时间处理。</p>
-<p>读完之后，比较同意作者说法，特别是文章开头给出的一副图，此图还忽略了某些人学习的情况和我们自己遗忘知识的情况。但是漏了一个更为重要的原因：我们现在所处的时代面对太多了诱惑了，被很多外物所消费，比如电视剧、微博。注意力被割裂不成样，几乎没有任何一块整体时间来学习或者阅读。所以若要保持不变，你都需要努力学习。若你一直呆在原地，那你就会落后，会变成温水煮青蛙。</p>
-<h2><span id="tip">Tip</span></h2>
-<h2><span id="share">Share</span></h2>
-
+<ol start="2">
+<li>将要删除的节点的值替换为后面一个节点的值，然后删除节点下一个指针，指向删除节点的下一个节点再下一个节点。时间复杂度为 O(n)。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode2</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    node.val = node.next.val;</div><div class="line">    </div><div class="line">    <span class="comment">// node.next = node.next.next;</span></div><div class="line">    ListNode nextNode = node.next;</div><div class="line">    node.next = nextNode.next;</div><div class="line">    nextNode = <span class="keyword">null</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -315,7 +289,7 @@
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="https://cloudfeng.github.io/2018/10/27/arts/10m4w-summary/">https://cloudfeng.github.io/2018/10/27/arts/10m4w-summary/</a>
+      <a href="https://cloudfeng.github.io/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/">https://cloudfeng.github.io/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -349,7 +323,7 @@
         
           <div class="post-tags">
             
-              <a href="/tags/ARTS/">ARTS</a>
+              <a href="/tags/linkedlist/">linkedlist</a>
             
           </div>
         
@@ -357,15 +331,15 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/11/04/arts/11m1w-summary/">
+      <a class="prev" href="/2018/11/11/arts/algorithm/141_Linked_List_Cycle/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">ARTS之旅（19周）</span>
+        <span class="prev-text nav-default">141. Linked List Cycle</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">
-        <span class="next-text nav-default">707. Design Linked List</span>
+      <a class="next" href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/">
+        <span class="next-text nav-default">876. Middle of the Linked List</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>

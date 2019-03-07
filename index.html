@@ -397,7 +397,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/11/04/arts/11m1w-summary/">ARTS之旅（19周）</a>
+          <a class="post-link" href="/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/">237. Delete Node in a Linked List</a>
         
       </h1>
 
@@ -408,9 +408,7 @@
         
           <span class="post-category">
             
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/summary/">summary</a>
+              <a href="/categories/Algorithm/">Algorithm</a>
             
           </span>
         
@@ -445,7 +443,7 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.next != <span class="keyword">null</span>) &#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        <span class="comment">// delete duplicate last node，</span></div><div class="line">        <span class="keyword">if</span> (node.next.next == <span class="keyword">null</span>) &#123;</div><div class="line">            node.next = <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            node = node.next;</div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <div class="read-more">
-            <a href="/2018/11/04/arts/11m1w-summary/" class="read-more-link">Read more..</a>
+            <a href="/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -463,7 +461,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/10/27/arts/10m4w-summary/">ARTS之旅（19周）</a>
+          <a class="post-link" href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/">876. Middle of the Linked List</a>
         
       </h1>
 
@@ -474,9 +472,7 @@
         
           <span class="post-category">
             
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/summary/">summary</a>
+              <a href="/categories/Algorithm/">Algorithm</a>
             
           </span>
         
@@ -518,61 +514,7 @@
 </li>
 </ol>
           <div class="read-more">
-            <a href="/2018/10/27/arts/10m4w-summary/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">707. Design Linked List</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-10-19
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-              <a href="/categories/ARTS/Algorithm/">Algorithm</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <p>本周做一个<a href="https://leetcode.com/problems/design-linked-list/" target="_blank" rel="external">单链表操作的题目</a>。边写代码边测试，弄了近一个小时，中间有被中断，虽然一次就是acc了，但速度还是不够快。而且运行时间也不够快，分析了一下，可以使用头尾指针和长度运行时间会更快。比如插表尾法可以从O(n)降为O(1)。</p>
-<p>这次给一个粗糙的算法。</p>
-          <div class="read-more">
-            <a href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/" class="read-more-link">Read more..</a>
+            <a href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -642,6 +584,60 @@
 </ul>
           <div class="read-more">
             <a href="/2018/10/19/arts/10m3w-summary/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">707. Design Linked List</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-19
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+              <a href="/categories/ARTS/Algorithm/">Algorithm</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <p>本周做一个<a href="https://leetcode.com/problems/design-linked-list/" target="_blank" rel="external">单链表操作的题目</a>。边写代码边测试，弄了近一个小时，中间有被中断，虽然一次就是acc了，但速度还是不够快。而且运行时间也不够快，分析了一下，可以使用头尾指针和长度运行时间会更快。比如插表尾法可以从O(n)降为O(1)。</p>
+<p>这次给一个粗糙的算法。</p>
+          <div class="read-more">
+            <a href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/" class="read-more-link">Read more..</a>
           </div>
         
       

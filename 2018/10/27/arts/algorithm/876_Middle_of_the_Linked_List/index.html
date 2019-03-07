@@ -17,8 +17,12 @@
 
 
 
+  <meta name="description" content="876. Middle of the Linked List"/>
 
 
+
+
+  <meta name="keywords" content="linkedlist, cloudfeng" />
 
 
 
@@ -38,7 +42,7 @@
 
 
 
-<link rel="canonical" href="http://yoursite.com/2018/10/06/arts/9m4w-summary/"/>
+<link rel="canonical" href="https://cloudfeng.github.io/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/"/>
 
 
 
@@ -86,7 +90,7 @@
   window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
 </script>
 
-    <title>  - cloudfeng </title>
+    <title> 876. Middle of the Linked List - cloudfeng </title>
   </head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -121,7 +125,7 @@
         </li>
       </a>
     
-      <a href="/tags">
+      <a href="/tags/">
         <li class="mobile-menu-item">
           
           
@@ -130,7 +134,7 @@
         </li>
       </a>
     
-      <a href="/categories">
+      <a href="/categories/">
         <li class="mobile-menu-item">
           
           
@@ -139,7 +143,7 @@
         </li>
       </a>
     
-      <a href="/about">
+      <a href="/about/">
         <li class="mobile-menu-item">
           
           
@@ -179,7 +183,7 @@
         </li>
       
         <li class="menu-item">
-          <a class="menu-item-link" href="/tags">
+          <a class="menu-item-link" href="/tags/">
             
             
               Tags
@@ -188,7 +192,7 @@
         </li>
       
         <li class="menu-item">
-          <a class="menu-item-link" href="/categories">
+          <a class="menu-item-link" href="/categories/">
             
             
               Categories
@@ -197,7 +201,7 @@
         </li>
       
         <li class="menu-item">
-          <a class="menu-item-link" href="/about">
+          <a class="menu-item-link" href="/about/">
             
             
               About
@@ -220,14 +224,20 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          
+          876. Middle of the Linked List
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-10-06
+          2018-10-27
         </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Algorithm/">Algorithm</a>
+            
+          </span>
         
         
       </div>
@@ -235,11 +245,40 @@
 
     
     
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">思路</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
 
 
     <div class="post-content">
       
-        
+        <h2><span id="algorithm">Algorithm</span></h2>
+<p>本周做的算法题是 <a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank" rel="external">876. Middle of the Linked List</a>。</p>
+<h3><span id="问题描述">问题描述</span></h3>
+<p>给一个非空的链表，找到其中间节点。若有两个中间节点，返回第二个。例子：</p>
+<ol>
+<li>
+<p>[1,2,3,4,5] 返回 3</p>
+</li>
+<li>
+<p>[1,2,3,4,5] 返回 4</p>
+</li>
+</ol>
+<h3><span id="思路">思路</span></h3>
+<ol>
+<li>
+<p>将遍历链表，将元素放入一个数组arr里面，然后直接返回<code>arr[len/2]</code>,时间复杂度是O(len)（链表长度），空间复杂度O(len)。</p>
+</li>
+<li>
+<p>快慢指针法，快慢指针遍历链表，快的比慢多走一倍。快指针遍历完链表，慢指针就是中间节点。时间复杂度O(len)（链表长度），空间复杂度O(1)。</p>
+</li>
+</ol>
+<a id="more"></a>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">middleNode</span><span class="params">(ListNode head)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == head) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">    ListNode fastNode = head;</div><div class="line">    ListNode slowNode = head;</div><div class="line">    </div><div class="line">    <span class="keyword">while</span> (fastNode != <span class="keyword">null</span> &amp;&amp; fastNode.next != <span class="keyword">null</span>) &#123;</div><div class="line">        fastNode = fastNode.next.next;</div><div class="line">        slowNode = slowNode.next;</div><div class="line">    &#125; </div><div class="line">    <span class="keyword">return</span> slowNode;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -250,11 +289,11 @@
   <div class="post-copyright">
     <p class="copyright-item">
       <span>Author: </span>
-      <a href="http://yoursite.com">cloudfeng</a>
+      <a href="https://cloudfeng.github.io">cloudfeng</a>
     </p>
     <p class="copyright-item">
       <span>Link: </span>
-      <a href="http://yoursite.com/2018/10/06/arts/9m4w-summary/">http://yoursite.com/2018/10/06/arts/9m4w-summary/</a>
+      <a href="https://cloudfeng.github.io/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/">https://cloudfeng.github.io/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/</a>
     </p>
     <p class="copyright-item">
       <span>License: </span>
@@ -286,19 +325,25 @@
     
       <footer class="post-footer">
         
+          <div class="post-tags">
+            
+              <a href="/tags/linkedlist/">linkedlist</a>
+            
+          </div>
+        
         
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/10/07/arts/algorithm/A-35-Search-Insert-Position/">
+      <a class="prev" href="/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">35. Search Insert Position</span>
+        <span class="prev-text nav-default">237. Delete Node in a Linked List</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/10/06/arts/9m3w-summary/">
-        <span class="next-text nav-default"></span>
+      <a class="next" href="/2018/10/19/arts/10m3w-summary/">
+        <span class="next-text nav-default">ARTS-10月2周</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -315,14 +360,6 @@
           </div>
           
   <div class="comments" id="comments">
-    
-      <div>
-        <%- partial('post/gitment', {
-            key: post.slug,
-            title: post.title,
-            url: config.url+url_for(post.path)
-          }) %>
-      </div>
     
   </div>
 
@@ -403,22 +440,6 @@
   
 
   
-  <div id="gitment-comments"></div>  
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  const gitment = new Gitment({
-    id: '<%= url %>'.replace(/[^\w\s]/gi, '').substring(0,48),
-    owner: 'CloudFeng',
-    repo: 'cloudfeng.github.io',
-    oauth: {
-      client_id: '<%= theme.gitment.client_id %>',
-      client_secret: '<%= theme.gitment.client_secret %>'
-    }
-  });
-  gitment.render(document.getElementById('gitment-comments'));
-</script>
-
 
 
 
