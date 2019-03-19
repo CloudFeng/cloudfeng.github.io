@@ -468,11 +468,9 @@
 </ul>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 16] get /zk_test</div><div class="line">my_test</div><div class="line">cZxid = 0xb00000005</div><div class="line">ctime = Tue Mar 19 20:20:45 CST 2019</div><div class="line">mZxid = 0xb00000005</div><div class="line">mtime = Tue Mar 19 20:20:45 CST 2019</div><div class="line">pZxid = 0xb00000006</div><div class="line">cversion = 1</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 7</div><div class="line">numChildren = 1</div></pre></td></tr></table></figure>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 17] get /zk_test/child</div><div class="line">junk</div><div class="line">cZxid = 0xb00000006</div><div class="line">ctime = Tue Mar 19 20:21:05 CST 2019</div><div class="line">mZxid = 0xb00000006</div><div class="line">mtime = Tue Mar 19 20:21:05 CST 2019</div><div class="line">pZxid = 0xb00000006</div><div class="line">cversion = 0</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 4</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure>
-</li>
-</ul>
 <ul>
-<li>
-<p>删除非空节点</p>
+<li>删除非空节点</li>
+</ul>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 18] delete /zk_test</div><div class="line">Node not empty: /zk_test</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 19]</div></pre></td></tr></table></figure>
 </li>
 </ul>
