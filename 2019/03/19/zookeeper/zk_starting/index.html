@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+
+  <meta name="description" content="ZK系列之ZooKeeper使用入门"/>
+
+
+
+
+  <meta name="keywords" content="ZooKeeper, cloudfeng" />
+
+
+
+
+
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="cloudfeng">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
+
+
+
+<link rel="canonical" href="https://cloudfeng.github.io/2019/03/19/zookeeper/zk_starting/"/>
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
+
+
+
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
+
+
+
+  
+
+
+
+  <script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+
+
+
+
+
+
+
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+</script>
+
+    <title> ZK系列之ZooKeeper使用入门 - cloudfeng </title>
+  </head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">cloudfeng</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    
+      <a href="/">
+        <li class="mobile-menu-item">
+          
+          
+            Home
+          
+        </li>
+      </a>
+    
+      <a href="/archives/">
+        <li class="mobile-menu-item">
+          
+          
+            Archives
+          
+        </li>
+      </a>
+    
+      <a href="/tags/">
+        <li class="mobile-menu-item">
+          
+          
+            Tags
+          
+        </li>
+      </a>
+    
+      <a href="/categories/">
+        <li class="mobile-menu-item">
+          
+          
+            Categories
+          
+        </li>
+      </a>
+    
+      <a href="/about/">
+        <li class="mobile-menu-item">
+          
+          
+            About
+          
+        </li>
+      </a>
+    
+  </ul>
+</nav>
+
+    <div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">cloudfeng</a>
+</div>
+
+<nav class="site-navbar">
+  
+    <ul id="menu" class="menu">
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/">
+            
+            
+              Home
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            
+            
+              Archives
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            
+            
+              Tags
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            
+            
+              Categories
+            
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            
+            
+              About
+            
+          </a>
+        </li>
+      
+    </ul>
+  
+</nav>
+
+      </header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content">
+            
+  
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          ZK系列之ZooKeeper使用入门
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2019-03-19
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ZooKeeper/">ZooKeeper</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+  <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">准本条件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">操作系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">软件要求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">安装ZK</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">单机模式与集群模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">参数说明：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">脚本说明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">单机模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">配置zoo.cfg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">集群模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">配置zoo.cfg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">启动服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">检查是否启动成功</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-text">构建集群结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">客户端玩zk</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-text">参考资料</span></a></li></ol>
+    </div>
+  </div>
+
+
+
+    <div class="post-content">
+      
+        <h2><span id="准本条件">准本条件</span></h2>
+<h3><span id="操作系统">操作系统</span></h3>
+<p>ZK包含了很多组件，有些组件支持很多系统，而有些只支持部分。组件如下：</p>
+<ul>
+<li>Client： Java客户端库，用于连接ZK。</li>
+<li>Server： Java服务端运行在ZK集群节点。</li>
+<li>Native Client：C实现的客户端，类似于Java客户端，应用程序连接ZK。</li>
+<li>Contrib：可选择的插件组件。</li>
+</ul>
+<a id="more"></a>
+<table>
+<thead>
+<tr>
+<th>操作系统</th>
+<th>Client</th>
+<th>Server</th>
+<th>Native Client</th>
+<th>Contrib</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GNU/Linux</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>Solaris</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>FreeBSD</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>Windows</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>Mac OS X</td>
+<td>仅支持开发</td>
+<td>仅支持开发</td>
+<td>不支持</td>
+<td>不支持</td>
+</tr>
+</tbody>
+</table>
+<p>需要说明的是支持指的是开发和生产环境。从上面的表可以看出，需要根据需求选择合适的操作系统，以便使用ZK。</p>
+<h3><span id="软件要求">软件要求</span></h3>
+<p>ZK是使用Java语言编写，所以操作系统需要安装Java环境，JDK版本必须是1.6以上。若是采用zk集群方式，至少需要3个节点，最好运行在不同的机器上。</p>
+<h3><span id="安装zk">安装ZK</span></h3>
+<p>下载<a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/stable/" target="_blank" rel="external">zookeeper-3.4.12.tar.gz</a>，然后解压到你喜欢的目录下即可。</p>
+<h2><span id="单机模式与集群模式">单机模式与集群模式</span></h2>
+<p>ZK支持单机模式也支持集群模式，还有伪集群模式（一种退化的集群模式）。</p>
+<h3><span id="配置文件">配置文件</span></h3>
+<p>在conf目录下面，拷贝一份 <code>zoo_sample.cfg</code>,然后把名字改为 <code>zoo.cfg</code>。下面是一个简单的配置项：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line">dataDir=../../../tmp/zk/data</div><div class="line">dataLogDir=../../../tmp/zk/log</div><div class="line">clientPort=2181</div><div class="line">server.1=IP1:2888:3888</div><div class="line">server.2=IP2:2888:3888</div><div class="line">server.3=IP2:2888:3888</div></pre></td></tr></table></figure>
+<p><strong>注意：将IPi修改为服务器1，在单机模式中无须配置；</strong></p>
+<h3><span id="参数说明">参数说明：</span></h3>
+<ul>
+<li><code>tickTime</code>：Zookeeper服务器之间或客户端与服务器之间维持心跳的时间间隔，也就是每个tickTime时间就会发送一个心跳。</li>
+<li><code>initLimit</code>:用来配置Zookeeper接受客户端(ZK服务集群中连接到Leader的Follower服务器)初始化连接时最长能忍受多少个心跳时间间隔数；时间长度：<code>initLimit*tickTime</code>。</li>
+<li><code>syncLimit</code>:Leader与Follower 之间发送消息，请求和应答时间长度，最长不能超过多少个 tickTime 的时间长度，<code>syncLimit*tickTime</code></li>
+<li><code>dataDir</code>：Zookeeper 保存数据的目录，默认情况下，Zookeeper 将写数据的日志文件也保存在这个目录里。</li>
+<li><code>dataLogDir</code>:zk保存日志的地方。</li>
+<li><code>clientPort</code>：这个端口就是客户端连接 Zookeeper 服务器的端口，Zookeeper 会监听这个端口，接受客户端的访问请求。</li>
+<li><code>server.A=B：C：D</code>：其中 A 是一个数字（1~255），表示这个是第几号服务器，；B 是这个服务器的 ip 地址；C 表示的是这个服务器与集群中的 Leader 服务器交换信息的端口；D 表示的是万一集群中的 Leader 服务器挂了，需要一个端口来重新进行选举，选出一个新的 Leader，而这个端口就是用来执行选举时服务器相互通信的端口。如果是伪集群的配置方式，由于 B 都是一样，所以不同的 Zookeeper 实例通信端口号不能一样，所以要给它们分配不同的端口号。</li>
+</ul>
+<p><strong>需要在dataDir目录下创建myid文件，里面的内容为A，注意每台机器需要一一对应</strong></p>
+<h3><span id="脚本说明">脚本说明</span></h3>
+<p>在 ZooKeeper的<code>bin</code>目录下的脚本内容：</p>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>zkCleanup</code></td>
+<td>清理ZooKeeper历史数据，包括事务日志文件和快照数据文件</td>
+</tr>
+<tr>
+<td><code>zkCli</code></td>
+<td>ZooKeeper的一个简易客户端</td>
+</tr>
+<tr>
+<td><code>zkEnv</code></td>
+<td>设置ZooKeeper的环境变量</td>
+</tr>
+<tr>
+<td><code>zkServer</code></td>
+<td>ZooKeeper服务器的启动、停止和重启脚本</td>
+</tr>
+</tbody>
+</table>
+<h2><span id="单机模式">单机模式</span></h2>
+<h3><span id="配置zoocfg">配置<code>zoo.cfg</code></span></h3>
+<p>单机模式只适合在开发模式，在<code>conf/zoo.cfg</code>配置如下内容：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">dataDir=../../../tmp/zk/data</div><div class="line">dataLogDir=../../../tmp/zk/log</div><div class="line">clientPort=2181</div></pre></td></tr></table></figure>
+<h3><span id="启动服务">启动服务</span></h3>
+<p>进入到<code>bin</code>目录，执行脚本:<code>zkServer.sh</code>(linux) 或 <code>zkServer.cmd</code>（win）。</p>
+<h3><span id="检测">检测</span></h3>
+<ol>
+<li>使用 <code>netstat -ano</code> 命令</li>
+</ol>
+<p>启动服务之后，使用<code>netstat -ano</code>查看，比如在win中的命令：<code>netstat -ano | findstr 2181</code>;在linux下使用：<code>netstat -nao | grep 2181</code></p>
+<ol start="2">
+<li>使用 <code>telnet 127.0.0.1 2181</code>, 输入 <code>stat</code>：</li>
+</ol>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Zookeeper version: 3.4.12-e5259e437540f349646870ea94dc2658c4e44b3b, built on 03/27/2018 03:55 GMT</div><div class="line">Clients:/127.0.0.1:56800[0](queued=0,recved=1,sent=0)</div><div class="line"></div><div class="line">Latency min/avg/max: 0/0/0</div><div class="line">Received: 1</div><div class="line">Sent: 0</div><div class="line">Connections: 1</div><div class="line">Outstanding: 0</div><div class="line">Zxid: 0x23</div><div class="line">Mode: standalone</div><div class="line">Node count: 11</div></pre></td></tr></table></figure>
+<p>注意： <strong>Mode: standalone</strong>，表示单机模式。</p>
+<h2><span id="集群模式">集群模式</span></h2>
+<p>我们在一台机器上构建3个节点的伪集群模式。真正的集群模式与之类似，只是在配置项中有少许不同。构建三个节点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">zookeeper-1</div><div class="line">zookeeper-2</div><div class="line">zookeeper-3</div></pre></td></tr></table></figure>
+<h3><span id="配置zoocfg">配置<code>zoo.cfg</code></span></h3>
+<p>在zookeeper-1的<code>conf/zoo.cfg</code>：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line">dataDir=../../../tmp/zk1/data</div><div class="line"></div><div class="line">dataLogDir=../../../tmp/zk1/log</div><div class="line">clientPort=2181</div><div class="line">server.1=127.0.0.1:2888:3888</div><div class="line">server.2=127.0.0.1:2889:3889</div><div class="line">server.3=127.0.0.1:2890:3890</div></pre></td></tr></table></figure>
+<p>在zookeeper-2的<code>conf/zoo.cfg</code>：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line">dataDir=../../../tmp/zk2/data</div><div class="line"></div><div class="line">dataLogDir=../../../tmp/zk2/log</div><div class="line">clientPort=2182</div><div class="line">server.1=127.0.0.1:2888:3888</div><div class="line">server.2=127.0.0.1:2889:3889</div><div class="line">server.3=127.0.0.1:2890:3890</div></pre></td></tr></table></figure>
+<p>在zookeeper-3的<code>conf/zoo.cfg</code>：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">tickTime=2000</div><div class="line">initLimit=5</div><div class="line">syncLimit=2</div><div class="line">dataDir=../../../tmp/zk3/data</div><div class="line"></div><div class="line">dataLogDir=../../../tmp/zk3/log</div><div class="line">clientPort=2183</div><div class="line">server.1=127.0.0.1:2888:3888</div><div class="line">server.2=127.0.0.1:2889:3889</div><div class="line">server.3=127.0.0.1:2890:3890</div></pre></td></tr></table></figure>
+<p>从上面的配置可以看出，由于在同一台机器上，所以需要配置不同的<code>clientPort</code>, 每个server中的端口配置不同。若是在不同的机器上，<code>clientPort</code>配置一样，每个server中配置的IP不同，但后面两个端口一样，也就是说不同机器构建集群的话，三份配置文件是一样的。</p>
+<p>在dataDir目录下新建<code>myid</code>文件，文件内容是<code>server.x</code>中的<code>x</code>，此示例中分别为<code>1</code>,<code>2</code>,<code>3</code>。</p>
+<h3><span id="启动服务">启动服务</span></h3>
+<p>分别进入：zookeeper-x\bin，执行<code>zkServer</code>脚本，启动服务。</p>
+<h3><span id="检查是否启动成功">检查是否启动成功</span></h3>
+<ol>
+<li>
+<p>使用 netstat 命令： <code>netstat -ano | findstr 218[1,2,3]</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">TCP    0.0.0.0:2181           0.0.0.0:0              LISTENING       8520</div><div class="line">TCP    0.0.0.0:2182           0.0.0.0:0              LISTENING       9212</div><div class="line">TCP    0.0.0.0:2183           0.0.0.0:0              LISTENING       8736</div><div class="line">TCP    [::]:2181              [::]:0                 LISTENING       8520</div><div class="line">TCP    [::]:2182              [::]:0                 LISTENING       9212</div><div class="line">TCP    [::]:2183              [::]:0                 LISTENING       8736</div></pre></td></tr></table></figure>
+</li>
+<li>
+<p>使用<code>telnet</code></p>
+<ul>
+<li><code>telnet 127.0.0.1 2181</code>, 然后输入 <code>stat</code></li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Zookeeper version: 3.4.12-e5259e437540f349646870ea94dc2658c4e44b3b, built on 03/27/2018 03:55 GMT</div><div class="line">Clients: /127.0.0.1:58669[0](queued=0,recved=1,sent=0)</div><div class="line">Latency min/avg/max: 0/0/0</div><div class="line">Received: 1</div><div class="line">Sent: 0</div><div class="line">Connections: 1</div><div class="line">Outstanding: 0</div><div class="line">Zxid: 0x300000002</div><div class="line">Mode: follower</div><div class="line">Node count: 13</div></pre></td></tr></table></figure>
+<ul>
+<li><code>telnet 127.0.0.1 2182</code>, 然后输入 <code>stat</code></li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Zookeeper version: 3.4.12-e5259e437540f349646870ea94dc2658c4e44b3b, built on 03/27/2018 03:55 GMT</div><div class="line">Clients:/127.0.0.1:58691[0](queued=0,recved=1,sent=0)</div><div class="line"></div><div class="line">Latency min/avg/max: 0/0/0</div><div class="line">Received: 1</div><div class="line">Sent: 0</div><div class="line">Connections: 1</div><div class="line">Outstanding: 0</div><div class="line">Zxid: 0xb00000000</div><div class="line">Mode: leader</div><div class="line">Node count: 13</div></pre></td></tr></table></figure>
+<ul>
+<li><code>telnet 127.0.0.1 2183</code>, 然后输入 <code>stat</code></li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Zookeeper version: 3.4.12-e5259e437540f349646870ea94dc2658c4e44b3b, built on</div><div class="line">03/27/2018 03:55 GMT</div><div class="line">Clients:</div><div class="line">/127.0.0.1:58706[0](queued=0,recved=1,sent=0)</div><div class="line"></div><div class="line">Latency min/avg/max: 0/0/0</div><div class="line">Received: 1</div><div class="line">Sent: 0</div><div class="line">Connections: 1</div><div class="line">Outstanding: 0</div><div class="line">Zxid: 0x</div><div class="line">300000002</div><div class="line">Mode: follower</div><div class="line">Node count: 13</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3><span id="构建集群结构">构建集群结构</span></h3>
+<p>从Mode来看，可以看出构建的集群结构是：</p>
+<pre><code>                        node2 --- leader
+                        /   \
+                        /     \
+      Follower --- Node1    Node3 --- Follower
+</code></pre>
+<p>zk基于层次型的目录树数据结构，并对树中的节点进行有效管理，为此提供了一套很好的分布式集群管理的机制。</p>
+<h2><span id="客户端玩zk">客户端玩zk</span></h2>
+<ol>
+<li>
+<p>连接server：<code>zkCli.cmd -server 127.0.0.1:2181</code></p>
+</li>
+<li>
+<p>创建节点</p>
+<ul>
+<li>查看节点</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 2] ls /</div><div class="line">[dubbo, zookeeper, app2, app1, app3]</div></pre></td></tr></table></figure>
+<ul>
+<li>创建节点</li>
+</ul>
+<p>创建一个节点<code>zk_test</code>，关联到的数据是 <code>my_data</code></p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 3] create /zk_test my_data</div><div class="line">Created /zk_test</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 4] ls /</div><div class="line">[dubbo, zookeeper, app2, app1, app3, zk_test]</div></pre></td></tr></table></figure>
+<ul>
+<li>查看节点信息</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 5] get /zk_test</div><div class="line">my_data</div><div class="line">cZxid = 0xb00000002</div><div class="line">ctime = Tue Mar 19 19:20:00 CST 2019</div><div class="line">mZxid = 0xb00000002</div><div class="line">mtime = Tue Mar 19 19:20:00 CST 2019</div><div class="line">pZxid = 0xb00000002</div><div class="line">cversion = 0</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 7</div><div class="line">numChildren = 0</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 6]</div></pre></td></tr></table></figure>
+<ul>
+<li>更新节点信息</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 6] set /zk_test junk</div><div class="line">cZxid = 0xb00000002</div><div class="line">ctime = Tue Mar 19 19:20:00 CST 2019</div><div class="line">mZxid = 0xb00000003</div><div class="line">mtime = Tue Mar 19 19:57:15 CST 2019</div><div class="line">pZxid = 0xb00000002</div><div class="line">cversion = 0</div><div class="line">dataVersion = 1</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 4</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure>
+<ul>
+<li>删除节点</li>
+</ul>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 7] delete /zk_test</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 8] ls /</div><div class="line">[dubbo, zookeeper, app2, app1, app3]</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 9]</div></pre></td></tr></table></figure>
+<ul>
+<li>
+<p>注意删除非空节点报：<code>Node not empty: xxx</code></p>
+<ul>
+<li>创建节点</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 11] create /zk_test my_test</div><div class="line">Created /zk_test</div></pre></td></tr></table></figure>
+<ul>
+<li>创建子节点</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 12] ls /</div><div class="line">[dubbo, zookeeper, app2, app1, app3, zk_test]</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 13] create /zk_test/child junk</div><div class="line">Created /zk_test/child</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 14] ls /</div><div class="line">[dubbo, zookeeper, app2, app1, app3, zk_test]</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 15] ls /zk_test</div><div class="line">[child]</div></pre></td></tr></table></figure>
+<ul>
+<li>查看节点信息</li>
+</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 16] get /zk_test</div><div class="line">my_test</div><div class="line">cZxid = 0xb00000005</div><div class="line">ctime = Tue Mar 19 20:20:45 CST 2019</div><div class="line">mZxid = 0xb00000005</div><div class="line">mtime = Tue Mar 19 20:20:45 CST 2019</div><div class="line">pZxid = 0xb00000006</div><div class="line">cversion = 1</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 7</div><div class="line">numChildren = 1</div></pre></td></tr></table></figure>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 17] get /zk_test/child</div><div class="line">junk</div><div class="line">cZxid = 0xb00000006</div><div class="line">ctime = Tue Mar 19 20:21:05 CST 2019</div><div class="line">mZxid = 0xb00000006</div><div class="line">mtime = Tue Mar 19 20:21:05 CST 2019</div><div class="line">pZxid = 0xb00000006</div><div class="line">cversion = 0</div><div class="line">dataVersion = 0</div><div class="line">aclVersion = 0</div><div class="line">ephemeralOwner = 0x0</div><div class="line">dataLength = 4</div><div class="line">numChildren = 0</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ul>
+<li>
+<p>删除非空节点</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 18] delete /zk_test</div><div class="line">Node not empty: /zk_test</div><div class="line">[zk: 127.0.0.1:2181(CONNECTED) 19]</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
+<h2><span id="参考资料">参考资料</span></h2>
+<ol>
+<li><a href="https://zookeeper.apache.org/doc/current/zookeeperStarted.html" target="_blank" rel="external">ZooKeeper Getting Started Guide</a></li>
+<li><a href="https://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_systemReq" target="_blank" rel="external">系统支持</a></li>
+<li><a href="https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/stable/" target="_blank" rel="external">zookeeper-3.4.12.tar.gz</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/opensource/os-cn-zookeeper/index.html" target="_blank" rel="external">分布式服务框架 Zookeeper – 管理分布式环境中的数据</a></li>
+<li><a href="https://zookeeper.apache.org/doc/current/zookeeperStarted.html#sc_RunningReplicatedZooKeeper" target="_blank" rel="external">zookeeper复制模式</a></li>
+</ol>
+
+      
+    </div>
+
+    
+      
+      
+
+  <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://cloudfeng.github.io">cloudfeng</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://cloudfeng.github.io/2019/03/19/zookeeper/zk_starting/">https://cloudfeng.github.io/2019/03/19/zookeeper/zk_starting/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span>
+      
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+
+
+
+      
+      
+  <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code">
+      
+      
+        <label class="qr-code-image" for="reward">
+          <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
+        </label>
+      
+      
+    </div>
+  </div>
+
+    
+
+    
+      <footer class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/ZooKeeper/">ZooKeeper</a>
+            
+          </div>
+        
+        
+        
+  <nav class="post-nav">
+    
+    
+      <a class="next" href="/2019/03/09/networking_reading_note/reading_note_3/">
+        <span class="next-text nav-default">网络周志第三期</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    
+  </nav>
+
+
+      </footer>
+    
+
+  </article>
+
+
+          </div>
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+      </main>
+
+      <footer id="footer" class="footer">
+
+  <div class="social-links">
+    
+      
+        
+          <a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        
+      
+    
+      
+        
+          <a href="https://github.com/CloudFeng" class="iconfont icon-github" title="github"></a>
+        
+      
+    
+      
+        
+          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" class="iconfont icon-weibo" title="weibo"></a>
+        
+      
+    
+      
+        
+          <a href="https://www.douban.com/people/July__/" class="iconfont icon-douban" title="douban"></a>
+        
+      
+    
+
+    
+      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    
+  </div>
+
+
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+  </span>
+
+  <span class="copyright-year">
+    
+    &copy; 
+     
+      2018 - 
+    
+    2019
+
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">cloudfeng</span>
+  </span>
+</div>
+
+      </footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+
+    
+  
+  
+
+  
+
+
+
+    
+  
+
+
+
+  
+  
+
+
+
+
+
+  
+    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
+  
+
+  
+    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
+  
+
+
+    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
+
+  </body>
+</html>
