@@ -345,15 +345,15 @@ rotate 2 steps to the right: [3,99,-1,-100]
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/08/05/arts/review/R-Obserations-on-PM/">
+      <a class="prev" href="/2018/08/05/arts/8m1w-summary/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Review - Observations on Product Management</span>
+        <span class="prev-text nav-default">ARTS-8月1周</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/08/05/arts/tip/T-nginx-css-not-interpreted/">
-        <span class="next-text nav-default">Nginx 不能解析CSS文件</span>
+      <a class="next" href="/2018/08/05/arts/share/S-five-mins-buss-accout/">
+        <span class="next-text nav-default">Share：5分钟商学院-心理账户</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -370,6 +370,11 @@ rotate 2 steps to the right: [3,99,-1,-100]
           </div>
           
   <div class="comments" id="comments">
+    
+       
+         <div onclick="ShowGitment()" id="gitment-display-button">gitmentbutton</div>
+         <div id="gitment-container" style="display:none"></div>
+       
     
   </div>
 
@@ -450,6 +455,31 @@ rotate 2 steps to the right: [3,99,-1,-100]
   
 
   
+  
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+   
+       <script type="text/javascript">
+           function ShowGitment(){
+               document.getElementById("gitment-display-button").style.display = "none";
+               document.getElementById("gitment-container").style.display = "block";
+               var gitment = new Gitment({
+                   id: document.location.href, 
+                   owner: '',
+                   repo: '',
+                   oauth: {
+                       client_id: '',
+                       client_secret: '',
+                   }});
+               gitment.render('gitment-container');
+           }
+       </script>
+   
+
 
 
 

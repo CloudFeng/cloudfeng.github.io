@@ -327,8 +327,8 @@
       </a>
     
     
-      <a class="next" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">
-        <span class="next-text nav-default">Share:Redis中的分布式锁</span>
+      <a class="next" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">
+        <span class="next-text nav-default">Linux 文件基本属性笔记</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -345,6 +345,11 @@
           </div>
           
   <div class="comments" id="comments">
+    
+       
+         <div onclick="ShowGitment()" id="gitment-display-button">gitmentbutton</div>
+         <div id="gitment-container" style="display:none"></div>
+       
     
   </div>
 
@@ -425,6 +430,31 @@
   
 
   
+  
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+   
+       <script type="text/javascript">
+           function ShowGitment(){
+               document.getElementById("gitment-display-button").style.display = "none";
+               document.getElementById("gitment-container").style.display = "block";
+               var gitment = new Gitment({
+                   id: document.location.href, 
+                   owner: '',
+                   repo: '',
+                   oauth: {
+                       client_id: '',
+                       client_secret: '',
+                   }});
+               gitment.render('gitment-container');
+           }
+       </script>
+   
+
 
 
 

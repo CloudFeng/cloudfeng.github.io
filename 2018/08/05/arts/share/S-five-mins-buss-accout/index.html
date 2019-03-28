@@ -323,15 +323,15 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/09/09/arts/9m2w-summary/">
+      <a class="prev" href="/2018/08/05/arts/algorithm/A-189-Rotate-Array/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">每周ARTS分享第12期</span>
+        <span class="prev-text nav-default">Algorithm:189. Rotate Array</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/08/05/arts/8m1w-summary/">
-        <span class="next-text nav-default">ARTS-8月1周</span>
+      <a class="next" href="/2018/08/05/arts/review/R-Obserations-on-PM/">
+        <span class="next-text nav-default">Review - Observations on Product Management</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -348,6 +348,11 @@
           </div>
           
   <div class="comments" id="comments">
+    
+       
+         <div onclick="ShowGitment()" id="gitment-display-button">gitmentbutton</div>
+         <div id="gitment-container" style="display:none"></div>
+       
     
   </div>
 
@@ -428,6 +433,31 @@
   
 
   
+  
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+   
+       <script type="text/javascript">
+           function ShowGitment(){
+               document.getElementById("gitment-display-button").style.display = "none";
+               document.getElementById("gitment-container").style.display = "block";
+               var gitment = new Gitment({
+                   id: document.location.href, 
+                   owner: '',
+                   repo: '',
+                   oauth: {
+                       client_id: '',
+                       client_secret: '',
+                   }});
+               gitment.render('gitment-container');
+           }
+       </script>
+   
+
 
 
 

@@ -355,15 +355,15 @@ It doesn’t matter what values are set beyond the returned length.</p>
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/07/15/arts/tip/T-linux-file-command/">
+      <a class="prev" href="/2018/07/15/arts/review/R-the-key-to-code/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">linux 磁盘管理的几个小命令</span>
+        <span class="prev-text nav-default">Review - The Key to Accelerating Your Skills While You Learn to Code</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">
-        <span class="next-text nav-default">SLF4J 和 LOG4J</span>
+      <a class="next" href="/2018/07/15/arts/7m2w-summary/">
+        <span class="next-text nav-default">ARTS-7月2周</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -380,6 +380,11 @@ It doesn’t matter what values are set beyond the returned length.</p>
           </div>
           
   <div class="comments" id="comments">
+    
+       
+         <div onclick="ShowGitment()" id="gitment-display-button">gitmentbutton</div>
+         <div id="gitment-container" style="display:none"></div>
+       
     
   </div>
 
@@ -460,6 +465,31 @@ It doesn’t matter what values are set beyond the returned length.</p>
   
 
   
+  
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+   
+       <script type="text/javascript">
+           function ShowGitment(){
+               document.getElementById("gitment-display-button").style.display = "none";
+               document.getElementById("gitment-container").style.display = "block";
+               var gitment = new Gitment({
+                   id: document.location.href, 
+                   owner: '',
+                   repo: '',
+                   oauth: {
+                       client_id: '',
+                       client_secret: '',
+                   }});
+               gitment.render('gitment-container');
+           }
+       </script>
+   
+
 
 
 

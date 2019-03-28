@@ -355,8 +355,8 @@ It doesn’t matter what values are set beyond the returned length.</p>
       </a>
     
     
-      <a class="next" href="/2018/06/29/arts/algorithm/A-Find-median/">
-        <span class="next-text nav-default">Algorithm:Median of Two Sorted Arrays</span>
+      <a class="next" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">
+        <span class="next-text nav-default">SLF4J 和 LOG4J</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -373,6 +373,11 @@ It doesn’t matter what values are set beyond the returned length.</p>
           </div>
           
   <div class="comments" id="comments">
+    
+       
+         <div onclick="ShowGitment()" id="gitment-display-button">gitmentbutton</div>
+         <div id="gitment-container" style="display:none"></div>
+       
     
   </div>
 
@@ -453,6 +458,31 @@ It doesn’t matter what values are set beyond the returned length.</p>
   
 
   
+  
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+   
+       <script type="text/javascript">
+           function ShowGitment(){
+               document.getElementById("gitment-display-button").style.display = "none";
+               document.getElementById("gitment-container").style.display = "block";
+               var gitment = new Gitment({
+                   id: document.location.href, 
+                   owner: '',
+                   repo: '',
+                   oauth: {
+                       client_id: '',
+                       client_secret: '',
+                   }});
+               gitment.render('gitment-container');
+           }
+       </script>
+   
+
 
 
 
