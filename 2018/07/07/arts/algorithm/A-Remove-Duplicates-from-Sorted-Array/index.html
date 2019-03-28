@@ -22,7 +22,7 @@
 
 
 
-  <meta name="keywords" content="algorithm, array, cloudfeng" />
+  <meta name="keywords" content="array, algorithm, cloudfeng" />
 
 
 
@@ -338,9 +338,9 @@ It doesn’t matter what values are set beyond the returned length.</p>
         
           <div class="post-tags">
             
-              <a href="/tags/algorithm/">algorithm</a>
-            
               <a href="/tags/array/">array</a>
+            
+              <a href="/tags/algorithm/">algorithm</a>
             
           </div>
         
@@ -355,8 +355,8 @@ It doesn’t matter what values are set beyond the returned length.</p>
       </a>
     
     
-      <a class="next" href="/2018/07/07/arts/share/S-grep/">
-        <span class="next-text nav-default">Share：grep命令查日志和日志内容乱码</span>
+      <a class="next" href="/2018/06/29/arts/algorithm/A-Find-median/">
+        <span class="next-text nav-default">Algorithm:Median of Two Sorted Arrays</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -374,9 +374,8 @@ It doesn’t matter what values are set beyond the returned length.</p>
           
   <div class="comments" id="comments">
     
-         
-         <div onclick="ShowGitment()" id="gitment-display-button">Show comments from Gitment</div>
-         <div id="gitment-container" style="display:none"></div>
+       
+         <div id="gitment-container"></div>
        
     
   </div>
@@ -467,19 +466,15 @@ It doesn’t matter what values are set beyond the returned length.</p>
    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
    
        <script type="text/javascript">
-           function ShowGitment(){
-               document.getElementById("gitment-display-button").style.display = "none";
-               document.getElementById("gitment-container").style.display = "block";
-               var gitment = new Gitment({
-                   id: document.location.href, 
-                   owner: 'CloudFeng',
-                   repo: 'cloudfeng.github.io',
-                   oauth: {
-                       client_id: 'b299710280dec8bccf76',
-                       client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
-                   }});
-               gitment.render('gitment-container');
-           }
+           var gitment = new Gitment({
+               id: window.location.pathname, 
+               owner: 'CloudFeng',
+               repo: 'cloudfeng.github.io',
+               oauth: {
+                   client_id: 'b299710280dec8bccf76',
+                   client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
+               }});
+           gitment.render('gitment-container');
        </script>
    
 

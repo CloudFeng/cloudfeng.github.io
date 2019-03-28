@@ -346,15 +346,15 @@ return [0, 1].</p>
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/06/23/arts/review/R-mutil-interests/">
+      <a class="prev" href="/2018/06/29/arts/review/R-learn-by-hard-way/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Review:多兴趣成功以及5小时法则</span>
+        <span class="prev-text nav-default">脚踏实地学习</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
     
-      <a class="next" href="/2018/06/23/arts/6m3w-summary/">
-        <span class="next-text nav-default">ARTS之旅</span>
+      <a class="next" href="/2018/06/23/arts/tip/T-onlineproblem/">
+        <span class="next-text nav-default">简单线上bug以及处理流程</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
@@ -372,9 +372,8 @@ return [0, 1].</p>
           
   <div class="comments" id="comments">
     
-         
-         <div onclick="ShowGitment()" id="gitment-display-button">Show comments from Gitment</div>
-         <div id="gitment-container" style="display:none"></div>
+       
+         <div id="gitment-container"></div>
        
     
   </div>
@@ -465,19 +464,15 @@ return [0, 1].</p>
    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
    
        <script type="text/javascript">
-           function ShowGitment(){
-               document.getElementById("gitment-display-button").style.display = "none";
-               document.getElementById("gitment-container").style.display = "block";
-               var gitment = new Gitment({
-                   id: document.location.href, 
-                   owner: 'CloudFeng',
-                   repo: 'cloudfeng.github.io',
-                   oauth: {
-                       client_id: 'b299710280dec8bccf76',
-                       client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
-                   }});
-               gitment.render('gitment-container');
-           }
+           var gitment = new Gitment({
+               id: window.location.pathname, 
+               owner: 'CloudFeng',
+               repo: 'cloudfeng.github.io',
+               oauth: {
+                   client_id: 'b299710280dec8bccf76',
+                   client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
+               }});
+           gitment.render('gitment-container');
        </script>
    
 

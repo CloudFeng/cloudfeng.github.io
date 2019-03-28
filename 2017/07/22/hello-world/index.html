@@ -308,18 +308,12 @@
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2017/07/25/python-http-post/">
+      <a class="prev" href="/2017/07/22/sicp-dataobject-set/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">python实现http发送POST请求</span>
+        <span class="prev-text nav-default">sicp 数据对象之集合操作</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
-    
-      <a class="next" href="/2017/07/22/sicp-dataobject-set/">
-        <span class="next-text nav-default">sicp 数据对象之集合操作</span>
-        <span class="prev-text nav-mobile">Next</span>
-        <i class="iconfont icon-right"></i>
-      </a>
     
   </nav>
 
@@ -334,9 +328,8 @@
           
   <div class="comments" id="comments">
     
-         
-         <div onclick="ShowGitment()" id="gitment-display-button">Show comments from Gitment</div>
-         <div id="gitment-container" style="display:none"></div>
+       
+         <div id="gitment-container"></div>
        
     
   </div>
@@ -427,19 +420,15 @@
    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
    
        <script type="text/javascript">
-           function ShowGitment(){
-               document.getElementById("gitment-display-button").style.display = "none";
-               document.getElementById("gitment-container").style.display = "block";
-               var gitment = new Gitment({
-                   id: document.location.href, 
-                   owner: 'CloudFeng',
-                   repo: 'cloudfeng.github.io',
-                   oauth: {
-                       client_id: 'b299710280dec8bccf76',
-                       client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
-                   }});
-               gitment.render('gitment-container');
-           }
+           var gitment = new Gitment({
+               id: window.location.pathname, 
+               owner: 'CloudFeng',
+               repo: 'cloudfeng.github.io',
+               oauth: {
+                   client_id: 'b299710280dec8bccf76',
+                   client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
+               }});
+           gitment.render('gitment-container');
        </script>
    
 

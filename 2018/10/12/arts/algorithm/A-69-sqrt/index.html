@@ -342,9 +342,9 @@ the decimal part is truncated, 2 is returned.</p>
         
   <nav class="post-nav">
     
-      <a class="prev" href="/2018/10/19/arts/10m3w-summary/">
+      <a class="prev" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">ARTS-10月3周</span>
+        <span class="prev-text nav-default">707. Design Linked List</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
     
@@ -368,9 +368,8 @@ the decimal part is truncated, 2 is returned.</p>
           
   <div class="comments" id="comments">
     
-         
-         <div onclick="ShowGitment()" id="gitment-display-button">Show comments from Gitment</div>
-         <div id="gitment-container" style="display:none"></div>
+       
+         <div id="gitment-container"></div>
        
     
   </div>
@@ -461,19 +460,15 @@ the decimal part is truncated, 2 is returned.</p>
    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
    
        <script type="text/javascript">
-           function ShowGitment(){
-               document.getElementById("gitment-display-button").style.display = "none";
-               document.getElementById("gitment-container").style.display = "block";
-               var gitment = new Gitment({
-                   id: document.location.href, 
-                   owner: 'CloudFeng',
-                   repo: 'cloudfeng.github.io',
-                   oauth: {
-                       client_id: 'b299710280dec8bccf76',
-                       client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
-                   }});
-               gitment.render('gitment-container');
-           }
+           var gitment = new Gitment({
+               id: window.location.pathname, 
+               owner: 'CloudFeng',
+               repo: 'cloudfeng.github.io',
+               oauth: {
+                   client_id: 'b299710280dec8bccf76',
+                   client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
+               }});
+           gitment.render('gitment-container');
        </script>
    
 
