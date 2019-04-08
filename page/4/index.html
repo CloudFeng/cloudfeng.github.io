@@ -224,13 +224,13 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
+          <a class="post-link" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">Algorithm:88.Merge Sorted Array</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-07-15
+          2018-07-22
         </span>
         
           <span class="post-category">
@@ -256,11 +256,22 @@
 
         
           <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
-<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
+<p>
+Description:Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
+</p><p><strong>Note:</strong></p>
+<ul>
+<li>The number of elements initialized in nums1 and nums2 are m and n respectively.</li>
+<li>You may assume that nums1 has enough space (size that is greater or equal to m + n) to hold additional elements from nums2.</li>
+</ul>
+<p><strong>Example:</strong></p>
+<blockquote>
+Input:<br>
+    nums1 = [1,2,3,0,0,0], m = 3<br>
+    nums2 = [2,5,6],       n = 3<br>
+Output: [1,2,2,3,5,6]<br>
+</blockquote>
           <div class="read-more">
-            <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="read-more-link">Read more..</a>
+            <a href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -315,6 +326,60 @@
 <li><code>fdisk</code>：用于磁盘分区</li>
 </ul>
 
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/07/15/arts/share/S-self-think/">Share：遇到不中听的话，也要找到合理之处</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-07-15
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="背景"><a class="header-anchor" href="#背景">¶</a>背景</h2>
+<p>最近看吴军老师的《硅谷来信》，其中有一段讨论“即便遇到不中听的话，也要试着找出其中的合理之处。”<br>
+现在每次反思自己的行为都会想起这句话，现在每次听到不中听的话，都会反驳回去。对人对己都不是特别好，<br>
+今日将其摘抄一下，以便再次理解一次。</p>
+          <div class="read-more">
+            <a href="/2018/07/15/arts/share/S-self-think/" class="read-more-link">Read more..</a>
+          </div>
         
       
     </div>
@@ -442,7 +507,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/07/15/arts/share/S-self-think/">Share：遇到不中听的话，也要找到合理之处</a>
+          <a class="post-link" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
         
       </h1>
 
@@ -473,179 +538,12 @@
         
 
         
-          <h2 id="背景"><a class="header-anchor" href="#背景">¶</a>背景</h2>
-<p>最近看吴军老师的《硅谷来信》，其中有一段讨论“即便遇到不中听的话，也要试着找出其中的合理之处。”<br>
-现在每次反思自己的行为都会想起这句话，现在每次听到不中听的话，都会反驳回去。对人对己都不是特别好，<br>
-今日将其摘抄一下，以便再次理解一次。</p>
-          <div class="read-more">
-            <a href="/2018/07/15/arts/share/S-self-think/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-07
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
-<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
-<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
-<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
-          <div class="read-more">
-            <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/07/arts/review/R-using-js-console/">Review《How you can improve your workflow using the JavaScript console》</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-07
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。</p>
-<h2 id="console的作用"><a class="header-anchor" href="#console的作用">¶</a>Console的作用</h2>
-<p>JS中的console是每个浏览器必备的一个特性。它允许开发者：</p>
-<ul>
-<li>View a log of errors and warnings that occur on a web page.<br>
-查看出现在web页面中错误和警告</li>
-<li>Interact with the web page using JavaScript commands.<br>
-使用JS命令与web页面进行交互</li>
-</ul>
-          <div class="read-more">
-            <a href="/2018/07/07/arts/review/R-using-js-console/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">Algorithm:Remove Duplicates from Sorted Array</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-07
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
           <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given a sorted array nums, remove the duplicates <strong>in-place</strong> such that each element appear only once and return the new length.</p>
+<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
 <p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
           <div class="read-more">
-            <a href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/" class="read-more-link">Read more..</a>
+            <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -721,6 +619,60 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-07-07
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
+<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
+<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
+<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
+          <div class="read-more">
+            <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/07/07/arts/7m1w-summary/">ARTS-7月1周</a>
         
       </h1>
@@ -757,6 +709,59 @@
 1.A：来源是leetcode在做了一个难点的算法题目<a href="../algorithm/A-Remove-Duplicates-from-Sorted-Array">Remove Duplicates from Sorted Array</a>，利用排序数组的特性以及“双指针”思想解决之。</p>
           <div class="read-more">
             <a href="/2018/07/07/arts/7m1w-summary/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">Algorithm:Remove Duplicates from Sorted Array</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-07-07
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>Given a sorted array nums, remove the duplicates <strong>in-place</strong> such that each element appear only once and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+          <div class="read-more">
+            <a href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/" class="read-more-link">Read more..</a>
           </div>
         
       
