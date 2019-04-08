@@ -224,7 +224,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/07/07/arts/review/R-using-js-console/">Review《How you can improve your workflow using the JavaScript console》</a>
+          <a class="post-link" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
         
       </h1>
 
@@ -255,136 +255,12 @@
         
 
         
-          <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周分享review的文章是JavaScript中Console函数的使用，觉得很棒所以将其整理出来分享给大家。</p>
-<h2 id="console的作用"><a class="header-anchor" href="#console的作用">¶</a>Console的作用</h2>
-<p>JS中的console是每个浏览器必备的一个特性。它允许开发者：</p>
-<ul>
-<li>View a log of errors and warnings that occur on a web page.<br>
-查看出现在web页面中错误和警告</li>
-<li>Interact with the web page using JavaScript commands.<br>
-使用JS命令与web页面进行交互</li>
-</ul>
+          <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
+<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
+<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
+<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
           <div class="read-more">
-            <a href="/2018/07/07/arts/review/R-using-js-console/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/29/arts/6m4w-summary/">ARTS-6月4周</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-29
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="本周arts总结"><a class="header-anchor" href="#本周arts总结">¶</a>本周ARTS总结</h2>
-<p>6月最后一周的ARTS一直没有写完，主要原因有两点：</p>
-<ul>
-<li>算法题目一直没有想到一个很好的想法解决；</li>
-<li>这周家里和工作上都有很多事情，只能零碎的写写；</li>
-</ul>
-<p>希望自己继续保持下去，分享第二个ARTS的内容：</p>
-<ol>
-<li>leetcode在做了一个难点的算法题目<a href="../algorithm/A-Find-median">Median of Two Sorted Arrays</a>，使用归并排序的算法解决之，但不是最好的，到目前还没有想到到最优解。</li>
-</ol>
-          <div class="read-more">
-            <a href="/2018/06/29/arts/6m4w-summary/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/29/arts/share/S-TDD-is-perfect/">测试驱动开发小思考</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-29
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="tdd疑问"><a class="header-anchor" href="#tdd疑问">¶</a>TDD疑问</h2>
-<p>最近学习TDD开发，用在平时开发的时候，就会发现TDD并不完美，特别是测试先行和各种需要覆盖<br>
-的测试。存在疑问如下：</p>
-<ul>
-<li>是否真的需要一开始就写测试，然后一步一步驱动去开发呢；</li>
-<li>后续测试用例的维护，特别与关联其他部门的接口，各种mock和stub；</li>
-<li>耗费的时候比先写好代码再测试更大；</li>
-</ul>
-          <div class="read-more">
-            <a href="/2018/06/29/arts/share/S-TDD-is-perfect/" class="read-more-link">Read more..</a>
+            <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -439,59 +315,6 @@
 MDN一步一步做的一个mntfun静态页面。</p>
           <div class="read-more">
             <a href="/2018/06/29/arts/review/R-learn-by-hard-way/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/06/29/arts/tip/T-java-thread-unit/">Junit测试Java多线程小疑</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-06-29
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="遇到背景"><a class="header-anchor" href="#遇到背景">¶</a>遇到背景</h2>
-<p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。发<br>
-现与书中使用main方法来测试的结果是不一样的。</p>
-          <div class="read-more">
-            <a href="/2018/06/29/arts/tip/T-java-thread-unit/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -578,13 +401,13 @@ The median is (2 + 3)/2 = 2.5</p>
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/06/23/arts/review/R-mutil-interests/">Review:多兴趣成功以及5小时法则</a>
+          <a class="post-link" href="/2018/06/29/arts/tip/T-java-thread-unit/">Junit测试Java多线程小疑</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-06-23
+          2018-06-29
         </span>
         
           <span class="post-category">
@@ -609,10 +432,129 @@ The median is (2 + 3)/2 = 2.5</p>
         
 
         
-          <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
-<p>本周阅读了多兴趣与成功以及5小时法则，将其中要点以及自己的感悟分享给大家。</p>
+          <h2 id="遇到背景"><a class="header-anchor" href="#遇到背景">¶</a>遇到背景</h2>
+<p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。发<br>
+现与书中使用main方法来测试的结果是不一样的。</p>
           <div class="read-more">
-            <a href="/2018/06/23/arts/review/R-mutil-interests/" class="read-more-link">Read more..</a>
+            <a href="/2018/06/29/arts/tip/T-java-thread-unit/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/06/29/arts/share/S-TDD-is-perfect/">测试驱动开发小思考</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-29
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="tdd疑问"><a class="header-anchor" href="#tdd疑问">¶</a>TDD疑问</h2>
+<p>最近学习TDD开发，用在平时开发的时候，就会发现TDD并不完美，特别是测试先行和各种需要覆盖<br>
+的测试。存在疑问如下：</p>
+<ul>
+<li>是否真的需要一开始就写测试，然后一步一步驱动去开发呢；</li>
+<li>后续测试用例的维护，特别与关联其他部门的接口，各种mock和stub；</li>
+<li>耗费的时候比先写好代码再测试更大；</li>
+</ul>
+          <div class="read-more">
+            <a href="/2018/06/29/arts/share/S-TDD-is-perfect/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/06/29/arts/6m4w-summary/">ARTS-6月4周</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-29
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="本周arts总结"><a class="header-anchor" href="#本周arts总结">¶</a>本周ARTS总结</h2>
+<p>6月最后一周的ARTS一直没有写完，主要原因有两点：</p>
+<ul>
+<li>算法题目一直没有想到一个很好的想法解决；</li>
+<li>这周家里和工作上都有很多事情，只能零碎的写写；</li>
+</ul>
+<p>希望自己继续保持下去，分享第二个ARTS的内容：</p>
+<ol>
+<li>leetcode在做了一个难点的算法题目<a href="../algorithm/A-Find-median">Median of Two Sorted Arrays</a>，使用归并排序的算法解决之，但不是最好的，到目前还没有想到到最优解。</li>
+</ol>
+          <div class="read-more">
+            <a href="/2018/06/29/arts/6m4w-summary/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -668,6 +610,58 @@ The median is (2 + 3)/2 = 2.5</p>
 <a href="https://book.douban.com/subject/1230036/" target="_blank" rel="external">《Test-Driven Development By Example》</a>。</p>
           <div class="read-more">
             <a href="/2018/06/23/arts/share/S-TDD-note/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/06/23/arts/review/R-mutil-interests/">Review:多兴趣成功以及5小时法则</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-06-23
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>本周阅读了多兴趣与成功以及5小时法则，将其中要点以及自己的感悟分享给大家。</p>
+          <div class="read-more">
+            <a href="/2018/06/23/arts/review/R-mutil-interests/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -745,7 +739,7 @@ return [0, 1].</p>
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/06/23/arts/6m3w-summary/">ARTS之旅</a>
+          <a class="post-link" href="/2018/06/23/arts/tip/T-onlineproblem/">简单线上bug以及处理流程</a>
         
       </h1>
 
@@ -776,17 +770,11 @@ return [0, 1].</p>
         
 
         
-          <h2 id="本周arts总结"><a class="header-anchor" href="#本周arts总结">¶</a>本周ARTS总结</h2>
-<p>ARTS是左耳朵耗子发起的一个活动，具体如下：</p>
-<ul>
-<li>Algorithm：每周至少做一个leetcode的算法题;</li>
-<li>Review：阅读并点评至少一篇英文技术文章；</li>
-<li>Tip：学习至少一个技术技巧；</li>
-<li>Share：分享一篇有观点和思考的技术文章；</li>
-</ul>
-<p>你需要坚持至少一年！</p>
+          <h2 id="一个bug背景"><a class="header-anchor" href="#一个bug背景">¶</a>一个bug背景</h2>
+<p>在周三快下班的时候，临时接到需求，需要修改协议书模板，后端只需要修改脚本即可。由于周四是版本<br>
+上线的最后一天，所以建议不要修改，原因如下：</p>
           <div class="read-more">
-            <a href="/2018/06/23/arts/6m3w-summary/" class="read-more-link">Read more..</a>
+            <a href="/2018/06/23/arts/tip/T-onlineproblem/" class="read-more-link">Read more..</a>
           </div>
         
       
