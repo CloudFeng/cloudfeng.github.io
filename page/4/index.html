@@ -224,7 +224,7 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/07/22/arts/share/S-python-list-note/">Share：python中list操作</a>
+          <a class="post-link" href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/">Share:Redis中的分布式锁</a>
         
       </h1>
 
@@ -255,178 +255,11 @@
         
 
         
-          <h2 id="创建数值列表"><a class="header-anchor" href="#创建数值列表">¶</a>创建数值列表</h2>
-<ol>
-<li>使用 <code>range</code>函数, 得到的元素属于：[start, stop)</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> value <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>, <span class="number">2</span>):</div><div class="line">    print(value)</div></pre></td></tr></table></figure>
-<ol start="2">
-<li>使用list函数，构建一个列表</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> elem <span class="keyword">in</span> list(range(<span class="number">1</span>,<span class="number">10</span>,<span class="number">3</span>)):</div><div class="line">    print(elem)</div></pre></td></tr></table></figure>
+          <h2 id="概述"><a class="header-anchor" href="#概述">¶</a>概述</h2>
+<p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
+<p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
           <div class="read-more">
-            <a href="/2018/07/22/arts/share/S-python-list-note/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/15/arts/share/S-self-think/">Share：遇到不中听的话，也要找到合理之处</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-15
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="背景"><a class="header-anchor" href="#背景">¶</a>背景</h2>
-<p>最近看吴军老师的《硅谷来信》，其中有一段讨论“即便遇到不中听的话，也要试着找出其中的合理之处。”<br>
-现在每次反思自己的行为都会想起这句话，现在每次听到不中听的话，都会反驳回去。对人对己都不是特别好，<br>
-今日将其摘抄一下，以便再次理解一次。</p>
-          <div class="read-more">
-            <a href="/2018/07/15/arts/share/S-self-think/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/15/arts/tip/T-linux-file-command/">linux 磁盘管理的几个小命令</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-15
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2><span id="linux-磁盘管理的小命令">linux 磁盘管理的小命令</span></h2>
-<p>工作上经常要清理一些文件以及查看磁盘的使用量，本周分享一下常用的几个磁盘管理命令。</p>
-<ul>
-<li><code>df</code>：列出文件系统的整体磁盘使用量</li>
-<li><code>du</code>：检查磁盘空间使用量，文件和目录磁盘使用空间</li>
-<li><code>fdisk</code>：用于磁盘分区</li>
-</ul>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-07-15
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
-<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
-          <div class="read-more">
-            <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="read-more-link">Read more..</a>
+            <a href="/2018/07/22/arts/review/R-Distributed-locks-with-redis/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -555,7 +388,168 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">Algorithm:Remove Duplicates from Sorted Array</a>
+          <a class="post-link" href="/2018/07/15/arts/tip/T-linux-file-command/">linux 磁盘管理的几个小命令</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-07-15
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+
+        
+          <h2><span id="linux-磁盘管理的小命令">linux 磁盘管理的小命令</span></h2>
+<p>工作上经常要清理一些文件以及查看磁盘的使用量，本周分享一下常用的几个磁盘管理命令。</p>
+<ul>
+<li><code>df</code>：列出文件系统的整体磁盘使用量</li>
+<li><code>du</code>：检查磁盘空间使用量，文件和目录磁盘使用空间</li>
+<li><code>fdisk</code>：用于磁盘分区</li>
+</ul>
+
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/07/15/arts/algorithm/A-remove-element/">Algorithm:Remove Element</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-07-15
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
+<p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
+<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+<p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
+          <div class="read-more">
+            <a href="/2018/07/15/arts/algorithm/A-remove-element/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/07/15/arts/share/S-self-think/">Share：遇到不中听的话，也要找到合理之处</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-07-15
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="背景"><a class="header-anchor" href="#背景">¶</a>背景</h2>
+<p>最近看吴军老师的《硅谷来信》，其中有一段讨论“即便遇到不中听的话，也要试着找出其中的合理之处。”<br>
+现在每次反思自己的行为都会想起这句话，现在每次听到不中听的话，都会反驳回去。对人对己都不是特别好，<br>
+今日将其摘抄一下，以便再次理解一次。</p>
+          <div class="read-more">
+            <a href="/2018/07/15/arts/share/S-self-think/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/07/07/arts/tip/T-slf4jandlog4j/">SLF4J 和 LOG4J</a>
         
       </h1>
 
@@ -586,11 +580,12 @@
         
 
         
-          <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given a sorted array nums, remove the duplicates <strong>in-place</strong> such that each element appear only once and return the new length.</p>
-<p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
+          <h2 id="折腾背景"><a class="header-anchor" href="#折腾背景">¶</a>折腾背景</h2>
+<p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
+<h2 id="slf4j是啥"><a class="header-anchor" href="#slf4j是啥">¶</a>SLF4J是啥</h2>
+<p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
           <div class="read-more">
-            <a href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/" class="read-more-link">Read more..</a>
+            <a href="/2018/07/07/arts/tip/T-slf4jandlog4j/" class="read-more-link">Read more..</a>
           </div>
         
       
