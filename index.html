@@ -251,9 +251,11 @@
       
         
         
+          
+        
 
         
-          <h2><span id="thread-dump是什么"><code>Thread Dump</code>是什么</span></h2>
+          <h2 id="thread-dump是什么"><a class="header-anchor" href="#thread-dump是什么">¶</a><code>Thread Dump</code>是什么</h2>
 <p>Thread Dump(javacore文件)是当前虚拟机内每一条线程正在执行的方法堆栈集合，生成线程快照的主要目的<br>
 定位线程出现长时间停顿的原因：</p>
 <ul>
@@ -261,229 +263,13 @@
 <li>死循环</li>
 <li>请求外部资源导致长时间等待等</li>
 </ul>
-<h2><span id="如何生成thread-dump">如何生成<code>Thread Dump</code></span></h2>
+<h2 id="如何生成thread-dump"><a class="header-anchor" href="#如何生成thread-dump">¶</a>如何生成<code>Thread Dump</code></h2>
 <p>可以使用<code>jstack(Stack Trace for Java)</code>命令，它用于生成虚拟机当前时刻的线程快照，就可以查<br>
 看各个线程的调用栈。以部署在Tomcat上Java Web应用为例，当我们遇到CPU飙升或者100%时，执行如下步骤<br>
 获取<code>Thread Dump</code>:</p>
-<ol>
-<li>获取Tomcat线程号(tomcatPID)：<code>ps aux | grep tomcat</code>；</li>
-<li>获取每个线程的负载情况：<code>top -Hp tomcatPID</code>, <code>SHIFT+T</code> 按CPU耗时总时间倒序排序，找到的top几个是最耗CPU时间的。注意这个步骤十分关键，用于后面分析<code>Thread Dump</code>日志；</li>
-<li>生成 <code>Thread Dump</code>: <code>jstack tomcatPID &gt; thread_dump_tomcatPID.log</code>。关于 <code>jstack</code>命令可以参考：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jstack.html" target="_blank" rel="external">jstack: stack trace</a></li>
-</ol>
-<h2><span id="线程状态">线程状态</span></h2>
-<h3><span id="java-线程状态以及状态之间转换">Java 线程状态以及状态之间转换</span></h3>
-<p>为了能够读懂<code>Thread Dump</code>日志，首先要熟悉Java线程的状态以及状态之间的转换。首先我们来看一下Java<br>
-线程状态，并且在任意一个时间点，一个线程只能有且只有其中的一种状态：</p>
-<ol>
-<li>初始(NEW)：新创建了一个线程对象，但还没有调用start()方法。</li>
-<li>运行(RUNNABLE)：从OS（操作系统）层面看，JVM的运行状态可以由：就绪（ready）和运行中（running）两种状态构成。线程对象创建后，其他线程(比如main线程）调用了该对象的start()方法。该状态的线程位于可运行线程池中，等待被线程调度选中，获取CPU的使用权，此时处于就绪状态（ready）。就绪状态的线程在获得CPU时间片后变为运行中状态（running）。</li>
-<li>￼阻塞（Blocked）：线程被阻塞了，“阻塞状态”与“等待状态”的区别是：“阻塞状态”在等待着获取到一个排他锁，这个事件将在另外一个线程放弃这个锁的时候发生；而“等待状态”则是在等待一段时间，或者唤醒动作的发生。在程序等待进入同步区域的时候，线程将进入这种状态。</li>
-<li>￼无限期等待(WAITING)：进入该状态的线程不会被分配CPU执行时间，需要等待其他线程做出一些特定动作（通知或中断）。下方法会让线程陷入无限期的等待状态：
-<ul>
-<li>没有设置Timeout参数的Object.wait()方法；</li>
-<li>没有设置Timeout参数的Thread.join()方法；</li>
-<li>LockSupport.park()方法；</li>
-</ul>
-</li>
-<li>￼限期等待（Timed Waiting）：处于这种状态的线程也不会被分配CPU执行时间，不过无须等待被其他线程显式地唤醒，在一定时间之后它们会由系统自动唤醒。以下方法会让线程进入限期等待状态：
-<ul>
-<li>Thread.sleep()方法;</li>
-<li>设置了Timeout参数的Object.wait()方法;</li>
-<li>设置了Timeout参数的Thread.join()方法;</li>
-<li>LockSupport.parkNanos()方法;</li>
-<li>LockSupport.parkUntil()方法;</li>
-</ul>
-</li>
-<li>终止(TERMINATED)：已终止线程的线程状态，线程已经结束执行。</li>
-</ol>
-<p>然后我们来看看Java线程状态之间是如何转换，如下图：</p>
-<p><img src="image/java-6-thread-states.png" alt="java-6-thread-states"></p>
-<h3><span id="thread-dump文件中的线程状态含义及注意事项"><code>Thread Dump</code>文件中的线程状态含义及注意事项</span></h3>
-<p>在Thread Dump打印出来的线程状态与我们上面提到的线程状态还是有点差别的，下面看看<code>Thread Dump</code>文件中的线程状态含义及注意事项：</p>
-<ol>
-<li><code>Deadlock</code>：死锁线程，一般指多个线程调用间，进入相互资源占用，导致一直等待无法释放的情况。</li>
-<li><code>Runnable</code>：一般指该线程正在执行状态中，该线程占用了资源，正在处理某个请求，有可能正在传递SQL到数据库执行，有可能在对某个文件操作，有可能进行数据类型等转换。</li>
-<li><code>Waiting on condition</code>：等待资源，或等待某个条件的发生。具体原因需结合 stacktrace来分析：
-<ul>
-<li>如果堆栈信息明确是应用代码，则证明该线程正在等待资源。一般是大量读取某资源，且该资源采用了资源锁的情况下，线程进入等待状态，等待资源的读取。</li>
-<li>正在等待其他线程的执行等。</li>
-<li>如果发现有大量的线程都在处在<code>Wait on condition</code>，从线程stack看，正等待网络读写，这可能是一个网络瓶颈的征兆。因为网络阻塞导致线程无法执行。
-<ul>
-<li>一种情况是网络非常忙，几乎消耗了所有的带宽，仍然有大量数据等待网络读写；</li>
-<li>另一种情况也可能是网络空闲，但由于路由等问题，导致包无法正常的到达。</li>
-</ul>
-</li>
-<li>另外一种出现<code>Wait on condition</code>的常见情况是该线程在<code>sleep</code>，等待 sleep的时间到了时候，将被唤醒。</li>
-</ul>
-</li>
-<li><code>Blocked</code>：线程阻塞，是指当前线程执行过程中，所需要的资源长时间等待却一直未能获取到，被容器的线程管理器标识为阻塞状态，可以理解为等待资源超时的线程。</li>
-<li><code>Waiting for monitor entry</code> 和 <code>in Object.wait()</code>：Monitor是 Java中用以实现线程之间的互斥与协作的主要手段，它可以看成是对象或者Class的锁。每一个对象都有，也仅有一个 monitor。从下图中可以看出，每个 Monitor在某个时刻，只能被一个线程拥有，该线程就是 <code>Active Thread</code>，而其它线程都是 <code>Waiting Thread</code>，分别在<em>两个队列</em><code>Entry Set</code>和 <code>Wait Set</code>里面等候。在<code>Entry Set</code>中等待的线程状态是 <code>Waiting for monitor entry</code>，而在<code>Wait Set</code>中等待的线程状态是<code>in Object.wait()</code>。</li>
-</ol>
-<p><img src="image/java_monitor.png" alt="java_monitor"></p>
-<p>所以我们重点关注的线程状态是：</p>
-<ul>
-<li>死锁<code>Deadlock</code></li>
-<li>执行中<code>Runnable</code> （CPU飙升的时候关注的重点对象）</li>
-<li>等待资源，<code>Waiting on condition</code></li>
-<li>等待获取监视器，<code>Waiting on monitor entry</code></li>
-<li>暂停，<code>Suspended</code></li>
-<li>阻塞，<code>Blocked</code></li>
-</ul>
-<h2><span id="thread-dump日志结构"><code>Thread Dump</code>日志结构</span></h2>
-<p>当你打开<code>Thread Dump</code>文件，就会发现其包含的内容结构如下图：</p>
-<p><img src="image/Thread_dump_section.jpg" alt="thread_dump_section"></p>
-<h2><span id="thread-dump三个例子"><code>Thread Dump</code>三个例子</span></h2>
-<p>下面举<a href="https://www.cnblogs.com/zhengyun_ustc/archive/2013/01/06/dumpanalysis.html" target="_blank" rel="external">三个例子进行分析</a>，更多例子可以参考<a href="https://dzone.com/articles/how-analyze-java-thread-dumps" target="_blank" rel="external"><br>
-How to Analyze Java Thread Dumps</a>。</p>
-<ol>
-<li><code>Waiting to lock 和 Blocked</code></li>
-</ol>
-<blockquote>
-<p>“RMI TCP Connection(267865)-172.16.5.25” daemon prio=10 tid=0x00007fd508371000 nid=0x55ae waiting for monitor entry [0x00007fd4f8684000]<br>
-java.lang.Thread.State: BLOCKED (on object monitor)<br>
-at org.apache.log4j.Category.callAppenders(Category.java:201)<br>
-waiting to lock &lt;0x00000000acf4d0c0&gt; (a org.apache.log4j.Logger)<br>
-at org.apache.log4j.Category.forcedLog(Category.java:388)<br>
-at org.apache.log4j.Category.log(Category.java:853)<br>
-at org.apache.commons.logging.impl.Log4JLogger.warn(Log4JLogger.java:234)<br>
-at com.tuan.core.common.lang.cache.remote.SpyMemcachedClient.get(SpyMemcachedClient.java:110)</p>
-</blockquote>
-<pre><code>1) 第一行里，`RMI TCP Connection(267865)-172.16.5.25`是 Thread Name 。`tid`指Java Thread id。nid指native线程的id。prio是线程优先级。`[0x00007fd4f8684000]`是线程栈起始地址。
-2）线程状态是 `Blocked`，阻塞状态。说明线程等待资源超时！
-3）`waiting to lock &lt;0x00000000acf4d0c0&gt;`指，线程在等待给这个 `0x00000000acf4d0c0` 地址上锁（英文可描述为：trying to obtain  `0x00000000acf4d0c0` lock）。
-4）在 dump 日志里查找字符串 `0x00000000acf4d0c0`，发现有大量线程都在等待给这个地址上锁。如果能在日志里找到谁获得了这个锁（如`locked &lt; 0x00000000acf4d0c0&gt;`），就可以顺藤摸瓜了。
-5）`waiting for monitor entry`说明此线程通过 `synchronized(obj) {……}` 申请进入了临界区，从而进入了`Entry Set`队列，但该 obj 对应的 monitor 被其他线程拥有，所以本线程在`Entry Set`队列中等待。
-</code></pre>
-<ol start="2">
-<li><code>Waiting on condition</code> 和 <code>TIMED_WAITING</code></li>
-</ol>
-<blockquote>
-<p>“RMI TCP Connection(idle)” daemon prio=10 tid=0x00007fd50834e800 nid=0x56b2 waiting on condition [0x00007fd4f1a59000]<br>
-java.lang.Thread.State: TIMED_WAITING (parking)<br>
-at sun.misc.Unsafe.park(Native Method)<br>
-parking to wait for  &lt;0x00000000acd84de8&gt; (a java.util.concurrent.SynchronousQueue$TransferStack)<br>
-at java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:198)<br>
-at java.util.concurrent.SynchronousQueue$TransferStack.awaitFulfill(SynchronousQueue.java:424)<br>
-at java.util.concurrent.SynchronousQueue$TransferStack.transfer(SynchronousQueue.java:323)<br>
-at java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:874)<br>
-at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:945)<br>
-at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)<br>
-at java.lang.Thread.run(Thread.java:662)</p>
-</blockquote>
-<pre><code>1）“TIMED_WAITING (parking)”中的 timed_waiting 指等待状态，但这里指定了时间，到达指定的时间后自动退出等待状态；parking指线程处于挂起中。
-2）`waiting on condition`需要与堆栈中的`parking to wait for  &lt;0x00000000acd84de8&gt; (a java.util.concurrent.SynchronousQueue$TransferStack)`结合来看。
-    - 本线程肯定是在等待某个条件的发生，来把自己唤醒
-    - `SynchronousQueue` 并不是一个队列，只是线程之间移交信息的机制，当我们把一个元素放入到 `SynchronousQueue` 中时必须有另一个线程正在等待接受移交的任务，因此这就是本线程在等待的条件。
-</code></pre>
-<ol start="3">
-<li><code>in Obejct.wait()</code> 和 <code>TIMED_WAITING</code></li>
-</ol>
-<blockquote>
-<p>“RMI RenewClean-[172.16.5.19:28475]” daemon prio=10 tid=0x0000000041428800 nid=0xb09 in Object.wait() [0x00007f34f4bd0000]<br>
-java.lang.Thread.State: TIMED_WAITING (on object monitor)<br>
-at java.lang.Object.wait(Native Method)<br>
-waiting on &lt;0x00000000aa672478&gt; (a java.lang.ref.ReferenceQueue$Lock)<br>
-at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:118)<br>
-locked &lt;0x00000000aa672478&gt; (a java.lang.ref.ReferenceQueue$Lock)<br>
-at sun.rmi.transport.DGCClient$EndpointEntry$RenewCleanThread.run(DGCClient.java:516)<br>
-at java.lang.Thread.run(Thread.java:662)</p>
-</blockquote>
-<pre><code>1）`TIMED_WAITING (on object monitor)`，对于本例而言，是因为本线程调用了 `java.lang.Object.wait(long timeout)` 而进入等待状态。
-2）`Wait Set`中等待的线程状态就是`in Object.wait()`。当线程获得了 Monitor，进入了临界区之后，如果发现线程继续运行的条件没有满足，它则调用对象（一般就是被 synchronized 的对象）的 wait() 方法，放弃了 Monitor，进入 `Wait Set`队列。只有当别的线程在该对象上调用了 notify() 或者 notifyAll() ，`Wait Set`队列中线程才得到机会去竞争，但是只有一个线程获得对象的 Monitor，恢复到运行态。
-3）`RMI RenewClean` 是 `DGCClient` 的一部分。`DGC` 指的是 Distributed GC，即分布式垃圾回收。
-4）请注意，是先`locked &lt;0x00000000aa672478&gt;`，后 `waiting on &lt;0x00000000aa672478&gt;`，之所以先锁再等同一个对象，请看下面它的代码实现：
-</code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">private</span> <span class="class"><span class="keyword">class</span>  <span class="title">Lock</span> </span>&#123; &#125;;</div><div class="line"><span class="keyword">private</span> Lock lock = <span class="keyword">new</span> Lock();</div><div class="line"><span class="keyword">public</span> Reference&lt;? extends T&gt; remove(<span class="keyword">long</span> timeout)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">synchronized</span> (lock) &#123;</div><div class="line">        Reference&lt;? extends T&gt; r = reallyPoll();</div><div class="line">        <span class="keyword">if</span> (r != <span class="keyword">null</span>) <span class="keyword">return</span> r;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            lock.wait(timeout);</div><div class="line">            r = reallyPoll();</div><div class="line">            ……</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>即，线程的执行中，先用 synchronized 获得了这个对象的 Monitor（对应于<code>locked &lt;0x00000000aa672478&gt;</code> ）；当执行到 <code>lock.wait(timeout);</code>，线程就放弃了 Monitor 的所有权，进入<code>Wait Set</code>队列（对应于  <code>waiting on &lt;0x00000000aa672478&gt;</code> ）。<br>
-5）从堆栈信息看，是正在清理 <code>remote references to remote objects</code>，引用的租约到了，分布式垃圾回收在逐一清理呢。</p>
-<h2><span id="thread-dump使用常见场景">Thread Dump使用常见场景</span></h2>
-<p>首先要说明的是<code>thread dump</code> 是个瞬时数据，需要多个采样进行对比才能更好的发现问题，所以要多次采样。下面是常见场景与排查思路：</p>
-<ol>
-<li>cpu飙高，load高，响应很慢<br>
-一个请求过程中多次dump，对比多次dump文件的runnable线程，如果执行的方法有比较大变化，说明比较正常。如果在执行同一个方法，就有一些问题了。</li>
-<li>cpu使用率不高但是响应很慢<br>
-进行dump，查看是否有很多thread struck在了i/o、数据库等地方，定位瓶颈原因。</li>
-<li>请求无法响应<br>
-多次dump，对比是否所有的runnable线程都一直在执行相同的方法，如果是的，恭喜你，锁住了！</li>
-</ol>
-<h2><span id="thread-dump-分析工具"><code>Thread DUMP</code> 分析工具</span></h2>
-<ul>
-<li><a href="http://tool.oschina.net/hexconvert" target="_blank" rel="external">进制转换</a></li>
-<li><a href="https://mkbrv.github.io/tda/" target="_blank" rel="external">TDA</a></li>
-<li><a href="http://spotify.github.io/threaddump-analyzer/" target="_blank" rel="external">Online Java Thread Dump Analyzer</a></li>
-</ul>
-<h2><span id="参考资料">参考资料</span></h2>
-<ul>
-<li><a href="http://www.jiacheo.org/blog/279" target="_blank" rel="external">tomcat thread dump 分析</a></li>
-<li><a href="https://go-on.iteye.com/blog/1673894" target="_blank" rel="external">虚拟机stack全分析</a></li>
-<li><a href="https://www.cnblogs.com/zhengyun_ustc/archive/2013/01/06/dumpanalysis.html" target="_blank" rel="external">分析三个实例演示Java Thread Dump日志分析</a></li>
-<li><a href="https://blog.csdn.net/wanyanxgf/article/details/6944987" target="_blank" rel="external">Thread Dump分析</a></li>
-<li><a href="https://blog.csdn.net/lmb55/article/details/79349680" target="_blank" rel="external">JVM性能调优jstack和线程dump分析</a></li>
-<li><a href="https://blog.csdn.net/rachel_luo/article/details/8920596" target="_blank" rel="external">性能分析之–JAVA Thread Dump 分析综述</a></li>
-<li><a href="https://www.uml-diagrams.org/examples/java-6-thread-state-machine-diagram-example.html" target="_blank" rel="external">Java线程转换图</a></li>
-</ul>
-<hr>
-<p><strong>说明：本文很多来自参考资料，更多做了汇总与编辑。</strong></p>
-
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2019/04/16/log/20190415_all_about_log/">关于日志那些事儿</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-04-16
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/总结/">总结</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-
-        
-          <h2><span id="什么是日志">什么是日志</span></h2>
-<ul>
-<li>概念</li>
-<li>作用</li>
-<li>类型</li>
-</ul>
-<h2><span id="日志的格式">日志的格式</span></h2>
-<h2><span id="日志级别">日志级别</span></h2>
-<h2><span id="日志规范与实践">日志规范与实践</span></h2>
-<p>When it comes to logging, the right answer is not “yes, always, and as much as possible.” Resist the tendency to log everything. Start small and simple, logging only the most obvious and critical of errors. Add (or ideally, inject) more logging only as demonstrated by specific, verifiable needs.</p>
-<p><a href="https://blog.codinghorror.com/the-problem-with-logging/" target="_blank" rel="external">https://blog.codinghorror.com/the-problem-with-logging/</a></p>
-<p><a href="https://logz.io/blog/logging-best-practices/" target="_blank" rel="external">https://logz.io/blog/logging-best-practices/</a></p>
-<h2><span id="参考资料">参考资料</span></h2>
-
+          <div class="read-more">
+            <a href="/2019/07/31/java/java_thread_dump_analysis/" class="read-more-link">Read more..</a>
+          </div>
         
       
     </div>
@@ -946,6 +732,77 @@ at java.lang.Thread.run(Thread.java:662)</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.next != <span class="keyword">null</span>) &#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        <span class="comment">// delete duplicate last node，</span></div><div class="line">        <span class="keyword">if</span> (node.next.next == <span class="keyword">null</span>) &#123;</div><div class="line">            node.next = <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            node = node.next;</div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <div class="read-more">
             <a href="/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/">876. Middle of the Linked List</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-27
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Algorithm/">Algorithm</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周做的算法题是 <a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank" rel="external">876. Middle of the Linked List</a>。</p>
+<h3 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h3>
+<p>给一个非空的链表，找到其中间节点。若有两个中间节点，返回第二个。例子：</p>
+<ol>
+<li>
+<p>[1,2,3,4,5] 返回 3</p>
+</li>
+<li>
+<p>[1,2,3,4,5] 返回 4</p>
+</li>
+</ol>
+<h3 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h3>
+<ol>
+<li>
+<p>将遍历链表，将元素放入一个数组arr里面，然后直接返回<code>arr[len/2]</code>,时间复杂度是O(len)（链表长度），空间复杂度O(len)。</p>
+</li>
+<li>
+<p>快慢指针法，快慢指针遍历链表，快的比慢多走一倍。快指针遍历完链表，慢指针就是中间节点。时间复杂度O(len)（链表长度），空间复杂度O(1)。</p>
+</li>
+</ol>
+          <div class="read-more">
+            <a href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/" class="read-more-link">Read more..</a>
           </div>
         
       
