@@ -224,6 +224,77 @@
     <header class="post-header">
       <h1 class="post-title">
         
+          <a class="post-link" href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/">876. Middle of the Linked List</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-27
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Algorithm/">Algorithm</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周做的算法题是 <a href="https://leetcode.com/problems/middle-of-the-linked-list/" target="_blank" rel="external">876. Middle of the Linked List</a>。</p>
+<h3 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h3>
+<p>给一个非空的链表，找到其中间节点。若有两个中间节点，返回第二个。例子：</p>
+<ol>
+<li>
+<p>[1,2,3,4,5] 返回 3</p>
+</li>
+<li>
+<p>[1,2,3,4,5] 返回 4</p>
+</li>
+</ol>
+<h3 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h3>
+<ol>
+<li>
+<p>将遍历链表，将元素放入一个数组arr里面，然后直接返回<code>arr[len/2]</code>,时间复杂度是O(len)（链表长度），空间复杂度O(len)。</p>
+</li>
+<li>
+<p>快慢指针法，快慢指针遍历链表，快的比慢多走一倍。快指针遍历完链表，慢指针就是中间节点。时间复杂度O(len)（链表长度），空间复杂度O(1)。</p>
+</li>
+</ol>
+          <div class="read-more">
+            <a href="/2018/10/27/arts/algorithm/876_Middle_of_the_Linked_List/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
           <a class="post-link" href="/2018/10/19/arts/10m3w-summary/">ARTS-10月3周</a>
         
       </h1>
@@ -293,18 +364,20 @@
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/10/12/arts/10m2w-summary/">ARTS-10月2周</a>
+          <a class="post-link" href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/">707. Design Linked List</a>
         
       </h1>
 
       <div class="post-meta">
         <span class="post-time">
-          2018-10-12
+          2018-10-19
         </span>
         
           <span class="post-category">
             
               <a href="/categories/ARTS/">ARTS</a>
+            
+              <a href="/categories/ARTS/Algorithm/">Algorithm</a>
             
           </span>
         
@@ -324,13 +397,10 @@
         
 
         
-          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
-<p>本周继续做二分查找类型的题目：<a href="../algorithm/A-69-sqrt"><code>69.Sqrt(x)</code></a>。</p>
-<h2 id="review：the-2018-devops-roadmap"><a class="header-anchor" href="#review：the-2018-devops-roadmap">¶</a>Review：The 2018 DevOps RoadMap</h2>
-<p>本周分享的文章来源是Medium，副标题：An illustrated guide to becoming a DevOps Engineer with links<br>
-to relevant courses。本文主要根据<a href="https://github.com/kamranahmedse/developer-roadmap" target="_blank" rel="external">kamranahmedse</a>提供的DevOps图（如下），给出相应地学习视频，具体的相关的视频地址就不提供了，具体可以参考作者的原文。</p>
+          <p>本周做一个<a href="https://leetcode.com/problems/design-linked-list/" target="_blank" rel="external">单链表操作的题目</a>。边写代码边测试，弄了近一个小时，中间有被中断，虽然一次就是acc了，但速度还是不够快。而且运行时间也不够快，分析了一下，可以使用头尾指针和长度运行时间会更快。比如插表尾法可以从O(n)降为O(1)。</p>
+<p>这次给一个粗糙的算法。</p>
           <div class="read-more">
-            <a href="/2018/10/12/arts/10m2w-summary/" class="read-more-link">Read more..</a>
+            <a href="/2018/10/19/arts/algorithm/A-707-Design-Linked-List/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -399,6 +469,61 @@ Output: 2
 the decimal part is truncated, 2 is returned.</p>
           <div class="read-more">
             <a href="/2018/10/12/arts/algorithm/A-69-sqrt/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/10/12/arts/10m2w-summary/">ARTS-10月2周</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-10-12
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/ARTS/">ARTS</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周继续做二分查找类型的题目：<a href="../algorithm/A-69-sqrt"><code>69.Sqrt(x)</code></a>。</p>
+<h2 id="review：the-2018-devops-roadmap"><a class="header-anchor" href="#review：the-2018-devops-roadmap">¶</a>Review：The 2018 DevOps RoadMap</h2>
+<p>本周分享的文章来源是Medium，副标题：An illustrated guide to becoming a DevOps Engineer with links<br>
+to relevant courses。本文主要根据<a href="https://github.com/kamranahmedse/developer-roadmap" target="_blank" rel="external">kamranahmedse</a>提供的DevOps图（如下），给出相应地学习视频，具体的相关的视频地址就不提供了，具体可以参考作者的原文。</p>
+          <div class="read-more">
+            <a href="/2018/10/12/arts/10m2w-summary/" class="read-more-link">Read more..</a>
           </div>
         
       
@@ -594,58 +719,6 @@ Output: 0
     <header class="post-header">
       <h1 class="post-title">
         
-          <a class="post-link" href="/2018/08/05/arts/share/S-five-mins-buss-accout/">Share：5分钟商学院-心理账户</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-08-05
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="心理账户概念"><a class="header-anchor" href="#心理账户概念">¶</a>心理账户概念</h2>
-<p>我们会把钱分门别类的存在不同的心理账户里面。比如说，生活必要的开支账户，家庭建设和个人发展账户，情感维系账户，享乐休闲账户等等。虽然这些账户都是在一个大账户之下，但其实各个子账户都是独立存在的。</p>
-          <div class="read-more">
-            <a href="/2018/08/05/arts/share/S-five-mins-buss-accout/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
           <a class="post-link" href="/2018/08/05/arts/review/R-Obserations-on-PM/">Review - Observations on Product Management</a>
         
       </h1>
@@ -681,78 +754,6 @@ Output: 0
 <p>本周分享的文章来自于Airbnb一位前PM，Dan Hill 关于PM的12条经验。觉得蛮有趣的，分享给大家。</p>
           <div class="read-more">
             <a href="/2018/08/05/arts/review/R-Obserations-on-PM/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/08/05/arts/algorithm/A-189-Rotate-Array/">Algorithm:189. Rotate Array</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-08-05
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given an array, rotate the array to the right by k steps, where k is non-negative.</p>
-<p><strong>Example 1:</strong></p>
-<blockquote>
-Input: [1,2,3,4,5,6,7] and k = 3 <br>
-Output: [5,6,7,1,2,3,4] <br>
-Explanation: <br>
-rotate 1 steps to the right: [7,1,2,3,4,5,6] <br>
-rotate 2 steps to the right: [6,7,1,2,3,4,5] <br>
-rotate 3 steps to the right: [5,6,7,1,2,3,4] <br>
-</blockquote>
-<p><strong>Example 2:</strong></p>
-<blockquote>
-Input: [-1,-100,3,99] and k = 2
-Output: [3,99,-1,-100]
-Explanation: 
-rotate 1 steps to the right: [99,-1,-100,3]
-rotate 2 steps to the right: [3,99,-1,-100]
-</blockquote>
-<p><strong>Note:</strong></p>
-<p>Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.</p>
-<p>Could you do it in-place with O(1) extra space?</p>
-          <div class="read-more">
-            <a href="/2018/08/05/arts/algorithm/A-189-Rotate-Array/" class="read-more-link">Read more..</a>
           </div>
         
       
