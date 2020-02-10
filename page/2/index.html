@@ -87,7 +87,7 @@
 </script>
 
     <title> cloudfeng </title>
-  </head>
+  <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
   <div class="mobile-header-logo">
@@ -218,6 +218,129 @@
   
   <section id="posts" class="posts">
     
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/11/11/arts/algorithm/141_Linked_List_Cycle/">141. Linked List Cycle</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-11
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Algorithm/">Algorithm</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周做的算法题是 <a href="https://leetcode.com/problems/linked-list-cycle/" target="_blank" rel="external">141. Linked List Cycle</a>。</p>
+<h3 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h3>
+<p>给定一个单链表，判断是否其是否存在环路。</p>
+<h3 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h3>
+<ol>
+<li>将要删除的节点之后向节点的值赋值到删除的节点移动，后续的节点补上，若删除是倒数第二个节点，时间复杂度为 O(n-1), 其中n为链表的长度。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.next != <span class="keyword">null</span>) &#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        <span class="comment">// delete duplicate last node，</span></div><div class="line">        <span class="keyword">if</span> (node.next.next == <span class="keyword">null</span>) &#123;</div><div class="line">            node.next = <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            node = node.next;</div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/2018/11/11/arts/algorithm/141_Linked_List_Cycle/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
+      
+        
+  <article class="post">
+    <header class="post-header">
+      <h1 class="post-title">
+        
+          <a class="post-link" href="/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/">237. Delete Node in a Linked List</a>
+        
+      </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2018-11-04
+        </span>
+        
+          <span class="post-category">
+            
+              <a href="/categories/Algorithm/">Algorithm</a>
+            
+          </span>
+        
+        
+      </div>
+    </header>
+
+    
+    
+
+
+    <div class="post-content">
+      
+        
+        
+          
+        
+
+        
+          <h2 id="algorithm"><a class="header-anchor" href="#algorithm">¶</a>Algorithm</h2>
+<p>本周做的算法题是 <a href="https://leetcode.com/problems/delete-node-in-a-linked-list/" target="_blank" rel="external">237. Delete Node in a Linked List</a>。</p>
+<h3 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h3>
+<p>写一个函数删除单链表中得一个节点（非尾节点），并假定给定的节点是可以获取的。</p>
+<p>例子：给定一个单链表：<code>4 -&gt; 5 -&gt; 1 -&gt; 9</code></p>
+<ol>
+<li>若删除节点 5， 链表变为： <code>4 -&gt; 1 -&gt; 9</code></li>
+<li>若删除节点 1， 链表变为： <code>4 -&gt; 5 -&gt; 9</code></li>
+</ol>
+<h3 id="思路"><a class="header-anchor" href="#思路">¶</a>思路</h3>
+<ol>
+<li>将要删除的节点之后向节点的值赋值到删除的节点移动，后续的节点补上，若删除是倒数第二个节点，时间复杂度为 O(n-1), 其中n为链表的长度。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteNode</span><span class="params">(ListNode node)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == node) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> &amp;&amp; node.next != <span class="keyword">null</span>) &#123;</div><div class="line">        node.val = node.next.val;</div><div class="line">        <span class="comment">// delete duplicate last node，</span></div><div class="line">        <span class="keyword">if</span> (node.next.next == <span class="keyword">null</span>) &#123;</div><div class="line">            node.next = <span class="keyword">null</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            node = node.next;</div><div class="line">        &#125;	</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <div class="read-more">
+            <a href="/2018/11/04/arts/algorithm/237_Delete_Node_in_a_Linked_List/" class="read-more-link">Read more..</a>
+          </div>
+        
+      
+    </div>
+
+    
+
+    
+
+  </article>
+
       
         
   <article class="post">
@@ -714,133 +837,6 @@ Output: 0
   </article>
 
       
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/08/05/arts/tip/T-nginx-css-not-interpreted/">Nginx 不能解析CSS文件</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-08-05
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="问题描述"><a class="header-anchor" href="#问题描述">¶</a>问题描述</h2>
-<p>最近学习在补前端知识了，使用Nginx做静态内容服务器<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>。遇到了一个小问题：</p>
-<blockquote>
-Resource interpreted as Stylesheet but transferred with MIME type text/plain: “http://localhost/web-projects/the-html-head/styles/styles.css”
-</blockquote>
-          <div class="read-more">
-            <a href="/2018/08/05/arts/tip/T-nginx-css-not-interpreted/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
-        
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">
-        
-          <a class="post-link" href="/2018/08/05/arts/algorithm/A-189-Rotate-Array/">Algorithm:189. Rotate Array</a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2018-08-05
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
-    </header>
-
-    
-    
-
-
-    <div class="post-content">
-      
-        
-        
-          
-        
-
-        
-          <h2 id="问题"><a class="header-anchor" href="#问题">¶</a>问题</h2>
-<p>Given an array, rotate the array to the right by k steps, where k is non-negative.</p>
-<p><strong>Example 1:</strong></p>
-<blockquote>
-Input: [1,2,3,4,5,6,7] and k = 3 <br>
-Output: [5,6,7,1,2,3,4] <br>
-Explanation: <br>
-rotate 1 steps to the right: [7,1,2,3,4,5,6] <br>
-rotate 2 steps to the right: [6,7,1,2,3,4,5] <br>
-rotate 3 steps to the right: [5,6,7,1,2,3,4] <br>
-</blockquote>
-<p><strong>Example 2:</strong></p>
-<blockquote>
-Input: [-1,-100,3,99] and k = 2
-Output: [3,99,-1,-100]
-Explanation: 
-rotate 1 steps to the right: [99,-1,-100,3]
-rotate 2 steps to the right: [3,99,-1,-100]
-</blockquote>
-<p><strong>Note:</strong></p>
-<p>Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.</p>
-<p>Could you do it in-place with O(1) extra space?</p>
-          <div class="read-more">
-            <a href="/2018/08/05/arts/algorithm/A-189-Rotate-Array/" class="read-more-link">Read more..</a>
-          </div>
-        
-      
-    </div>
-
-    
-
-    
-
-  </article>
-
-      
       
   <nav class="pagination">
     
@@ -879,19 +875,19 @@ rotate 2 steps to the right: [3,99,-1,-100]
     
       
         
-          <a href="https://github.com/CloudFeng" class="iconfont icon-github" title="github"></a>
+          <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
         
       
     
       
         
-          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" class="iconfont icon-weibo" title="weibo"></a>
+          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
         
       
     
       
         
-          <a href="https://www.douban.com/people/July__/" class="iconfont icon-douban" title="douban"></a>
+          <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
         
       
     
@@ -905,12 +901,12 @@ rotate 2 steps to the right: [3,99,-1,-100]
 
 <div class="copyright">
   <span class="power-by">
-    Powered by <a class="hexo-link" href="https://hexo.io/">Hexo</a>
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
   <span class="division">|</span>
   <span class="theme-info">
     Theme - 
-    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even">Even</a>
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
   <span class="copyright-year">
