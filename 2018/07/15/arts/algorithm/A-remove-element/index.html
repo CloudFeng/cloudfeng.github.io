@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,55 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="Algorithm:Remove Element"/>
-
-
-
-
-  <meta name="keywords" content="algorithm, array, cloudfeng" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="cloudfeng">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="Algorithm:Remove Element"/><meta name="keywords" content="algorithm, array, cloudfeng" /><link rel="alternate" href="/atom.xml" title="cloudfeng"><link rel="shortcut icon" type="image/x-icon" href="/favicon2.ico?v=2.11.0" />
 <link rel="canonical" href="https://cloudfeng.github.io/2018/07/15/arts/algorithm/A-remove-element/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-
-
-
-  <script id="baidu_push">
+<script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -77,20 +33,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-    <title> Algorithm:Remove Element - cloudfeng </title>
+    <title>Algorithm:Remove Element - cloudfeng</title>
   <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -105,158 +52,78 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            Categories
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">cloudfeng</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            Home
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            Archives
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
+            Tags
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/categories/">
-            
-            
-              Categories
-            
-          </a>
+            Categories
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about/">
-            
-            
-              About
-            
-          </a>
+            About
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          Algorithm:Remove Element
-        
-      </h1>
+      <h1 class="post-title">Algorithm:Remove Element
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-07-15
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/ARTS/">ARTS</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Example 1:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Example 2:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">解题思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">复杂度分析</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <h2><span id="问题">问题</span></h2>
+  </div><div class="post-content"><h2><span id="问题">问题</span></h2>
 <p>Given an array nums and a value val, remove all instances of that value <strong>in-place</strong> and return the new length.</p>
 <p>Do not allocate extra space for another array, you must do this by modifying the input array in-place with <strong>O(1) extra memory</strong>.</p>
 <p>The order of elements <strong>can be changed</strong>. It doesn’t matter what you leave beyond the new length.</p>
@@ -286,10 +153,10 @@ It doesn’t matter what values are set beyond the returned length.</p>
 <li>返回 新数组的长度：pos+1</li>
 </ol>
 <p>详细代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len = nums.length;</div><div class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> idx = <span class="number">1</span>; idx &lt; len; ++idx) &#123;</div><div class="line">        <span class="keyword">if</span> (nums[pos] != val) &#123;</div><div class="line">            nums[++pos] = nums[idx];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> (pos + <span class="number">1</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = nums.length;</span><br><span class="line">    <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> idx = <span class="number">1</span>; idx &lt; len; ++idx) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[pos] != val) &#123;</span><br><span class="line">            nums[++pos] = nums[idx];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (pos + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>第一种解法保留了元素在数组中的顺序，题目也说明了可以改变数组的元素的位置，那么我们可以使用最后一位<br>
 元素来替换重复的元素。相关的代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement2</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">int</span> len = nums.length;</div><div class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (idx &lt; len) &#123;</div><div class="line">        <span class="keyword">if</span> (nums[idx] == val) &#123;</div><div class="line">            nums[idx] = nums[len-<span class="number">1</span>];</div><div class="line">            --len;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            ++idx;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> len;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">removeElement2</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == nums || nums.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> len = nums.length;</span><br><span class="line">    <span class="keyword">int</span> idx = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> (idx &lt; len) &#123;</span><br><span class="line">        <span class="keyword">if</span> (nums[idx] == val) &#123;</span><br><span class="line">            nums[idx] = nums[len-<span class="number">1</span>];</span><br><span class="line">            --len;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ++idx;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2><span id="复杂度分析">复杂度分析</span></h2>
 <p>两种算法时间复杂度和空间复杂度如下：</p>
 <ul>
@@ -297,14 +164,8 @@ It doesn’t matter what values are set beyond the returned length.</p>
 <li>空间复杂度为O(1)</li>
 </ul>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>Author: </span>
       <a href="https://cloudfeng.github.io">cloudfeng</a>
@@ -314,120 +175,49 @@ It doesn’t matter what values are set beyond the returned length.</p>
       <a href="https://cloudfeng.github.io/2018/07/15/arts/algorithm/A-remove-element/">https://cloudfeng.github.io/2018/07/15/arts/algorithm/A-remove-element/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
     <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
+    <div class="qr-code"><label class="qr-code-image" for="reward">
           <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
         </label>
-      
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/algorithm/">algorithm</a>
+            <a href="/tags/array/">array</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/algorithm/">algorithm</a>
-            
-              <a href="/tags/array/">array</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/07/15/arts/tip/T-linux-file-command/">
+        <nav class="post-nav"><a class="prev" href="/2018/07/15/arts/7m2w-summary/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">linux 磁盘管理的几个小命令</span>
+        <span class="prev-text nav-default">ARTS-7月2周</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    
-    
-      <a class="next" href="/2018/07/15/arts/review/R-the-key-to-code/">
+    <a class="next" href="/2018/07/15/arts/review/R-the-key-to-code/">
         <span class="next-text nav-default">Review - The Key to Accelerating Your Skills While You Learn to Code</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
+    </nav></footer>
+    </article></div><div class="comments" id="comments">
     
        
          <div id="gitment-container"></div>
        
     
-  </div>
-
-
-        </div>
+      </div>  
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
-        
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
+        <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -437,32 +227,20 @@ It doesn’t matter what values are set beyond the returned length.</p>
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2018 - 
-    
-    2020
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2018 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">cloudfeng</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
     </div>
-
-    
   
   
-
   
   
    
@@ -486,43 +264,9 @@ It doesn’t matter what values are set beyond the returned length.</p>
    
 
 
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-
-  </body>
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
 </html>

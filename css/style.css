@@ -830,6 +830,12 @@ h6 {
       content: " · Go"; }
     .post .post-content .highlight.go figcaption + table::after {
       display: none; }
+    .post .post-content .highlight.kotlin > table::after {
+      content: "Kotlin"; }
+    .post .post-content .highlight.kotlin > figcaption > span::after {
+      content: " · Kotlin"; }
+    .post .post-content .highlight.kotlin figcaption + table::after {
+      display: none; }
     .post .post-content .highlight figcaption {
       position: absolute;
       top: 0;
@@ -1413,13 +1419,6 @@ h6 {
   .back-to-top {
     display: none !important; } }
 
-#nprogress .bar {
-  background: #c05b4d;
-  height: 3px; }
-
-#nprogress .peg {
-  box-shadow: 0 0 10px #c05b4d, 0 0 5px #c05b4d; }
-
-#nprogress .spinner-icon {
-  border-top-color: #c05b4d;
-  border-left-color: #c05b4d; }
+.mjx-chtml:focus {
+  padding: 1px 0;
+  outline: none; }

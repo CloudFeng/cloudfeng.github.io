@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,55 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="Junit测试Java多线程小疑"/>
-
-
-
-
-  <meta name="keywords" content="tip, junit, thread, cloudfeng" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="cloudfeng">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="Junit测试Java多线程小疑"/><meta name="keywords" content="tip, junit, thread, cloudfeng" /><link rel="alternate" href="/atom.xml" title="cloudfeng"><link rel="shortcut icon" type="image/x-icon" href="/favicon2.ico?v=2.11.0" />
 <link rel="canonical" href="https://cloudfeng.github.io/2018/06/29/arts/tip/T-java-thread-unit/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-
-
-
-  <script id="baidu_push">
+<script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -77,20 +33,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-    <title> Junit测试Java多线程小疑 - cloudfeng </title>
+    <title>Junit测试Java多线程小疑 - cloudfeng</title>
   <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -105,166 +52,86 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            Categories
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">cloudfeng</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            Home
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            Archives
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
+            Tags
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/categories/">
-            
-            
-              Categories
-            
-          </a>
+            Categories
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about/">
-            
-            
-              About
-            
-          </a>
+            About
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          Junit测试Java多线程小疑
-        
-      </h1>
+      <h1 class="post-title">Junit测试Java多线程小疑
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-06-29
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/ARTS/">ARTS</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">遇到背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">分析与解决</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">参考资料</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <h2><span id="遇到背景">遇到背景</span></h2>
+  </div><div class="post-content"><h2><span id="遇到背景">遇到背景</span></h2>
 <p>本周分享一个小问题，在看TIJ（Java编程思想）中多线程机制一节时，把书中的示例使用Junit来测试。发<br>
 现与书中使用main方法来测试的结果是不一样的。</p>
 <a id="more"></a>
 <h2><span id="问题描述">问题描述</span></h2>
 <p>为了描述问题，先引用书中的例子：定义一个简单地任务，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LiftOff</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</div><div class="line">	<span class="keyword">protected</span> <span class="keyword">int</span> countDown = <span class="number">10</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> taskCount = <span class="number">0</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> id = taskCount++;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">(<span class="keyword">int</span> countDown)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.countDown = countDown;</div><div class="line">	&#125;</div><div class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">status</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="string">"#"</span> + id + <span class="string">"("</span> + (countDown &gt; <span class="number">0</span> ? countDown : <span class="string">"liftoff!"</span>) + <span class="string">"),"</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">while</span> (countDown-- &gt; <span class="number">0</span>) &#123;</div><div class="line">			System.out.println(status());</div><div class="line">			Thread.yield();</div><div class="line">		&#125;</div><div class="line">	&#125;	</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LiftOff</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">protected</span> <span class="keyword">int</span> countDown = <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> taskCount = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> id = taskCount++;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LiftOff</span><span class="params">(<span class="keyword">int</span> countDown)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.countDown = countDown;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">status</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">"#"</span> + id + <span class="string">"("</span> + (countDown &gt; <span class="number">0</span> ? countDown : <span class="string">"liftoff!"</span>) + <span class="string">"),"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">while</span> (countDown-- &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			System.out.println(status());</span><br><span class="line">			Thread.yield();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用Junit测试代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMoreBasicThread</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</div><div class="line">		Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> LiftOff());</div><div class="line">	    <span class="comment">//t.join();</span></div><div class="line">		t.start();</div><div class="line">	&#125;</div><div class="line">	System.out.println(<span class="string">"Waiting for LiftOff"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testMoreBasicThread</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">		Thread t = <span class="keyword">new</span> Thread(<span class="keyword">new</span> LiftOff());</span><br><span class="line">	    <span class="comment">//t.join();</span></span><br><span class="line">		t.start();</span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(<span class="string">"Waiting for LiftOff"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>使用main测试的结果与Junit测试的结果相比对，就会发现两者不同。</p>
 <table>
 <thead>
@@ -286,17 +153,11 @@
 <code>t.setDaemon(false)</code>来防止JVM在任务未执行完成之前就结束生命了。但是Junit会在主线程结束时调用<br>
 <code>System.exit()</code>。具体的见JunitCore.java中代码，下面是与此问题相关的代码<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup>。解决方法就是在<br>
 调用<code>t.start()</code>之前调用<code>t.jion()</code>,让Junit线程等待任务的完成<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">runClasses</span><span class="params">(Class&lt;?&gt;... classes)</span> </span>&#123;</div><div class="line">	<span class="keyword">return</span> runClasses(defaultComputer(), classes);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Result <span class="title">runClasses</span><span class="params">(Class&lt;?&gt;... classes)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> runClasses(defaultComputer(), classes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2><span id="参考资料">参考资料</span></h2>
 <div id="footnotes"><hr><div id="footnotelist"><ol style="list-style:none; padding-left: 0;"><li id="fn:1"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">1.</span><span style="display: inline-block; vertical-align: top;">https://github.com/junit-team/junit4/blob/master/src/main/java/org/junit/runner/JUnitCore.java#L48</span><a href="#fnref:1" rev="footnote"> ↩</a></li><li id="fn:2"><span style="display: inline-block; vertical-align: top; padding-right: 10px;">2.</span><span style="display: inline-block; vertical-align: top;">https://stackoverflow.com/questions/16616590/thread-behaving-strangely-in-junit</span><a href="#fnref:2" rev="footnote"> ↩</a></li></ol></div></div>
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>Author: </span>
       <a href="https://cloudfeng.github.io">cloudfeng</a>
@@ -306,122 +167,50 @@
       <a href="https://cloudfeng.github.io/2018/06/29/arts/tip/T-java-thread-unit/">https://cloudfeng.github.io/2018/06/29/arts/tip/T-java-thread-unit/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
     <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
+    <div class="qr-code"><label class="qr-code-image" for="reward">
           <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
         </label>
-      
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/tip/">tip</a>
+            <a href="/tags/junit/">junit</a>
+            <a href="/tags/thread/">thread</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/tip/">tip</a>
-            
-              <a href="/tags/junit/">junit</a>
-            
-              <a href="/tags/thread/">thread</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/06/29/arts/algorithm/A-Find-median/">
+        <nav class="post-nav"><a class="prev" href="/2018/06/29/arts/share/S-TDD-is-perfect/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Algorithm:Median of Two Sorted Arrays</span>
+        <span class="prev-text nav-default">测试驱动开发小思考</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    
-    
-      <a class="next" href="/2018/06/29/arts/review/R-learn-by-hard-way/">
-        <span class="next-text nav-default">脚踏实地学习</span>
+    <a class="next" href="/2018/06/23/arts/6m3w-summary/">
+        <span class="next-text nav-default">ARTS之旅</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
+    </nav></footer>
+    </article></div><div class="comments" id="comments">
     
        
          <div id="gitment-container"></div>
        
     
-  </div>
-
-
-        </div>
+      </div>  
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
-        
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
+        <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -431,32 +220,20 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2018 - 
-    
-    2020
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2018 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">cloudfeng</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
     </div>
-
-    
   
   
-
   
   
    
@@ -480,43 +257,9 @@
    
 
 
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-
-  </body>
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
 </html>

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,55 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="Share:Redis中的分布式锁"/>
-
-
-
-
-  <meta name="keywords" content="array, distributed lock, redis, cloudfeng" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="cloudfeng">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="Share:Redis中的分布式锁"/><meta name="keywords" content="array, distributed lock, redis, cloudfeng" /><link rel="alternate" href="/atom.xml" title="cloudfeng"><link rel="shortcut icon" type="image/x-icon" href="/favicon2.ico?v=2.11.0" />
 <link rel="canonical" href="https://cloudfeng.github.io/2018/07/22/arts/review/R-Distributed-locks-with-redis/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-
-
-
-  <script id="baidu_push">
+<script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -77,20 +33,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-    <title> Share:Redis中的分布式锁 - cloudfeng </title>
+    <title>Share:Redis中的分布式锁 - cloudfeng</title>
   <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -105,158 +52,78 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            Categories
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">cloudfeng</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            Home
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            Archives
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
+            Tags
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/categories/">
-            
-            
-              Categories
-            
-          </a>
+            Categories
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about/">
-            
-            
-              About
-            
-          </a>
+            About
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          Share:Redis中的分布式锁
-        
-      </h1>
+      <h1 class="post-title">Share:Redis中的分布式锁
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-07-22
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/ARTS/">ARTS</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">安全性和活跃性保证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">为何基于故障转移1实现不够</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">单实例正确实现方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Redlock算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">算法是异步的吗？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">失败重试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">释放锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">安全性讨论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">活跃性讨论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">性能、宕机恢复、文件同步</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">让算法更可靠：扩展锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">需要帮助？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Redlock 的分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">参考资料</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <h2><span id="概述">概述</span></h2>
+  </div><div class="post-content"><h2><span id="概述">概述</span></h2>
 <p>在多核处理器中，互斥性访问共享资源的环境下，分布式锁是一项十分有用的手段（技术）]。有很多库和博客都有描述基于Redis如何实现一个分布式锁管理器（DLM：Distributed Lock Manager），但是每个库都使用不同的方案，相比复杂方案，简单方案有较低保障。</p>
 <p>本文试图提供一个经典的方法实现基于Redis的分布式锁。我们提出一个算法，称之为 <strong>Redlock</strong>，它实现一个DLM。我们相信它比普通的单个实例方法更为安全。我们希望，社区分析它并且提供反馈，同时希望基于Redislock实现或者更为复杂或者其他可选的方案。</p>
 <a id="more"></a>
@@ -264,34 +131,34 @@
 <p>在描述Redlock算法之前，列举目前基于Redis设计的分布式锁，具体如下：</p>
 <ul>
     <li>
-        <a href="https://github.com/antirez/redlock-rb" target="_blank" rel="external">Redlock-rb</a> (Ruby 实现)。 有一个
-        <a href="https://github.com/leandromoreira/redlock-rb" target="_blank" rel="external">Redlock-rb的fork</a>，它新增gem便于发布或者更多</li>
+        <a href="https://github.com/antirez/redlock-rb" target="_blank" rel="noopener">Redlock-rb</a> (Ruby 实现)。 有一个
+        <a href="https://github.com/leandromoreira/redlock-rb" target="_blank" rel="noopener">Redlock-rb的fork</a>，它新增gem便于发布或者更多</li>
     <li>
-        <a href="https://github.com/SPSCommerce/redlock-py" target="_blank" rel="external">Redlock-py</a> (Python 实现)。</li>
+        <a href="https://github.com/SPSCommerce/redlock-py" target="_blank" rel="noopener">Redlock-py</a> (Python 实现)。</li>
     <li>
-        <a href="https://github.com/joanvila/aioredlock" target="_blank" rel="external">Aioredlock</a> (Asyncio Python 实现)。</li>
+        <a href="https://github.com/joanvila/aioredlock" target="_blank" rel="noopener">Aioredlock</a> (Asyncio Python 实现)。</li>
     <li>
-        <a href="https://github.com/ronnylt/redlock-php" target="_blank" rel="external">Redlock-php</a> (PHP 实现)。</li>
+        <a href="https://github.com/ronnylt/redlock-php" target="_blank" rel="noopener">Redlock-php</a> (PHP 实现)。</li>
     <li>
-        <a href="https://github.com/malkusch/lock#phpredismutex" target="_blank" rel="external">PHPRedisMutex</a> (further PHP 实现)</li>
+        <a href="https://github.com/malkusch/lock#phpredismutex" target="_blank" rel="noopener">PHPRedisMutex</a> (further PHP 实现)</li>
     <li>
-        <a href="https://github.com/cheprasov/php-redis-lock" target="_blank" rel="external">cheprasov/php-redis-lock</a> (PHP 库)</li>
+        <a href="https://github.com/cheprasov/php-redis-lock" target="_blank" rel="noopener">cheprasov/php-redis-lock</a> (PHP 库)</li>
     <li>
-        <a href="https://github.com/hjr265/redsync.go" target="_blank" rel="external">Redsync.go</a> (Go 实现)。</li>
+        <a href="https://github.com/hjr265/redsync.go" target="_blank" rel="noopener">Redsync.go</a> (Go 实现)。</li>
     <li>
-        <a href="https://github.com/mrniko/redisson" target="_blank" rel="external">Redisson</a> (Java 实现)。</li>
+        <a href="https://github.com/mrniko/redisson" target="_blank" rel="noopener">Redisson</a> (Java 实现)。</li>
     <li>
-        <a href="https://github.com/sbertrang/redis-distlock" target="_blank" rel="external">Redis::DistLock</a> (Perl 实现)。</li>
+        <a href="https://github.com/sbertrang/redis-distlock" target="_blank" rel="noopener">Redis::DistLock</a> (Perl 实现)。</li>
     <li>
-        <a href="https://github.com/jacket-code/redlock-cpp" target="_blank" rel="external">Redlock-cpp</a> (C++ 实现)。</li>
+        <a href="https://github.com/jacket-code/redlock-cpp" target="_blank" rel="noopener">Redlock-cpp</a> (C++ 实现)。</li>
     <li>
-        <a href="https://github.com/kidfashion/redlock-cs" target="_blank" rel="external">Redlock-cs</a> (C#/.NET 实现)。</li>
+        <a href="https://github.com/kidfashion/redlock-cs" target="_blank" rel="noopener">Redlock-cs</a> (C#/.NET 实现)。</li>
     <li>
-        <a href="https://github.com/samcook/RedLock.net" target="_blank" rel="external">RedLock.net</a> (C#/.NET 实现)， 包括异步和支持锁的扩展。</li>
+        <a href="https://github.com/samcook/RedLock.net" target="_blank" rel="noopener">RedLock.net</a> (C#/.NET 实现)， 包括异步和支持锁的扩展。</li>
     <li>
-        <a href="https://github.com/psibernetic/scarletlock" target="_blank" rel="external">ScarletLock</a> (C# .NET 实现 with configurable datastore)</li>
+        <a href="https://github.com/psibernetic/scarletlock" target="_blank" rel="noopener">ScarletLock</a> (C# .NET 实现 with configurable datastore)</li>
     <li>
-        <a href="https://github.com/mike-marcacci/node-redlock" target="_blank" rel="external">node-redlock</a> (NodeJS 实现)，支持锁的扩展。</li>
+        <a href="https://github.com/mike-marcacci/node-redlock" target="_blank" rel="noopener">node-redlock</a> (NodeJS 实现)，支持锁的扩展。</li>
 </ul>
 <h2><span id="安全性和活跃性保证">安全性和活跃性保证</span></h2>
 <p>从我们自己的视角来看，构建我们的设计模型具有三个特性，最低限度地保证高效使用分布式锁。</p>
@@ -313,7 +180,7 @@
 <h2><span id="单实例正确实现方式">单实例正确实现方式</span></h2>
 <p>在我们尝试解决上述单实例实现方案缺陷之前，如何在此场景下，如何确保它是正确的。当竞态条件可以接收的时候，此方案是一个可行的方案。另外，在单实例中锁机制是我们在本文中描述分布式算法的基础。为了获得锁，可以使用下面的命令：<code>SET resource_name my_random_value NX PX 30000</code></p>
 <p>此命令会在当key不存在的时候（NX 选项），就会创建一个key，带有一个30000毫秒过期时间（PX 选项）。与key关联的值为“my_random_value”。此值在所有客户端和所有请求锁中，必须是唯一的。使用随机值是为了安全释放锁，使用脚本告诉Redis：只有在key存在并且对应的value值是我们期待的时候才删除它。下面实现此方案的Lua脚本：</p>
-<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> redis.call(<span class="string">"get"</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] <span class="keyword">then</span></div><div class="line">    <span class="keyword">return</span> redis.call(<span class="string">"del"</span>,KEYS[<span class="number">1</span>])</div><div class="line"><span class="keyword">else</span></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> redis.call(<span class="string">"get"</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] <span class="keyword">then</span></span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">"del"</span>,KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
 <p>为了避免误释放其他线程创建的锁是十分重要，比如一个客户端可能获得锁，因某操作所用时间超过锁有效时间（key失效的时间）而阻塞，而另外一个线程在此期间获得锁，然后删除此锁（注：把相同的key删除）。所以，仅仅使用<code>DEL</code>命令是不安全的，会删除其他客户端获得的锁。使用上述脚本，判断每个锁被一个随机的字串串做了标记，所以只有设置此key的客户端才能删除此锁。</p>
 <p>随机字符串的值是什么？我假定是来自 <code>/dev/urandom</code>的20字节，不过你也可以使用其他的方式生成一个唯一的值。比如<br>
 在<code>/dev/urandom</code>中安全的挑选RC4种子，然后生成一个伪随机流。一个简单地方案：以毫秒为精度的unix系统时间拼接客户端ID，组成一个随机字符串的可以。虽然不完全安全，但在很多场景下是可以使用的。</p>
@@ -330,11 +197,11 @@
 <li>如果客户端因某种原因不能获得锁失败（不管客户端不能锁住N/2+1实例还是有效时间为负数），它将释放所有的实例（包括哪些客户端并没有获得锁的实例）。</li>
 </ol>
 <p>所有步骤的伪代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">if n &lt; N/2+1 then</div><div class="line">    no</div><div class="line">end</div><div class="line">for i : n then</div><div class="line">    acqTimeInMS = acqLockCurrentTimeInMS-currentTimeInMs</div><div class="line">    totalAcqTime += acqTimeInMS</div><div class="line">end</div><div class="line"></div><div class="line">validtyTimeInMS = intitValidtyTimeInMS - totalAcqTime</div><div class="line"></div><div class="line">if validtyTimeInMS &gt; 0 then</div><div class="line">    yes</div><div class="line">else</div><div class="line">    no</div><div class="line">end </div><div class="line"></div><div class="line">if no then</div><div class="line"> unlock all instance</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">if n &lt; N&#x2F;2+1 then</span><br><span class="line">    no</span><br><span class="line">end</span><br><span class="line">for i : n then</span><br><span class="line">    acqTimeInMS &#x3D; acqLockCurrentTimeInMS-currentTimeInMs</span><br><span class="line">    totalAcqTime +&#x3D; acqTimeInMS</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">validtyTimeInMS &#x3D; intitValidtyTimeInMS - totalAcqTime</span><br><span class="line"></span><br><span class="line">if validtyTimeInMS &gt; 0 then</span><br><span class="line">    yes</span><br><span class="line">else</span><br><span class="line">    no</span><br><span class="line">end </span><br><span class="line"></span><br><span class="line">if no then</span><br><span class="line"> unlock all instance</span><br></pre></td></tr></table></figure>
 <h2><span id="算法是异步的吗">算法是异步的吗？</span></h2>
 <p>算法所依赖的假设，一个是进程之间没有同步时钟，每个进程中本地时间按照近似相同频率；另外一个是自动释放时钟存在一点小误差。这些假设近似一台真实地电脑：每台电脑都有本地时钟，同时我们一般依赖不同电脑之间存在一点时钟偏移。</p>
 <p>基于此，我们需要制定我们互斥性规则：只要确保客户端所占锁将在锁有效时间（第三步所得）减去一定的时间（为了弥补进程间的是时钟偏移）。</p>
-<p>有关相似系统需要一定的时钟偏移更多信息，可以参考此论文：<a href="http://dl.acm.org/citation.cfm?id=74870" target="_blank" rel="external">Leases: an efficient fault-tolerant mechanism for distributed file cache consistency</a>。</p>
+<p>有关相似系统需要一定的时钟偏移更多信息，可以参考此论文：<a href="http://dl.acm.org/citation.cfm?id=74870" target="_blank" rel="noopener">Leases: an efficient fault-tolerant mechanism for distributed file cache consistency</a>。</p>
 <p>【疑问：依赖于系统时间，并非是个好事情，万一被改了呢？】</p>
 <h2><span id="失败重试">失败重试</span></h2>
 <p>当一个客户端不能够获得锁，它会等待一个随机时延之后重新获取。这么做事为了缓解多个客户端在同一时刻对同一个资源同时加锁（此种情况下可能会导致一个脑裂<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>问题使得谁也不能取胜）。另外，客户端从多个Redis实例获取锁的时间越快，脑裂发生的机会就越小。因此在理想情况下，客户端采用多路复用技术在同一时刻给N个实例发送<code>SET</code>命令。</p>
@@ -372,20 +239,14 @@
 <p>如果你对分布式系统有深入的研究，若能提供你的观点或者分析，十分不错的。若能同时使用其他语言实现，也是不错的。在此表示感谢。</p>
 <h2><span id="redlock-的分析">Redlock 的分析</span></h2>
 <ol>
-    <li>Martin Kleppmann <a href="http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="external">分析的文章</a>。我不是很同意他的意见，并且发表了 <a href="http://antirez.com/news/101" target="_blank" rel="external">我对其分析的回应</a>。</li>
+    <li>Martin Kleppmann <a href="http://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html" target="_blank" rel="noopener">分析的文章</a>。我不是很同意他的意见，并且发表了 <a href="http://antirez.com/news/101" target="_blank" rel="noopener">我对其分析的回应</a>。</li>
 </ol>
 <h2><span id="参考资料">参考资料</span></h2>
-<p><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> : <a href="https://en.wikipedia.org/wiki/Failover" target="_blank" rel="external">https://en.wikipedia.org/wiki/Failover</a><br>
-<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> : <a href="https://en.wikipedia.org/wiki/Split-brain_(computing)" target="_blank" rel="external">https://en.wikipedia.org/wiki/Split-brain_(computing)</a></p>
+<p><sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> : <a href="https://en.wikipedia.org/wiki/Failover" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Failover</a><br>
+<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup> : <a href="https://en.wikipedia.org/wiki/Split-brain_(computing)" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Split-brain_(computing)</a></p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>Author: </span>
       <a href="https://cloudfeng.github.io">cloudfeng</a>
@@ -395,122 +256,50 @@
       <a href="https://cloudfeng.github.io/2018/07/22/arts/review/R-Distributed-locks-with-redis/">https://cloudfeng.github.io/2018/07/22/arts/review/R-Distributed-locks-with-redis/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
     <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
+    <div class="qr-code"><label class="qr-code-image" for="reward">
           <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
         </label>
-      
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/array/">array</a>
+            <a href="/tags/distributed-lock/">distributed lock</a>
+            <a href="/tags/redis/">redis</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/array/">array</a>
-            
-              <a href="/tags/distributed-lock/">distributed lock</a>
-            
-              <a href="/tags/redis/">redis</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/07/22/arts/tip/T-linux-file-basic-ma/">
+        <nav class="post-nav"><a class="prev" href="/2018/07/22/arts/algorithm/A-88-merge-sorted-array/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Linux 文件基本属性笔记</span>
+        <span class="prev-text nav-default">Algorithm:88.Merge Sorted Array</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    
-    
-      <a class="next" href="/2018/07/15/arts/7m2w-summary/">
-        <span class="next-text nav-default">ARTS-7月2周</span>
+    <a class="next" href="/2018/07/22/arts/share/S-python-list-note/">
+        <span class="next-text nav-default">Share：python中list操作</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
+    </nav></footer>
+    </article></div><div class="comments" id="comments">
     
        
          <div id="gitment-container"></div>
        
     
-  </div>
-
-
-        </div>
+      </div>  
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
-        
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
+        <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -520,32 +309,20 @@
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2018 - 
-    
-    2020
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2018 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">cloudfeng</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
     </div>
-
-    
   
   
-
   
   
    
@@ -569,43 +346,9 @@
    
 
 
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-
-  </body>
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
 </html>

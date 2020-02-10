@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,55 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="SLF4J 和 LOG4J"/>
-
-
-
-
-  <meta name="keywords" content="tip, slf4j, log4j, cloudfeng" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="cloudfeng">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="SLF4J 和 LOG4J"/><meta name="keywords" content="tip, slf4j, log4j, cloudfeng" /><link rel="alternate" href="/atom.xml" title="cloudfeng"><link rel="shortcut icon" type="image/x-icon" href="/favicon2.ico?v=2.11.0" />
 <link rel="canonical" href="https://cloudfeng.github.io/2018/07/07/arts/tip/T-slf4jandlog4j/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-
-
-
-  <script id="baidu_push">
+<script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -77,20 +33,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-    <title> SLF4J 和 LOG4J - cloudfeng </title>
+    <title>SLF4J 和 LOG4J - cloudfeng</title>
   <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -105,178 +52,98 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            Categories
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">cloudfeng</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            Home
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            Archives
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
+            Tags
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/categories/">
-            
-            
-              Categories
-            
-          </a>
+            Categories
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about/">
-            
-            
-              About
-            
-          </a>
+            About
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          SLF4J 和 LOG4J
-        
-      </h1>
+      <h1 class="post-title">SLF4J 和 LOG4J
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2018-07-07
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/ARTS/">ARTS</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/ARTS/">ARTS</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">折腾背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">SLF4J是啥</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">小实验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">使用LOG4J</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">小思考</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <h2><span id="折腾背景">折腾背景</span></h2>
+  </div><div class="post-content"><h2><span id="折腾背景">折腾背景</span></h2>
 <p>在公司开发都是使用内部框架的，使用打印日志没怎么关注过。本周在学习Srping的时候采用SLF4J和LOG4J打印日志。分享一下遇到的小问题以及解决方法。</p>
 <h2><span id="slf4j是啥">SLF4J是啥</span></h2>
 <p>SLF4J是 <code>Simple Logging Facade for Java</code>简称，是为日志框架（比如，<code>java.util.logging</code>, <code>logback</code> 和 <code>log4j</code>）提供接口服务，具体日志打印是怎么实现有日志框架决定的。</p>
 <a id="more"></a>
 <h2><span id="小实验">小实验</span></h2>
-<p>下载<a href="https://www.slf4j.org/download.html" target="_blank" rel="external">SLF4J相关的JAR</a>,引入到<code>lass path</code>。然后运行下面小程序:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.slf4j.Logger;</div><div class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">    Logger logger = LoggerFactory.getLogger(HelloWorld.class);</div><div class="line">    logger.info(<span class="string">"Hello World"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下载<a href="https://www.slf4j.org/download.html" target="_blank" rel="noopener">SLF4J相关的JAR</a>,引入到<code>lass path</code>。然后运行下面小程序:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    Logger logger = LoggerFactory.getLogger(HelloWorld<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    logger.info(<span class="string">"Hello World"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>会报如下错误:</p>
 <blockquote>
 <p>SLF4J: Failed to load class “org.slf4j.impl.StaticLoggerBinder”.<br>
 SLF4J: Defaulting to no-operation (NOP) logger implementation<br>
-SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" target="_blank" rel="external">http://www.slf4j.org/codes.html#StaticLoggerBinder</a> for further details.</p>
+SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" target="_blank" rel="noopener">http://www.slf4j.org/codes.html#StaticLoggerBinder</a> for further details.</p>
 </blockquote>
 <p>不要担心，到这里说明你向前走了一步，把 <code>slf4j-simple-1.8.0-beta2.jar</code>,在运行一下就出现，你想要的结果了。</p>
 <blockquote>
 <p>[main] INFO HelloWorld - Hello World</p>
 </blockquote>
 <h2><span id="使用log4j">使用LOG4J</span></h2>
-<p>后面想打印Debug级别的日志，所以<a href="https://logging.apache.org/log4j/2.x/download.html" target="_blank" rel="external">下载log4j的JAR包</a>。下载后把其加入<code>class path</code> , 然后执行下面这个测试程序：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.slf4j.Logger;</div><div class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wombat</span> </span>&#123;</div><div class="line">    <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(Wombat.class);</div><div class="line">    Integer t;</div><div class="line">    Integer oldT;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTemperature</span><span class="params">(Integer temperature)</span> </span>&#123;</div><div class="line">        oldT = t;        </div><div class="line">        t = temperature;</div><div class="line">        logger.debug(<span class="string">"Temperature set to &#123;&#125;. Old temperature was &#123;&#125;."</span>, t, oldT);</div><div class="line">        <span class="keyword">if</span>(temperature.intValue() &gt; <span class="number">50</span>) &#123;</div><div class="line">            logger.info(<span class="string">"Temperature has risen above 50 degrees."</span>);</div><div class="line">        &#125;</div><div class="line">   &#125;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>后面想打印Debug级别的日志，所以<a href="https://logging.apache.org/log4j/2.x/download.html" target="_blank" rel="noopener">下载log4j的JAR包</a>。下载后把其加入<code>class path</code> , 然后执行下面这个测试程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wombat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(Wombat<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    Integer t;</span><br><span class="line">    Integer oldT;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTemperature</span><span class="params">(Integer temperature)</span> </span>&#123;</span><br><span class="line">        oldT = t;        </span><br><span class="line">        t = temperature;</span><br><span class="line">        logger.debug(<span class="string">"Temperature set to &#123;&#125;. Old temperature was &#123;&#125;."</span>, t, oldT);</span><br><span class="line">        <span class="keyword">if</span>(temperature.intValue() &gt; <span class="number">50</span>) &#123;</span><br><span class="line">            logger.info(<span class="string">"Temperature has risen above 50 degrees."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>输入 temperature 大于50则有日志，否则什么也没有。</p>
 <blockquote>
 <p>Temperature has risen above 50 degrees.</p>
@@ -286,10 +153,10 @@ SLF4J: See <a href="http://www.slf4j.org/codes.html#StaticLoggerBinder" target="
 <p>SLF4J: Class path contains multiple SLF4J bindings.<br>
 	SLF4J: Found binding in [jar:file:/D:/tools/extraLib/log/slf4j-log4j12-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]<br>
 	SLF4J: Found binding in [jar:file:/D:/tools/extraLib/log/slf4j-simple-1.7.25.jar!/org/slf4j/impl/StaticLoggerBinder.class]<br>
-	SLF4J: See <a href="http://www.slf4j.org/codes.html#multiple_bindings" target="_blank" rel="external">http://www.slf4j.org/codes.html#multiple_bindings</a> for an explanation.</p>
+	SLF4J: See <a href="http://www.slf4j.org/codes.html#multiple_bindings" target="_blank" rel="noopener">http://www.slf4j.org/codes.html#multiple_bindings</a> for an explanation.</p>
 </blockquote>
 <p>先把<code>slf4j-simple-1.8.0-beta2.jar</code>移除，然后在<code>src</code>目前下新建<code>log4j.properties</code>，并敲入如下内容，用于配置<code>log4j.properties</code>和设置debug级别。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">log4j.rootLogger=DEBUG, stdout</div><div class="line"></div><div class="line">log4j.appender.stdout=org.apache.log4j.ConsoleAppender </div><div class="line">log4j.appender.stdout.layout=org.apache.log4j.PatternLayout </div><div class="line">log4j.appender.stdout.layout.ConversionPattern=%c&#123;1&#125; - %m%n</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">log4j.rootLogger&#x3D;DEBUG, stdout</span><br><span class="line"></span><br><span class="line">log4j.appender.stdout&#x3D;org.apache.log4j.ConsoleAppender </span><br><span class="line">log4j.appender.stdout.layout&#x3D;org.apache.log4j.PatternLayout </span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern&#x3D;%c&#123;1&#125; - %m%n</span><br></pre></td></tr></table></figure>
 <p>最后运行，运行结果如下：</p>
 <blockquote></blockquote>
 <p>Wombat - Temperature set to 20. Old temperature was null.<br>
@@ -305,7 +172,7 @@ Wombat - Temperature has risen above 50 degrees.</p>
 <p>特别是下面张图，就会明了<code>SLF4J</code>的是干嘛的了，解决了啥问题。</p>
 <img src="/img/concrete-bindings.png" width="60%" height="60%">
 <h2><span id="小思考">小思考</span></h2>
-<p>阅读了一下<a href="https://www.slf4j.org/manual.html" target="_blank" rel="external">manual</a>，以及捣鼓了一下两个示例，对SLF4J有点小想法如下：</p>
+<p>阅读了一下<a href="https://www.slf4j.org/manual.html" target="_blank" rel="noopener">manual</a>，以及捣鼓了一下两个示例，对SLF4J有点小想法如下：</p>
 <ul>
 <li>SLF4J易于维护和升级<br>
 SLF4J是一个日志API，具体日志怎么整的是日志框架的事情，将日志与日志框架解耦，也即是后面如果项目需要升级比如将 LOG4J到LogBack。</li>
@@ -313,14 +180,8 @@ SLF4J是一个日志API，具体日志怎么整的是日志框架的事情，将
 现在组里面都是使用<code>+</code>拼接打印的日志的，而SLF4J中可以使用占位符<code>{}</code>,比如第二个例子就是。</li>
 </ul>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>Author: </span>
       <a href="https://cloudfeng.github.io">cloudfeng</a>
@@ -330,122 +191,50 @@ SLF4J是一个日志API，具体日志怎么整的是日志框架的事情，将
       <a href="https://cloudfeng.github.io/2018/07/07/arts/tip/T-slf4jandlog4j/">https://cloudfeng.github.io/2018/07/07/arts/tip/T-slf4jandlog4j/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
     <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
+    <div class="qr-code"><label class="qr-code-image" for="reward">
           <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
         </label>
-      
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/tip/">tip</a>
+            <a href="/tags/slf4j/">slf4j</a>
+            <a href="/tags/log4j/">log4j</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/tip/">tip</a>
-            
-              <a href="/tags/slf4j/">slf4j</a>
-            
-              <a href="/tags/log4j/">log4j</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2018/07/07/arts/algorithm/A-Remove-Duplicates-from-Sorted-Array/">
+        <nav class="post-nav"><a class="prev" href="/2018/07/07/arts/share/S-grep/">
         <i class="iconfont icon-left"></i>
-        <span class="prev-text nav-default">Algorithm:Remove Duplicates from Sorted Array</span>
+        <span class="prev-text nav-default">Share：grep命令查日志和日志内容乱码</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    
-    
-      <a class="next" href="/2018/07/07/arts/review/R-using-js-console/">
-        <span class="next-text nav-default">Review《How you can improve your workflow using the JavaScript console》</span>
+    <a class="next" href="/2018/06/29/arts/6m4w-summary/">
+        <span class="next-text nav-default">ARTS-6月4周</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
+    </nav></footer>
+    </article></div><div class="comments" id="comments">
     
        
          <div id="gitment-container"></div>
        
     
-  </div>
-
-
-        </div>
+      </div>  
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
-        
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
+        <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -455,32 +244,20 @@ SLF4J是一个日志API，具体日志怎么整的是日志框架的事情，将
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2018 - 
-    
-    2020
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2018 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">cloudfeng</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
     </div>
-
-    
   
   
-
   
   
    
@@ -504,43 +281,9 @@ SLF4J是一个日志API，具体日志怎么整的是日志框架的事情，将
    
 
 
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-
-  </body>
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
 </html>

@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    
-<meta charset="UTF-8"/>
+  <head><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
@@ -15,55 +13,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
 
-
-
-  <meta name="description" content="Java Thread Dump 日志分析"/>
-
-
-
-
-  <meta name="keywords" content="thread dump, cloudfeng" />
-
-
-
-
-
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="cloudfeng">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=2.10.2" />
-
-
-
+<meta name="description" content="Java Thread Dump 日志分析"/><meta name="keywords" content="thread dump, cloudfeng" /><link rel="alternate" href="/atom.xml" title="cloudfeng"><link rel="shortcut icon" type="image/x-icon" href="/favicon2.ico?v=2.11.0" />
 <link rel="canonical" href="https://cloudfeng.github.io/2019/07/31/java/java_thread_dump_analysis/"/>
 
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
 
-
-  <link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
-
-
-
-
-  <link rel="stylesheet" type="text/css" href="/lib/nprogress/nprogress.min.css" />
-
-
-
-<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.10.2" />
-
-
-
-  
-
-
-
-  <script id="baidu_push">
+<script id="baidu_push">
 (function(){
     var bp = document.createElement('script');
     var curProtocol = window.location.protocol.split(':')[0];
@@ -77,20 +33,11 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-
-
-
-
-
-
-
-
-
 <script>
-  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":true};
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
 </script>
 
-    <title> Java Thread Dump 日志分析 - cloudfeng </title>
+    <title>Java Thread Dump 日志分析 - cloudfeng</title>
   <meta name="generator" content="Hexo 4.2.0"></head>
 
   <body><div id="mobile-navbar" class="mobile-navbar">
@@ -105,158 +52,78 @@
 </div>
 
 <nav id="mobile-menu" class="mobile-menu slideout-menu">
-  <ul class="mobile-menu-list">
-    
-      <a href="/">
-        <li class="mobile-menu-item">
-          
-          
-            Home
-          
-        </li>
-      </a>
-    
-      <a href="/archives/">
-        <li class="mobile-menu-item">
-          
-          
-            Archives
-          
-        </li>
-      </a>
-    
-      <a href="/tags/">
-        <li class="mobile-menu-item">
-          
-          
-            Tags
-          
-        </li>
-      </a>
-    
-      <a href="/categories/">
-        <li class="mobile-menu-item">
-          
-          
-            Categories
-          
-        </li>
-      </a>
-    
-      <a href="/about/">
-        <li class="mobile-menu-item">
-          
-          
-            About
-          
-        </li>
-      </a>
-    
-  </ul>
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
 </nav>
-
-    <div class="container" id="mobile-panel">
+<div class="container" id="mobile-panel">
       <header id="header" class="header"><div class="logo-wrapper">
   <a href="/." class="logo">cloudfeng</a>
 </div>
 
-<nav class="site-navbar">
-  
-    <ul id="menu" class="menu">
-      
-        <li class="menu-item">
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
           <a class="menu-item-link" href="/">
-            
-            
-              Home
-            
-          </a>
+            Home
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/archives/">
-            
-            
-              Archives
-            
-          </a>
+            Archives
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/tags/">
-            
-            
-              Tags
-            
-          </a>
+            Tags
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/categories/">
-            
-            
-              Categories
-            
-          </a>
+            Categories
+            </a>
         </li>
-      
-        <li class="menu-item">
+      <li class="menu-item">
           <a class="menu-item-link" href="/about/">
-            
-            
-              About
-            
-          </a>
+            About
+            </a>
         </li>
-      
-    </ul>
-  
-</nav>
-
-      </header>
+      </ul></nav>
+</header>
 
       <main id="main" class="main">
         <div class="content-wrapper">
-          <div id="content" class="content">
-            
-  
-  <article class="post">
+          <div id="content" class="content"><article class="post">
     <header class="post-header">
-      <h1 class="post-title">
-        
-          Java Thread Dump 日志分析
-        
-      </h1>
+      <h1 class="post-title">Java Thread Dump 日志分析
+        </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2019-07-31
-        </span>
-        
-          <span class="post-category">
-            
-              <a href="/categories/java/">java</a>
-            
-          </span>
-        
-        
-      </div>
+        </span><span class="post-category">
+            <a href="/categories/java/">java</a>
+            </span>
+        </div>
     </header>
 
-    
-    
-  <div class="post-toc" id="post-toc">
+    <div class="post-toc" id="post-toc">
     <h2 class="post-toc-title">Contents</h2>
     <div class="post-toc-content">
       <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Thread Dump是什么</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">如何生成Thread Dump</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">线程状态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Java 线程状态以及状态之间转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text">Thread Dump文件中的线程状态含义及注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Thread Dump日志结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Thread Dump三个例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Thread Dump使用常见场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">Thread DUMP 分析工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">参考资料</span></a></li></ol>
     </div>
-  </div>
-
-
-
-    <div class="post-content">
-      
-        <h2><span id="thread-dump是什么"><code>Thread Dump</code>是什么</span></h2>
+  </div><div class="post-content"><h2><span id="thread-dump是什么"><code>Thread Dump</code>是什么</span></h2>
 <p>Thread Dump(javacore文件)是当前虚拟机内每一条线程正在执行的方法堆栈集合，生成线程快照的主要目的<br>
 定位线程出现长时间停顿的原因：</p>
 <ul>
@@ -272,7 +139,7 @@
 <ol>
 <li>获取Tomcat线程号(tomcatPID)：<code>ps aux | grep tomcat</code>；</li>
 <li>获取每个线程的负载情况：<code>top -Hp tomcatPID</code>, <code>SHIFT+T</code> 按CPU耗时总时间倒序排序，找到的top几个是最耗CPU时间的。注意这个步骤十分关键，用于后面分析<code>Thread Dump</code>日志；</li>
-<li>生成 <code>Thread Dump</code>: <code>jstack tomcatPID &gt; thread_dump_tomcatPID.log</code>。关于 <code>jstack</code>命令可以参考：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jstack.html" target="_blank" rel="external">jstack: stack trace</a></li>
+<li>生成 <code>Thread Dump</code>: <code>jstack tomcatPID &gt; thread_dump_tomcatPID.log</code>。关于 <code>jstack</code>命令可以参考：<a href="https://docs.oracle.com/javase/8/docs/technotes/tools/windows/jstack.html" target="_blank" rel="noopener">jstack: stack trace</a></li>
 </ol>
 <h2><span id="线程状态">线程状态</span></h2>
 <h3><span id="java-线程状态以及状态之间转换">Java 线程状态以及状态之间转换</span></h3>
@@ -337,7 +204,7 @@
 <p>当你打开<code>Thread Dump</code>文件，就会发现其包含的内容结构如下图：</p>
 <p><img src="/img/Thread_dump_section.jpg" alt="thread_dump_section"></p>
 <h2><span id="thread-dump三个例子"><code>Thread Dump</code>三个例子</span></h2>
-<p>下面举<a href="https://www.cnblogs.com/zhengyun_ustc/archive/2013/01/06/dumpanalysis.html" target="_blank" rel="external">三个例子进行分析</a>，更多例子可以参考<a href="https://dzone.com/articles/how-analyze-java-thread-dumps" target="_blank" rel="external"><br>
+<p>下面举<a href="https://www.cnblogs.com/zhengyun_ustc/archive/2013/01/06/dumpanalysis.html" target="_blank" rel="noopener">三个例子进行分析</a>，更多例子可以参考<a href="https://dzone.com/articles/how-analyze-java-thread-dumps" target="_blank" rel="noopener"><br>
 How to Analyze Java Thread Dumps</a>。</p>
 <ol>
 <li><code>Waiting to lock 和 Blocked</code></li>
@@ -397,7 +264,7 @@ at java.lang.Thread.run(Thread.java:662)</p>
 3）`RMI RenewClean` 是 `DGCClient` 的一部分。`DGC` 指的是 Distributed GC，即分布式垃圾回收。
 4）请注意，是先`locked &lt;0x00000000aa672478&gt;`，后 `waiting on &lt;0x00000000aa672478&gt;`，之所以先锁再等同一个对象，请看下面它的代码实现：
 </code></pre>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">private</span> <span class="class"><span class="keyword">class</span>  <span class="title">Lock</span> </span>&#123; &#125;;</div><div class="line"><span class="keyword">private</span> Lock lock = <span class="keyword">new</span> Lock();</div><div class="line"><span class="keyword">public</span> Reference&lt;? extends T&gt; remove(<span class="keyword">long</span> timeout)</div><div class="line">&#123;</div><div class="line">    <span class="keyword">synchronized</span> (lock) &#123;</div><div class="line">        Reference&lt;? extends T&gt; r = reallyPoll();</div><div class="line">        <span class="keyword">if</span> (r != <span class="keyword">null</span>) <span class="keyword">return</span> r;</div><div class="line">        <span class="keyword">for</span> (;;) &#123;</div><div class="line">            lock.wait(timeout);</div><div class="line">            r = reallyPoll();</div><div class="line">            ……</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">private</span> <span class="class"><span class="keyword">class</span>  <span class="title">Lock</span> </span>&#123; &#125;;</span><br><span class="line"><span class="keyword">private</span> Lock lock = <span class="keyword">new</span> Lock();</span><br><span class="line"><span class="keyword">public</span> Reference&lt;? extends T&gt; remove(<span class="keyword">long</span> timeout)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">synchronized</span> (lock) &#123;</span><br><span class="line">        Reference&lt;? extends T&gt; r = reallyPoll();</span><br><span class="line">        <span class="keyword">if</span> (r != <span class="keyword">null</span>) <span class="keyword">return</span> r;</span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            lock.wait(timeout);</span><br><span class="line">            r = reallyPoll();</span><br><span class="line">            ……</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>即，线程的执行中，先用 synchronized 获得了这个对象的 Monitor（对应于<code>locked &lt;0x00000000aa672478&gt;</code> ）；当执行到 <code>lock.wait(timeout);</code>，线程就放弃了 Monitor 的所有权，进入<code>Wait Set</code>队列（对应于  <code>waiting on &lt;0x00000000aa672478&gt;</code> ）。<br>
 5）从堆栈信息看，是正在清理 <code>remote references to remote objects</code>，引用的租约到了，分布式垃圾回收在逐一清理呢。</p>
 <h2><span id="thread-dump使用常见场景">Thread Dump使用常见场景</span></h2>
@@ -412,31 +279,25 @@ at java.lang.Thread.run(Thread.java:662)</p>
 </ol>
 <h2><span id="thread-dump-分析工具"><code>Thread DUMP</code> 分析工具</span></h2>
 <ul>
-<li><a href="http://tool.oschina.net/hexconvert" target="_blank" rel="external">进制转换</a></li>
-<li><a href="https://mkbrv.github.io/tda/" target="_blank" rel="external">TDA</a></li>
-<li><a href="http://spotify.github.io/threaddump-analyzer/" target="_blank" rel="external">Online Java Thread Dump Analyzer</a></li>
+<li><a href="http://tool.oschina.net/hexconvert" target="_blank" rel="noopener">进制转换</a></li>
+<li><a href="https://mkbrv.github.io/tda/" target="_blank" rel="noopener">TDA</a></li>
+<li><a href="http://spotify.github.io/threaddump-analyzer/" target="_blank" rel="noopener">Online Java Thread Dump Analyzer</a></li>
 </ul>
 <h2><span id="参考资料">参考资料</span></h2>
 <ul>
-<li><a href="http://www.jiacheo.org/blog/279" target="_blank" rel="external">tomcat thread dump 分析</a></li>
-<li><a href="https://go-on.iteye.com/blog/1673894" target="_blank" rel="external">虚拟机stack全分析</a></li>
-<li><a href="https://www.cnblogs.com/zhengyun_ustc/archive/2013/01/06/dumpanalysis.html" target="_blank" rel="external">分析三个实例演示Java Thread Dump日志分析</a></li>
-<li><a href="https://blog.csdn.net/wanyanxgf/article/details/6944987" target="_blank" rel="external">Thread Dump分析</a></li>
-<li><a href="https://blog.csdn.net/lmb55/article/details/79349680" target="_blank" rel="external">JVM性能调优jstack和线程dump分析</a></li>
-<li><a href="https://blog.csdn.net/rachel_luo/article/details/8920596" target="_blank" rel="external">性能分析之–JAVA Thread Dump 分析综述</a></li>
-<li><a href="https://www.uml-diagrams.org/examples/java-6-thread-state-machine-diagram-example.html" target="_blank" rel="external">Java线程转换图</a></li>
+<li><a href="http://www.jiacheo.org/blog/279" target="_blank" rel="noopener">tomcat thread dump 分析</a></li>
+<li><a href="https://go-on.iteye.com/blog/1673894" target="_blank" rel="noopener">虚拟机stack全分析</a></li>
+<li><a href="https://www.cnblogs.com/zhengyun_ustc/archive/2013/01/06/dumpanalysis.html" target="_blank" rel="noopener">分析三个实例演示Java Thread Dump日志分析</a></li>
+<li><a href="https://blog.csdn.net/wanyanxgf/article/details/6944987" target="_blank" rel="noopener">Thread Dump分析</a></li>
+<li><a href="https://blog.csdn.net/lmb55/article/details/79349680" target="_blank" rel="noopener">JVM性能调优jstack和线程dump分析</a></li>
+<li><a href="https://blog.csdn.net/rachel_luo/article/details/8920596" target="_blank" rel="noopener">性能分析之–JAVA Thread Dump 分析综述</a></li>
+<li><a href="https://www.uml-diagrams.org/examples/java-6-thread-state-machine-diagram-example.html" target="_blank" rel="noopener">Java线程转换图</a></li>
 </ul>
 <hr>
 <p><strong>说明：本文很多来自参考资料，更多做了汇总与编辑。</strong></p>
 
-      
-    </div>
-
-    
-      
-      
-
-  <div class="post-copyright">
+      </div>
+      <div class="post-copyright">
     <p class="copyright-item">
       <span>Author: </span>
       <a href="https://cloudfeng.github.io">cloudfeng</a>
@@ -446,118 +307,48 @@ at java.lang.Thread.run(Thread.java:662)</p>
       <a href="https://cloudfeng.github.io/2019/07/31/java/java_thread_dump_analysis/">https://cloudfeng.github.io/2019/07/31/java/java_thread_dump_analysis/</a>
     </p>
     <p class="copyright-item">
-      <span>License: </span>
-      
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
     </p>
   </div>
-
-
-
-      
-      
-  <div class="post-reward">
+      <div class="post-reward">
     <input type="checkbox" name="reward" id="reward" hidden />
     <label class="reward-button" for="reward">Reward</label>
-    <div class="qr-code">
-      
-      
-        <label class="qr-code-image" for="reward">
+    <div class="qr-code"><label class="qr-code-image" for="reward">
           <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
         </label>
-      
-      
-    </div>
-  </div>
-
-    
-
-    
-      <footer class="post-footer">
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/thread-dump/">thread dump</a>
+            </div>
         
-          <div class="post-tags">
-            
-              <a href="/tags/thread-dump/">thread dump</a>
-            
-          </div>
-        
-        
-        
-  <nav class="post-nav">
-    
-      <a class="prev" href="/2020/01/01/summary/20200101_2019summary/">
+        <nav class="post-nav"><a class="prev" href="/2020/01/01/summary/20200101_2019summary/">
         <i class="iconfont icon-left"></i>
         <span class="prev-text nav-default">展望2020，回顾2019</span>
         <span class="prev-text nav-mobile">Prev</span>
       </a>
-    
-    
-      <a class="next" href="/2019/04/08/distributed_system/distributed_cache/20190408_cache_problem_int/">
+    <a class="next" href="/2019/04/08/distributed_system/distributed_cache/20190408_cache_problem_int/">
         <span class="next-text nav-default">分布式缓存遇到的问题汇总</span>
         <span class="prev-text nav-mobile">Next</span>
         <i class="iconfont icon-right"></i>
       </a>
-    
-  </nav>
-
-
-      </footer>
-    
-
-  </article>
-
-
-          </div>
-          
-  <div class="comments" id="comments">
+    </nav></footer>
+    </article></div><div class="comments" id="comments">
     
        
          <div id="gitment-container"></div>
        
     
-  </div>
-
-
-        </div>
+      </div>  
+    </div></div>
       </main>
 
-      <footer id="footer" class="footer">
-
-  <div class="social-links">
-    
-      
-        
-          <a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
-        
-      
-    
-      
-        
-          <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
-        
-      
-    
-      
-        
-          <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
-        
-      
-    
-      
-        
-          <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
-        
-      
-    
-
-    
-      <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
-    
-  </div>
-
-
-
-<div class="copyright">
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
+        <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
   <span class="power-by">
     Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
   </span>
@@ -567,32 +358,20 @@ at java.lang.Thread.run(Thread.java:662)</p>
     <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
   </span>
 
-  <span class="copyright-year">
-    
-    &copy; 
-     
-      2018 - 
-    
-    2020
-
-    <span class="heart">
+  <span class="copyright-year">&copy;2018 - 2020<span class="heart">
       <i class="iconfont icon-heart"></i>
     </span>
     <span class="author">cloudfeng</span>
   </span>
 </div>
-
-      </footer>
+</footer>
 
       <div class="back-to-top" id="back-to-top">
         <i class="iconfont icon-up"></i>
       </div>
     </div>
-
-    
   
   
-
   
   
    
@@ -616,43 +395,9 @@ at java.lang.Thread.run(Thread.java:662)</p>
    
 
 
-
-
-
-    
-  
-
-
-
-  
-  
-
-
-
-
-
-  
-    <script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/pjax/jquery.pjax.min.js"></script>
-  
-
-  
-    <script type="text/javascript" src="/lib/nprogress/nprogress.min.js"></script>
-  
-
-
-    <script type="text/javascript" src="/js/src/even.js?v=2.10.2"></script>
-
-  </body>
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
 </html>
