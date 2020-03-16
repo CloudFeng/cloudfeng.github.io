@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="description" content="【Golang】Gin 框架之请求参数多语言验证"/><meta name="keywords" content="go-gin, cloudfeng" /><link rel="alternate" href="/atom.xml" title="cloudfeng"><link rel="shortcut icon" type="image/x-icon" href="/favicon2.ico?v=2.11.0" />
+<link rel="canonical" href="https://cloudfeng.github.io/2020/03/16/2020/03/20200316_gogin_mutil_lan/"/>
+
+<link rel="stylesheet" type="text/css" href="/lib/fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=2.11.0" />
+
+<script id="baidu_analytics">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?818f849375e8a1bf104811a5562384b8";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><script id="baidu_push">
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+  window.config = {"leancloud":{"app_id":null,"app_key":null},"toc":true,"fancybox":true,"pjax":"","latex":false};
+</script>
+
+    <title>【Golang】Gin 框架之请求参数多语言验证 - cloudfeng</title>
+  <meta name="generator" content="Hexo 4.2.0"></head>
+
+  <body><div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/." class="logo">cloudfeng</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list"><a href="/">
+        <li class="mobile-menu-item">Home
+          </li>
+      </a><a href="/archives/">
+        <li class="mobile-menu-item">Archives
+          </li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags
+          </li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories
+          </li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About
+          </li>
+      </a></ul>
+</nav>
+<div class="container" id="mobile-panel">
+      <header id="header" class="header"><div class="logo-wrapper">
+  <a href="/." class="logo">cloudfeng</a>
+</div>
+
+<nav class="site-navbar"><ul id="menu" class="menu"><li class="menu-item">
+          <a class="menu-item-link" href="/">
+            Home
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/archives/">
+            Archives
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/tags/">
+            Tags
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/categories/">
+            Categories
+            </a>
+        </li>
+      <li class="menu-item">
+          <a class="menu-item-link" href="/about/">
+            About
+            </a>
+        </li>
+      </ul></nav>
+</header>
+
+      <main id="main" class="main">
+        <div class="content-wrapper">
+          <div id="content" class="content"><article class="post">
+    <header class="post-header">
+      <h1 class="post-title">【Golang】Gin 框架之请求参数多语言验证
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-03-16
+        </span><span class="post-category">
+            <a href="/categories/go-go-gin/">go/go-gin</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+    <h2 class="post-toc-title">Contents</h2>
+    <div class="post-toc-content">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">集成关键点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">具体示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#null"><span class="toc-text">参考资料</span></a></li></ol>
+    </div>
+  </div><div class="post-content"><p>我们在web开发中，你的应用可能会在不同国家使用，所以需要将相关的错误提示根据本地语言进行相应的提示，也即是所谓的国际化。本文简单的介绍一下，在Gin中如何实现多语言的验证。我们借助<code>validator.v10</code>以及相应的语言包。</p>
+<a id="more"></a>
+<h2><span id="集成关键点">集成关键点</span></h2>
+<ol>
+<li>导入需要转换语言包
+<ul>
+<li>公共包： <code>&quot;github.com/go-playground/validator/v10&quot;</code></li>
+<li>需要转换的包，比如英文和中文</li>
+</ul>
+</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">   en2 <span class="string">"github.com/go-playground/locales/en"</span></span><br><span class="line">zh2 <span class="string">"github.com/go-playground/locales/zh"</span></span><br><span class="line">ut <span class="string">"github.com/go-playground/universal-translator"</span></span><br><span class="line">en_translations <span class="string">"github.com/go-playground/validator/v10/translations/en"</span></span><br><span class="line">zh_translations <span class="string">"github.com/go-playground/validator/v10/translations/zh"</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>结构体定义不在是 <code>binding</code>,而是<code>validate</code></li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	Age     <span class="keyword">int</span>    <span class="string">`form:"age" validate:"required,gt=10"`</span></span><br><span class="line">	Name    <span class="keyword">string</span> <span class="string">`form:"name" validate:"required"`</span></span><br><span class="line">	Address <span class="keyword">string</span> <span class="string">`form:"address" validate:"required"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>构建语言转换器以及注册</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tans, _ := uni.GetTranslator(local)</span><br><span class="line">tans, _ := uni.GetTranslator(local)</span><br><span class="line">	<span class="keyword">switch</span> local &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"en"</span>:</span><br><span class="line">		en_translations.RegisterDefaultTranslations(validate, tans)</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"zh"</span>:</span><br><span class="line">		zh_translations.RegisterDefaultTranslations(validate, tans)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		en_translations.RegisterDefaultTranslations(validate, tans)</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>
+<p>校验以及获取错误信息</p>
+<p>校验，调用<code>err := validate.Struct(xx)</code>；如果对返回的错误信息进行处理，validator返回的绑定错误信息格式：<code>key = namespace &amp; value = translated error</code>；我们可以一次性获取所有的转换信息或者每次一次，具体如下：</p>
+</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">err := validate.Struct(person)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    errs := err.(validator.ValidationErrors)</span><br><span class="line">    <span class="comment">// 一次性转换所有与的错误信息方式</span></span><br><span class="line">    fmt.Println(errs.Translate(trans))</span><br><span class="line">    <span class="comment">// 每次转换一次</span></span><br><span class="line">    <span class="keyword">for</span> _, e := <span class="keyword">range</span> errs &#123;</span><br><span class="line">			fmt.Println(e.Translate(trans))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="具体示例">具体示例</span></h2>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">	en2 <span class="string">"github.com/go-playground/locales/en"</span></span><br><span class="line">	zh2 <span class="string">"github.com/go-playground/locales/zh"</span></span><br><span class="line">	ut <span class="string">"github.com/go-playground/universal-translator"</span></span><br><span class="line">	<span class="string">"github.com/go-playground/validator/v10"</span></span><br><span class="line">	en_translations <span class="string">"github.com/go-playground/validator/v10/translations/en"</span></span><br><span class="line">	zh_translations <span class="string">"github.com/go-playground/validator/v10/translations/zh"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"net/http"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	Age     <span class="keyword">int</span>    <span class="string">`form:"age" validate:"required,gt=10"`</span></span><br><span class="line">	Name    <span class="keyword">string</span> <span class="string">`form:"name" validate:"required"`</span></span><br><span class="line">	Address <span class="keyword">string</span> <span class="string">`form:"address" validate:"required"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// use a single instance , it caches struct info</span></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	uni      *ut.UniversalTranslator</span><br><span class="line">	validate *validator.Validate</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiLangBindingHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">	local := c.DefaultQuery(<span class="string">"local"</span>, <span class="string">"en"</span>)</span><br><span class="line">	log.Println(<span class="string">"local:"</span>, local)</span><br><span class="line">	tans, _ := uni.GetTranslator(local)</span><br><span class="line">	<span class="keyword">switch</span> local &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"en"</span>:</span><br><span class="line">		en_translations.RegisterDefaultTranslations(validate, tans)</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"zh"</span>:</span><br><span class="line">		zh_translations.RegisterDefaultTranslations(validate, tans)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		en_translations.RegisterDefaultTranslations(validate, tans)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> person Person</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err := c.ShouldBind(&amp;person); err != <span class="literal">nil</span> &#123;</span><br><span class="line">		c.JSON(http.StatusBadRequest, gin.H&#123;</span><br><span class="line">			<span class="string">"message"</span>: err.Error(),</span><br><span class="line">		&#125;)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> err := validate.Struct(person); err != <span class="literal">nil</span> &#123;</span><br><span class="line"></span><br><span class="line">		errs := err.(validator.ValidationErrors)</span><br><span class="line">		sliceErrs := []<span class="keyword">string</span>&#123;&#125;</span><br><span class="line">		<span class="keyword">for</span> _, e := <span class="keyword">range</span> errs &#123;</span><br><span class="line">			<span class="comment">// can translate each error one at a time.</span></span><br><span class="line">			sliceErrs = <span class="built_in">append</span>(sliceErrs, e.Translate(tans))</span><br><span class="line">		&#125;</span><br><span class="line">		c.JSON(http.StatusBadRequest, gin.H&#123;</span><br><span class="line">			<span class="comment">// translate all error at once</span></span><br><span class="line">			<span class="comment">// returns a map with key = namespace &amp; value = translated error</span></span><br><span class="line">			<span class="comment">// NOTICE: 2 errors are returned and you'll see something surprising</span></span><br><span class="line">			<span class="comment">// translations are i18n aware!!!!</span></span><br><span class="line">			<span class="comment">// eg. '10 characters' vs '1 character'</span></span><br><span class="line">			<span class="string">"message"</span>:   errs.Translate(tans),</span><br><span class="line">			<span class="string">"sliceErrs"</span>: sliceErrs,</span><br><span class="line">		&#125;)</span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">	c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">		<span class="string">"personInfo"</span>: person,</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	zh := zh2.New()</span><br><span class="line">	en := en2.New()</span><br><span class="line">	uni = ut.New(en, zh)</span><br><span class="line"></span><br><span class="line">	validate = validator.New()</span><br><span class="line">	router := gin.Default()</span><br><span class="line">	router.GET(<span class="string">"/testMultiLangBinding"</span>, multiLangBindingHandler)</span><br><span class="line">	router.Run(<span class="string">":9999"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="测试">测试</span></h2>
+<table>
+<thead>
+<tr>
+<th>测试案例</th>
+<th>测试结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$ curl -X GET &quot;localhost:9999/testMultiLangBinding&quot;</code></td>
+<td><code>{&quot;sliceErrs&quot;:[&quot;Age is a required field&quot;,&quot;Name is a required field&quot;,&quot;Address is a required field&quot;]}</code></td>
+</tr>
+<tr>
+<td><code>$ curl -X GET &quot;localhost:9999/testMultiLangBinding?local=zh&amp;age=12&amp;name=yunfeng&amp;address=wuhan&quot;</code></td>
+<td><code>{&quot;personInfo&quot;:{&quot;Age&quot;:12,&quot;Name&quot;:&quot;yunfeng&quot;,&quot;Address&quot;:&quot;wuhan&quot;}}</code></td>
+</tr>
+<tr>
+<td><code>$ curl -X GET &quot;localhost:9999/testMultiLangBinding?local=zh&amp;age=12&amp;name=yunfeng&amp;address=wuhan&quot;</code></td>
+<td><code>{&quot;personInfo&quot;:{&quot;Age&quot;:12,&quot;Name&quot;:&quot;yunfeng&quot;,&quot;Address&quot;:&quot;wuhan&quot;}}</code></td>
+</tr>
+<tr>
+<td><code>$ curl -X GET &quot;localhost:9999/testMultiLangBinding?local=zh&quot;</code></td>
+<td><code>{&quot;message&quot;:{&quot;Person.Address&quot;:&quot;Address为必填字段&quot;,&quot;Person.Age&quot;:&quot;Age为必填字段&quot;,&quot;Person.Name&quot;:&quot;Name为必填字段&quot;},&quot;sliceErrs&quot;:[&quot;Age为必填字段&quot;,&quot;Name为必填字段&quot;,&quot;Address为必填字段&quot;]}</code></td>
+</tr>
+</tbody>
+</table>
+<h2><span id="参考资料">参考资料</span></h2>
+<p><a href="https://godoc.org/gopkg.in/go-playground/validator.v10" target="_blank" rel="noopener">validator.v10</a><br>
+<a href="https://github.com/go-playground/validator/blob/master/_examples/translations/main.go" target="_blank" rel="noopener">Translations &amp; Custom Errors</a></p>
+
+      </div>
+      <div class="post-copyright">
+    <p class="copyright-item">
+      <span>Author: </span>
+      <a href="https://cloudfeng.github.io">cloudfeng</a>
+    </p>
+    <p class="copyright-item">
+      <span>Link: </span>
+      <a href="https://cloudfeng.github.io/2020/03/16/2020/03/20200316_gogin_mutil_lan/">https://cloudfeng.github.io/2020/03/16/2020/03/20200316_gogin_mutil_lan/</a>
+    </p>
+    <p class="copyright-item">
+      <span>License: </span><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>
+    </p>
+  </div>
+      <div class="post-reward">
+    <input type="checkbox" name="reward" id="reward" hidden />
+    <label class="reward-button" for="reward">Reward</label>
+    <div class="qr-code"><label class="qr-code-image" for="reward">
+          <img class="image" src="/img/wechat-withdraw.jpeg" title="wechat">
+        </label>
+      </div>
+  </div><footer class="post-footer">
+        <div class="post-tags">
+            <a href="/tags/go-gin/">go-gin</a>
+            </div>
+        
+        <nav class="post-nav"><a class="next" href="/2020/03/13/2020/03/20200311_go_gin_request_bind_type/">
+        <span class="next-text nav-default">【Golang】Gin 框架之请求参数绑定</span>
+        <span class="prev-text nav-mobile">Next</span>
+        <i class="iconfont icon-right"></i>
+      </a>
+    </nav></footer>
+    </article></div><div class="comments" id="comments"><div id="gitment-container"></div>
+       <div id="gitment-container"></div>
+       </div></div>
+      </main>
+
+      <footer id="footer" class="footer"><div class="social-links"><a href="mailto:zsm0107@126.com" class="iconfont icon-email" title="email"></a>
+        <a href="https://github.com/CloudFeng" target="_blank" rel="noopener" class="iconfont icon-github" title="github"></a>
+        <a href="https://weibo.com/1812591120/profile?topnav=1&wvr=6" target="_blank" rel="noopener" class="iconfont icon-weibo" title="weibo"></a>
+        <a href="https://www.douban.com/people/July__/" target="_blank" rel="noopener" class="iconfont icon-douban" title="douban"></a>
+        <a href="/atom.xml" class="iconfont icon-rss" title="rss"></a>
+    </div><div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/ahonn/hexo-theme-even" target="_blank" rel="noopener">Even</a>
+  </span>
+
+  <span class="copyright-year">&copy;2018 - 2020<span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">cloudfeng</span>
+  </span>
+</div>
+</footer>
+
+      <div class="back-to-top" id="back-to-top">
+        <i class="iconfont icon-up"></i>
+      </div>
+    </div>
+   
+   
+   
+   
+   <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+   <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+   
+       <script type="text/javascript">
+           var gitment = new Gitment({
+               id: window.location.pathname, 
+               owner: 'CloudFeng',
+               repo: 'cloudfeng.github.io',
+               oauth: {
+                   client_id: 'b299710280dec8bccf76',
+                   client_secret: 'f084e3e70606da8670813d0cc863e48a4fa81075',
+               }});
+           gitment.render('gitment-container');
+       </script>
+   
+
+<script type="text/javascript" src="/lib/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/src/even.js?v=2.11.0"></script>
+</body>
+</html>
