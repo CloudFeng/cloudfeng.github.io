@@ -114,6 +114,25 @@
         <div class="content-wrapper">
           <div id="content" class="content"><section id="posts" class="posts"><article class="post">
     <header class="post-header">
+      <h1 class="post-title"><a class="post-link" href="/2020/03/17/2020/03/20200317_gogin_graceful_shutdown/">【Golang】Gin 优雅停机</a>
+        </h1>
+
+      <div class="post-meta">
+        <span class="post-time">
+          2020-03-17
+        </span><span class="post-category">
+            <a href="/categories/go-go-gin/">go/go-gin</a>
+            </span>
+        </div>
+    </header>
+
+    <div class="post-content"><p>我们在web开发中，你的应用可能会在不同国家使用，所以需要将相关的错误提示根据本地语言进行相应的提示，也即是所谓的国际化。本文简单的介绍一下，在Gin中如何实现多语言的验证。我们借助<code>validator.v10</code>以及相应的语言包。</p>
+          <div class="read-more">
+            <a href="/2020/03/17/2020/03/20200317_gogin_graceful_shutdown/" class="read-more-link">Read more..</a>
+          </div>
+        </div></article>
+      <article class="post">
+    <header class="post-header">
       <h1 class="post-title"><a class="post-link" href="/2020/03/16/2020/03/20200316_gogin_mutil_lan/">【Golang】Gin 框架之请求参数多语言验证</a>
         </h1>
 
@@ -186,28 +205,35 @@
         </div></article>
       <article class="post">
     <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2020/02/15/2020/02/design_pattern_singleton_20200215/">设计模式之单例模式</a>
+      <h1 class="post-title"><a class="post-link" href="/2020/02/15/2020/02/20200215_design_pattern_singleton/">【翻译】Java 单例模式最佳实践</a>
         </h1>
 
       <div class="post-meta">
         <span class="post-time">
           2020-02-15
         </span><span class="post-category">
-            <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+            <a href="/categories/%E5%9F%BA%E7%A1%80-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">基础/设计模式</a>
             </span>
         </div>
     </header>
 
-    <div class="post-content"><h2><span id="什么是单例模式">什么是单例模式</span></h2>
-<p>一个类只有一个实例，并且提供一个全局访问入口</p>
-<p>节省内存<br>
-节省计算<br>
-概念，用途</p>
-<h2><span id="单例模式实现方式">单例模式实现方式</span></h2>
-<h2><span id="单例模式适用场景">单例模式适用场景</span></h2>
-<h2><span id="参考资料">参考资料</span></h2>
-<p>并发、类加载、序列化</p>
-
+    <div class="post-content"><h2 id="什么是单例模式"><a class="header-anchor" href="#什么是单例模式">¶</a>什么是单例模式</h2>
+<p>一个类在<code>JVM</code>只有一个实例，并且提供一个全局访问入口。单例模式适用无状态的工具类，比如日志工具、字符串工具；<br>
+还有全局信息类，比如全局计数、环境变量；在Java中如下类库是适用单例模式：</p>
+<ul>
+<li><code>java.lang.Runtime#getRuntime()</code>;</li>
+<li><code>java.awt.Desktop#getDesktop()</code>;</li>
+<li><code>java.lang.System#getSecurityManager()</code>;</li>
+</ul>
+<p>单例模式的作用：节省内存；节省计算；结果的正确，比如全局计数器；方便管理。其实现方式很多，但不管何种实现方式，共同点：</p>
+<ul>
+<li>私有的构造函数；</li>
+<li>私有静态类对象；</li>
+<li>公有静态方法，唯一一个访问私有静态对象实例的方法。</li>
+</ul>
+          <div class="read-more">
+            <a href="/2020/02/15/2020/02/20200215_design_pattern_singleton/" class="read-more-link">Read more..</a>
+          </div>
         </div></article>
       <article class="post">
     <header class="post-header">
@@ -352,33 +378,6 @@
 </blockquote>
           <div class="read-more">
             <a href="/2019/04/01/book_note/2019_04_01_the_clean_coder/" class="read-more-link">Read more..</a>
-          </div>
-        </div></article>
-      <article class="post">
-    <header class="post-header">
-      <h1 class="post-title"><a class="post-link" href="/2019/03/19/zookeeper/zk_starting/">ZK系列之ZooKeeper使用入门</a>
-        </h1>
-
-      <div class="post-meta">
-        <span class="post-time">
-          2019-03-19
-        </span><span class="post-category">
-            <a href="/categories/ZooKeeper/">ZooKeeper</a>
-            </span>
-        </div>
-    </header>
-
-    <div class="post-content"><h2 id="准本条件"><a class="header-anchor" href="#准本条件">¶</a>准本条件</h2>
-<h3 id="操作系统"><a class="header-anchor" href="#操作系统">¶</a>操作系统</h3>
-<p>ZK包含了很多组件，有些组件支持很多系统，而有些只支持部分。组件如下：</p>
-<ul>
-<li>Client： Java客户端库，用于连接ZK。</li>
-<li>Server： Java服务端运行在ZK集群节点。</li>
-<li>Native Client：C实现的客户端，类似于Java客户端，应用程序连接ZK。</li>
-<li>Contrib：可选择的插件组件。</li>
-</ul>
-          <div class="read-more">
-            <a href="/2019/03/19/zookeeper/zk_starting/" class="read-more-link">Read more..</a>
           </div>
         </div></article>
       <nav class="pagination"><a class="next" href="/page/2/">
